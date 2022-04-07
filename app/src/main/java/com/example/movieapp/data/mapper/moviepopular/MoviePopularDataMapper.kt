@@ -1,31 +1,38 @@
 package com.example.movieapp.data.mapper.moviepopular
 
 import com.example.movieapp.data.entities.moviepopular.JsonMoviePopularResponse
+import com.example.movieapp.di.ConfigModule
 import com.example.movieapp.domain.model.moviepopular.ModelMoviePopular
 
 class MoviePopularDataMapper
 
 fun JsonMoviePopularResponse.JsonMoviePopular.toModel(): ModelMoviePopular = ModelMoviePopular(
-    adult = adult ?: false,
-    backdropPath = "https://image.tmdb.org/t/p/w500$backdropPath" ?: "",
-    genreIds = genreIds ?: mutableListOf(),
+    adult = adult,
+    backdropPath = when {
+        backdropPath.isNotEmpty() -> ConfigModule.getBaseImgUrl() + backdropPath
+        else -> backdropPath
+    },
+    genreIds = genreIds,
     id,
-    originalLanguage = originalLanguage ?: "",
-    originalTitle = originalTitle ?: "",
-    overview = overview ?: "",
-    popularity = popularity ?: 0.0,
-    posterPath = posterPath ?: "",
-    releaseDate = releaseDate ?: "",
-    title = title ?: "",
-    video = video ?: false,
-    voteAverage = voteAverage ?: 0.0,
-    voteCount = voteCount ?: 0
+    originalLanguage = originalLanguage,
+    originalTitle = originalTitle,
+    overview = overview,
+    popularity = popularity,
+    posterPath = posterPath,
+    releaseDate = releaseDate,
+    title = title,
+    video = video,
+    voteAverage = voteAverage,
+    voteCount = voteCount
 )
 
 fun ModelMoviePopular.toJson(): JsonMoviePopularResponse.JsonMoviePopular =
     JsonMoviePopularResponse.JsonMoviePopular(
         adult,
-        backdropPath,
+        backdropPath = when {
+            backdropPath.isNotEmpty() -> backdropPath.removePrefix(ConfigModule.getBaseImgUrl())
+            else -> backdropPath
+        },
         genreIds,
         id,
         originalLanguage,

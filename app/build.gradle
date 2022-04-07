@@ -26,6 +26,7 @@ android {
         debug {
             buildConfigField("String", "API_KEY", "\"" + properties['api-key'] + "\"")
             buildConfigField("String", "BASE_URL", "\"" + properties['base-url'] + "\"")
+            buildConfigField("String", "BASE_IMG_URL", "\"" + properties['base-img-url'] + "\"")
         }
 
         release {

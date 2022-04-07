@@ -20,6 +20,12 @@ abstract class ConfigModule {
         fun getBaseUrl(): String {
             return BuildConfig.BASE_URL
         }
+
+        @Provides
+        @Named("base-img-url")
+        fun getBaseImgUrl(): String {
+            return BuildConfig.BASE_IMG_URL
+        }
     }
 
 }
