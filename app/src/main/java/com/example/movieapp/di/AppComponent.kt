@@ -1,5 +1,6 @@
 package com.example.movieapp.di
 
+import com.example.movieapp.presenter.moviedetail.MovieDetailFragment
 import com.example.movieapp.presenter.moviepopularlist.MoviePopularListFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -9,4 +10,6 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(moviePopularListFragment: MoviePopularListFragment)
+
+    fun inject(movieDetailFragment: MovieDetailFragment)
 }

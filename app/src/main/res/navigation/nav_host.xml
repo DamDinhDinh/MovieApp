@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_host"
-    app:startDestination="@id/moviePopularListFragment2">
+    app:startDestination="@id/moviePopularListFragment">
     <fragment
-        android:id="@+id/moviePopularListFragment2"
+        android:id="@+id/moviePopularListFragment"
         android:name="com.example.movieapp.presenter.moviepopularlist.MoviePopularListFragment"
-        android:label="MoviePopularListFragment" />
+        android:label="MoviePopularListFragment">
+        <action
+            android:id="@+id/action_moviePopularListFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment">
+            <argument
+                android:name="id"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.movieapp.presenter.moviedetail.MovieDetailFragment"
+        android:label="MovieDetailFragment">
+        <argument
+            android:name="id"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
 </navigation>

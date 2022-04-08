@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.movieapp.common.applySchedulers
 import com.example.movieapp.domain.usecase.movie.GetMoviesPopularUserCase
 import com.example.movieapp.presenter.mapper.moviepopular.toPresent
+import com.example.movieapp.presenter.model.moviepopular.MoviePopular
 import javax.inject.Inject
 
 class MoviePopularListViewModel @Inject constructor(val getMoviesPopularUserCase: GetMoviesPopularUserCase) :
@@ -23,15 +24,16 @@ class MoviePopularListViewModel @Inject constructor(val getMoviesPopularUserCase
                 println("$TAG fetchMoviePopular $list")
                 println("$TAG fetchMoviePopular $error")
             }
-            .subscribe({ list ->
-                val newViewState = viewStateMutable.value?.copy(movieList = list)
-                    ?: MoviePopularListContract.ViewState(list)
-                viewStateMutable.value = newViewState
-            }, { error -> error.printStackTrace() })
+            .subscribe({ list -> notifyViewState(list) }, { error -> error.printStackTrace() })
     }
 
     override fun observeViewState(): LiveData<MoviePopularListContract.ViewState> {
-        fetchMoviePopular()
         return viewStateMutable
+    }
+
+    private fun notifyViewState(movieList: List<MoviePopular>) {
+        val newViewState = viewStateMutable.value?.copy(movieList = movieList)
+            ?: MoviePopularListContract.ViewState(movieList)
+        viewStateMutable.value = newViewState
     }
 }

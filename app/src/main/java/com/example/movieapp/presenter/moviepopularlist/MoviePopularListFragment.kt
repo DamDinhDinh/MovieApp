@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.MyApplication
@@ -22,7 +23,15 @@ class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
 
     lateinit var binding: FragmentMoviePopularListBinding
     private val movieList = mutableListOf<MoviePopular>()
-    private val movieAdapter = MoviePopularAdapter(movieList)
+    private val onItemClick = object : MoviePopularAdapter.OnItemClick {
+        override fun onClick(position: Int) {
+            val movie = movieList[position]
+
+            navigateMovieDetail(movie.id)
+        }
+
+    }
+    private val movieAdapter = MoviePopularAdapter(movieList, onItemClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,17 +55,23 @@ class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        viewModel.observeViewState()
-            .observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
         return binding.root
     }
 
-    private fun updateViewState(viewState: MoviePopularListContract.ViewState) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.fetchMoviePopular()
+        viewModel.observeViewState()
+            .observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
+    }
+
+    override fun updateViewState(viewState: MoviePopularListContract.ViewState) {
         println("$TAG updateViewState $viewState")
         renderMovieList(viewState.movieList)
     }
 
-    override fun renderMovieList(movieList: List<MoviePopular>) {
+    private fun renderMovieList(movieList: List<MoviePopular>) {
         this.movieList.apply {
             clear()
             addAll(movieList)
@@ -65,4 +80,11 @@ class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
         movieAdapter.notifyDataSetChanged()
     }
 
+    private fun navigateMovieDetail(id: Int) {
+        val action =
+            MoviePopularListFragmentDirections.actionMoviePopularListFragmentToMovieDetailFragment(
+                id
+            )
+        findNavController().navigate(action)
+    }
 }

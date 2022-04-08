@@ -1,13 +1,11 @@
 package com.example.movieapp.presenter.moviepopularlist
 
 import androidx.lifecycle.LiveData
-import com.example.movieapp.domain.model.moviepopular.ModelMoviePopular
-import com.example.movieapp.presenter.model.movie.Movie
 import com.example.movieapp.presenter.model.moviepopular.MoviePopular
 
 interface MoviePopularListContract {
     interface View {
-        fun renderMovieList(movieList: List<MoviePopular>)
+        fun updateViewState(viewState: ViewState)
     }
 
     interface ViewModel {

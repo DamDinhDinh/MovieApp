@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -13,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.movieapp"
-        minSdk 21
+        minSdk 26
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -85,4 +86,6 @@ dependencies {
     implementation("org.greenrobot:eventbus:3.3.1")
 
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+
+    implementation 'com.ms-square:expandableTextView:0.1.4'
 }
