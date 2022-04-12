@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.movieapp.common.applySchedulers
-import com.example.movieapp.domain.usecase.movie.GetMoviesPopularUserCase
+import com.example.domain.movie.GetMoviesPopularUserCase
 import com.example.movieapp.presenter.mapper.moviepopular.toPresent
 import com.example.movieapp.presenter.model.moviepopular.MoviePopular
 import javax.inject.Inject

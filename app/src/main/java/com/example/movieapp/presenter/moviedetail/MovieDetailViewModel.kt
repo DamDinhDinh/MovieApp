@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.movieapp.common.applySchedulers
-import com.example.movieapp.domain.source.MovieDataSource
+import com.example.domain.source.MovieDataSource
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
 import javax.inject.Inject

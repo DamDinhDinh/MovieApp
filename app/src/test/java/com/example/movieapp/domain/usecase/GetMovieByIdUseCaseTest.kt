@@ -1,8 +1,8 @@
 package com.example.movieapp.domain.usecase
 
-import com.example.movieapp.domain.source.MovieDataSource
-import com.example.movieapp.domain.model.movie.ModelMovie
-import com.example.movieapp.domain.usecase.movie.GetMovieByIdUseCase
+import com.example.domain.source.MovieDataSource
+import com.example.domain.model.movie.ModelMovie
+import com.example.domain.movie.GetMovieByIdUseCase
 import io.reactivex.rxjava3.core.Single
 import org.junit.Before
 import org.junit.Test

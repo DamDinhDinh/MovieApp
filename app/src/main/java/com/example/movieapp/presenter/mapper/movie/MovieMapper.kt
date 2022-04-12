@@ -1,6 +1,6 @@
 package com.example.movieapp.presenter.mapper.movie
 
-import com.example.movieapp.domain.model.movie.ModelMovie
+import com.example.domain.model.movie.ModelMovie
 import com.example.movieapp.presenter.model.movie.Movie
 
 fun Movie.toModel() = ModelMovie(
