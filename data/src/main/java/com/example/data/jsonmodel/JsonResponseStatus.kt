@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class JsonResponseStatus(
     @SerializedName("status_code")
-    val statusCode: Int,
+    val statusCode: Int?,
     @SerializedName("status_message")
-    val statusMessage: String,
+    val statusMessage: String?,
 )

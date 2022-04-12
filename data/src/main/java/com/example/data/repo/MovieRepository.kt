@@ -4,10 +4,10 @@ import com.example.data.api.MovieApi
 import com.example.data.mapper.movie.toModel
 import com.example.data.mapper.moviepopular.toModel
 import com.example.data.mapper.toModel
-import com.example.domain.source.MovieDataSource
 import com.example.domain.model.ModelResponseStatus
 import com.example.domain.model.movie.ModelMovie
 import com.example.domain.model.moviepopular.ModelMoviePopular
+import com.example.domain.source.MovieDataSource
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
@@ -28,7 +28,9 @@ class MovieRepository @Inject constructor(private val movieApi: MovieApi) : Movi
                 println("$TAG getPopular $list")
                 println("$TAG getPopular $error")
             }
-            .map { response -> response.results.map { it.toModel() } }
+            .map { response ->
+                if (!response.results.isNullOrEmpty()) response.results.map { it.toModel() } else listOf()
+            }
     }
 
     override fun rateMovie(id: Int, rate: Double): Single<ModelResponseStatus> {

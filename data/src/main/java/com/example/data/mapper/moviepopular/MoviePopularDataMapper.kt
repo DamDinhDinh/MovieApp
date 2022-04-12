@@ -1,27 +1,31 @@
 package com.example.data.mapper.moviepopular
 
+import com.example.common.DefaultModelValue.Companion.DEFAULT_BOOLEAN
+import com.example.common.DefaultModelValue.Companion.DEFAULT_DOUBLE
+import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
+import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 import com.example.data.di.ConfigModule
-import com.example.movieapp.data.entities.moviepopular.JsonMoviePopularResponse
 import com.example.domain.model.moviepopular.ModelMoviePopular
+import com.example.movieapp.data.entities.moviepopular.JsonMoviePopularResponse
 
 fun JsonMoviePopularResponse.JsonMoviePopular.toModel(): ModelMoviePopular = ModelMoviePopular(
-    adult = adult,
+    adult = adult ?: DEFAULT_BOOLEAN,
     backdropPath = when {
-        backdropPath.isNotEmpty() -> ConfigModule.getBaseImgUrl() + backdropPath
-        else -> backdropPath
+        !backdropPath.isNullOrEmpty() -> ConfigModule.getBaseImgUrl() + backdropPath
+        else -> DEFAULT_STRING
     },
-    genreIds = genreIds,
-    id,
-    originalLanguage = originalLanguage,
-    originalTitle = originalTitle,
-    overview = overview,
-    popularity = popularity,
-    posterPath = posterPath,
-    releaseDate = releaseDate,
-    title = title,
-    video = video,
-    voteAverage = voteAverage,
-    voteCount = voteCount
+    genreIds = genreIds ?: listOf(),
+    id = id ?: DEFAULT_INT,
+    originalLanguage = originalLanguage ?: DEFAULT_STRING,
+    originalTitle = originalTitle ?: DEFAULT_STRING,
+    overview = overview ?: DEFAULT_STRING,
+    popularity = popularity ?: DEFAULT_DOUBLE,
+    posterPath = posterPath ?: DEFAULT_STRING,
+    releaseDate = releaseDate ?: DEFAULT_STRING,
+    title = title ?: DEFAULT_STRING,
+    video = video ?: DEFAULT_BOOLEAN,
+    voteAverage = voteAverage ?: DEFAULT_DOUBLE,
+    voteCount = voteCount ?: DEFAULT_INT
 )
 
 fun ModelMoviePopular.toJson(): JsonMoviePopularResponse.JsonMoviePopular =

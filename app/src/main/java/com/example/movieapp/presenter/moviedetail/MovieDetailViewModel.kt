@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.movieapp.common.applySchedulers
+import com.example.common.applySchedulers
 import com.example.domain.source.MovieDataSource
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
@@ -37,7 +37,7 @@ class MovieDetailViewModel @Inject constructor(private val movieDataSource: Movi
         viewStateMutable.value = newViewState
     }
 
-    class Factory : ViewModelProvider.Factory{
+    class Factory : ViewModelProvider.Factory {
         val movieDataSource: MovieDataSource
 
         @Inject
@@ -46,7 +46,8 @@ class MovieDetailViewModel @Inject constructor(private val movieDataSource: Movi
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(MovieDataSource::class.java).newInstance(movieDataSource)
+            return modelClass.getConstructor(MovieDataSource::class.java)
+                .newInstance(movieDataSource)
         }
 
     }

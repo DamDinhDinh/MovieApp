@@ -13,7 +13,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.movieapp.MyApplication
-import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
 import com.example.movieapp.presenter.common.adapter.GenreAdapter
 import com.example.movieapp.presenter.common.adapter.OnItemClick
@@ -51,7 +50,6 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     ): View? {
 
         binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
-        activity?.title = resources.getString(R.string.movie_detail_screen)
         return binding.root
     }
 
@@ -84,11 +82,11 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
 
         binding.apply {
             Glide.with(root.context).load(movie.backdropPath).into(imvMovieBackdrop)
-            Glide.with(root.context).load(movie.backdropPath)
+            Glide.with(root.context).load(movie.posterPath)
                 .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16.toPx.toInt())))
                 .into(imvMovieAvatar)
             tvTitle.text = movie.title
-            genreAdapter.updateItems(movie.genres!!)
+            genreAdapter.updateItems(movie.genres)
         }
     }
 }
