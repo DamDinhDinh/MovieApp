@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.common.applySchedulers
+import com.example.common.logs
 import com.example.domain.source.MovieDataSource
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
@@ -14,16 +15,16 @@ class MovieDetailViewModel @Inject constructor(private val movieDataSource: Movi
     ViewModel(),
     MovieDetailContract.ViewModel {
 
-    private val TAG = "MovieDetailViewModel"
+    companion object {
+        private val TAG = MovieDetailViewModel::class.simpleName
+    }
 
     private val viewStateMutable = MutableLiveData<MovieDetailContract.ViewState>()
 
     override fun fetchMovie(id: Int) {
         movieDataSource.getDetail(id).applySchedulers()
-            .map { it.toPresent() }.doOnEvent { list, error ->
-                println("$TAG fetchMovie $list")
-                println("$TAG fetchMovie $error")
-            }
+            .map { it.toPresent() }
+            .logs("$TAG fetchMovie")
             .subscribe({ movie -> notifyViewState(movie) }, { error -> error.printStackTrace() })
     }
 

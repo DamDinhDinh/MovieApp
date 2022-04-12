@@ -15,6 +15,7 @@ import com.example.movieapp.MyApplication
 import com.example.movieapp.databinding.FragmentMoviePopularListBinding
 import com.example.movieapp.presenter.common.adapter.OnItemClick
 import com.example.movieapp.presenter.model.moviepopular.MoviePopular
+import timber.log.Timber
 import javax.inject.Inject
 
 class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
@@ -65,7 +66,7 @@ class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
     }
 
     override fun updateViewState(viewState: MoviePopularListContract.ViewState) {
-        println("$TAG updateViewState $viewState")
+        Timber.d("$TAG updateViewState $viewState")
         renderMovieList(viewState.movieList)
     }
 

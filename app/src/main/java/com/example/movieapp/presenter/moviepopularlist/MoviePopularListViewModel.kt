@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.common.applySchedulers
+import com.example.common.logs
 import com.example.domain.movie.GetMoviesPopularUserCase
 import com.example.movieapp.presenter.mapper.moviepopular.toPresent
 import com.example.movieapp.presenter.model.moviepopular.MoviePopular
@@ -14,17 +15,16 @@ class MoviePopularListViewModel @Inject constructor(val getMoviesPopularUserCase
     ViewModel(),
     MoviePopularListContract.ViewModel {
 
-    private val TAG = "MoviePopularListViewModel"
+    companion object {
+        private val TAG = MoviePopularListViewModel::class.simpleName
+    }
 
     private val viewStateMutable = MutableLiveData<MoviePopularListContract.ViewState>()
 
     override fun fetchMoviePopular() {
         getMoviesPopularUserCase().applySchedulers()
             .map { list -> list.map { it.toPresent() } }
-            .doOnEvent { list, error ->
-                println("$TAG fetchMoviePopular $list")
-                println("$TAG fetchMoviePopular $error")
-            }
+            .logs("$TAG fetchMoviePopular")
             .subscribe({ list -> notifyViewState(list) }, { error -> error.printStackTrace() })
     }
 
