@@ -24,7 +24,7 @@ abstract class NetWorkModule {
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             return OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
+//                .addInterceptor(loggingInterceptor)
                 .addInterceptor { chain ->
                     val httpUrl: HttpUrl = chain.request().url.newBuilder()
                         .addQueryParameter("api_key", apiKey)
