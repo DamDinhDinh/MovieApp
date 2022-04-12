@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.movieapp.MyApplication
+import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
 import com.example.movieapp.presenter.common.adapter.GenreAdapter
 import com.example.movieapp.presenter.common.adapter.OnItemClick
@@ -68,7 +69,15 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
             adapter = AboutMoviePagerAdapter(this@MovieDetailFragment)
         }
         TabLayoutMediator(binding.tabLayoutInfo,
-            binding.viewPagerInfo) { tab, position -> {} }.attach()
+            binding.viewPagerInfo) { tab, position ->
+            run {
+                tab.text = when (position) {
+                    0 -> context?.getString(R.string.about_movie_label)
+                    1 -> context?.getString(R.string.reviews_label)
+                    else -> ""
+                }
+            }
+        }.attach()
 
         viewModel = ViewModelProvider(this, vmFactory)[MovieDetailViewModel::class.java]
         viewModel.apply {

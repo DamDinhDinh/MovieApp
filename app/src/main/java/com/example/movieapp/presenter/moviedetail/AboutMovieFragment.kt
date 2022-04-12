@@ -46,7 +46,8 @@ class AboutMovieFragment : Fragment(), MovieDetailContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this, vmFactory)[MovieDetailViewModel::class.java]
+        viewModel = ViewModelProvider(requireParentFragment().viewModelStore,
+            vmFactory)[MovieDetailViewModel::class.java]
         viewModel.apply {
             observeViewState()
                 .observe(viewLifecycleOwner) { viewState -> renderMovie(viewState.movie) }
