@@ -50,20 +50,43 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imvMovieAvatar" />
 
-        <TableLayout
-            android:id="@+id/tabInfo"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="29dp"
+            android:background="@color/dark"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rvGenre" />
+            app:layout_constraintTop_toBottomOf="@id/rvGenre"
+            app:tabGravity="start"
+            app:tabIndicatorColor="@color/primary"
+            app:tabIndicatorFullWidth="false"
+            app:tabSelectedTextColor="@color/primary"
+            app:tabTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:tabTextColor="@color/white">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/containerInfo"
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_movie_label" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reviews_label" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerInfo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginStart="29dp"
             android:layout_marginTop="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabInfo" />
+            android:layout_marginEnd="29dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabLayoutInfo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

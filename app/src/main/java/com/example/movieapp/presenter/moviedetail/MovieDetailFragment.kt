@@ -21,6 +21,8 @@ import com.example.movieapp.presenter.common.adapter.OnItemClick
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.movie.Genre
 import com.example.movieapp.presenter.model.movie.Movie
+import com.google.android.material.tabs.TabLayoutMediator
+import timber.log.Timber
 import javax.inject.Inject
 
 class MovieDetailFragment : Fragment(), MovieDetailContract.View {
@@ -48,10 +50,11 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,12 +64,23 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
+        binding.viewPagerInfo.apply {
+            adapter = AboutMoviePagerAdapter(this@MovieDetailFragment)
+        }
+        TabLayoutMediator(binding.tabLayoutInfo,
+            binding.viewPagerInfo) { tab, position -> {} }.attach()
+
         viewModel = ViewModelProvider(this, vmFactory)[MovieDetailViewModel::class.java]
         viewModel.apply {
             fetchMovie(args.id)
             observeViewState()
                 .observe(viewLifecycleOwner) { viewState -> renderMovie(viewState.movie) }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.v("$TAG onResume viewModel = ${viewModel.hashCode()}")
     }
 
     override fun updateViewState(viewState: MovieDetailContract.ViewState) {
