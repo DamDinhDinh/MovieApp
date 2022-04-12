@@ -1,28 +1,33 @@
 package com.example.movieapp.presenter.moviepopularlist
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
+import com.example.movieapp.R
 import com.example.movieapp.databinding.ItemMoviePopularBinding
 import com.example.movieapp.presenter.common.adapter.BaseRvAdapter
 import com.example.movieapp.presenter.common.adapter.OnItemClick
 import com.example.movieapp.presenter.model.moviepopular.MoviePopular
 
-class MoviePopularAdapter(
-    private val onItemClick: OnItemClick<MoviePopular>
-) :
+
+class MoviePopularAdapter(private val onItemClick: OnItemClick<MoviePopular>) :
     BaseRvAdapter<MoviePopular, MoviePopularAdapter.ViewHolder>() {
 
     private val TAG = "MoviePopularAdapter"
 
     class ViewHolder(
-        private val itemMoviePopularBinding: ItemMoviePopularBinding,
+        view: View,
         val onItemClick: OnItemClick<MoviePopular>
     ) :
-        RecyclerView.ViewHolder(itemMoviePopularBinding.root) {
+        RecyclerView.ViewHolder(view) {
+
+        private val binding: ItemMoviePopularBinding by viewBinding()
+
         fun bindView(movie: MoviePopular, position: Int) {
-            this.itemMoviePopularBinding.run {
+            this.binding.run {
                 Glide.with(imgMovieBackdrop).load(movie.backdropPath)
                     .into(imgMovieBackdrop)
                 tvMovieName.text = movie.originalTitle
@@ -34,12 +39,11 @@ class MoviePopularAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_movie_popular, parent, false)
+
         return ViewHolder(
-            ItemMoviePopularBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            ), onItemClick
+            view, onItemClick
         )
     }
 

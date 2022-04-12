@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.CreateMethod
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -28,7 +30,7 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     lateinit var vmFactory: MovieDetailViewModel.Factory
     lateinit var viewModel: MovieDetailContract.ViewModel
 
-    lateinit var binding: FragmentMovieDetailBinding
+    private val binding: FragmentMovieDetailBinding by viewBinding(CreateMethod.INFLATE)
     private val args: MovieDetailFragmentArgs by navArgs()
     private val genreAdapter = GenreAdapter(object : OnItemClick<Genre> {
         override fun onClick(item: Genre, position: Int) {
@@ -48,8 +50,6 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -71,11 +71,6 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
 
     override fun updateViewState(viewState: MovieDetailContract.ViewState) {
         renderMovie(viewState.movie)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        println("$TAG viewmodel hash {${viewModel.hashCode()}}")
     }
 
     private fun renderMovie(movie: Movie) {
