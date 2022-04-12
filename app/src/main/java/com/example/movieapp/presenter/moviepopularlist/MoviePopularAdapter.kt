@@ -20,7 +20,7 @@ class MoviePopularAdapter(private val onItemClick: OnItemClick<MoviePopular>) :
 
     class ViewHolder(
         view: View,
-        val onItemClick: OnItemClick<MoviePopular>
+        val onItemClick: OnItemClick<MoviePopular>,
     ) :
         RecyclerView.ViewHolder(view) {
 
@@ -28,11 +28,14 @@ class MoviePopularAdapter(private val onItemClick: OnItemClick<MoviePopular>) :
 
         fun bindView(movie: MoviePopular, position: Int) {
             this.binding.run {
-                Glide.with(imgMovieBackdrop).load(movie.backdropPath)
-                    .into(imgMovieBackdrop)
-                tvMovieName.text = movie.originalTitle
-                tvReleaseDate.text = movie.releaseDate
-                tvRating.text = movie.voteAverage.toString()
+                Glide.with(imvPoster).load(movie.posterPath)
+                    .into(imvPoster)
+                tvTitle.text = root.context.getString(R.string.movie_title_label, movie.title)
+                tvReleaseDate.text =
+                    root.context.getString(R.string.release_date_label, movie.releaseDate)
+                tvAverageRating.text =
+                    root.context.getString(R.string.average_rating_label, movie.voteAverage.toString())
+
                 root.setOnClickListener { onItemClick.onClick(movie, position) }
             }
         }

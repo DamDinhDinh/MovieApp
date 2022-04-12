@@ -4,4 +4,11 @@
     <string name="movie_popular_screen">Popular Movie</string>
 
     <string name="movie_detail_screen">Movie Details</string>
+    <string name="app_name_label">Movie DB App</string>
+    <string name="find_your_movies_label">Find your movies</string>
+    <string name="search_here_label">Search here …</string>
+    <string name="categories_label">Categories</string>
+    <string name="movie_title_label">Title: \n%s</string>
+    <string name="release_date_label">Release Date: \n%s</string>
+    <string name="average_rating_label">Average Rating: \n%s</string>
 </resources>

@@ -20,7 +20,10 @@ fun JsonMoviePopularResponse.JsonMoviePopular.toModel(): ModelMoviePopular = Mod
     originalTitle = originalTitle ?: DEFAULT_STRING,
     overview = overview ?: DEFAULT_STRING,
     popularity = popularity ?: DEFAULT_DOUBLE,
-    posterPath = posterPath ?: DEFAULT_STRING,
+    posterPath = when {
+        !posterPath.isNullOrEmpty() -> ConfigModule.getBaseImgUrl() + posterPath
+        else -> DEFAULT_STRING
+    },
     releaseDate = releaseDate ?: DEFAULT_STRING,
     title = title ?: DEFAULT_STRING,
     video = video ?: DEFAULT_BOOLEAN,
