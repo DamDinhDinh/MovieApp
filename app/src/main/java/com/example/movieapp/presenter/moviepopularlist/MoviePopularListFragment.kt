@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.MyApplication
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMoviePopularListBinding
+import com.example.movieapp.presenter.common.adapter.OnItemClick
 import com.example.movieapp.presenter.model.moviepopular.MoviePopular
 import javax.inject.Inject
 
@@ -24,16 +25,12 @@ class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
     lateinit var viewModel: MoviePopularListContract.ViewModel
 
     lateinit var binding: FragmentMoviePopularListBinding
-    private val movieList = mutableListOf<MoviePopular>()
-    private val onItemClick = object : MoviePopularAdapter.OnItemClick {
-        override fun onClick(position: Int) {
-            val movie = movieList[position]
-
-            navigateMovieDetail(movie.id)
+    private val movieAdapter = MoviePopularAdapter(object : OnItemClick<MoviePopular> {
+        override fun onClick(item: MoviePopular, position: Int) {
+            navigateMovieDetail(item.id)
         }
 
-    }
-    private val movieAdapter = MoviePopularAdapter(movieList, onItemClick)
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,9 +62,10 @@ class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
 
         viewModel = ViewModelProvider(this, vmFactory)[MoviePopularListViewModel::class.java]
 
-        viewModel.fetchMoviePopular()
-        viewModel.observeViewState()
-            .observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
+        viewModel.apply {
+            fetchMoviePopular()
+            observeViewState().observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
+        }
     }
 
 
@@ -82,12 +80,7 @@ class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
     }
 
     private fun renderMovieList(movieList: List<MoviePopular>) {
-        this.movieList.apply {
-            clear()
-            addAll(movieList)
-        }
-
-        movieAdapter.notifyDataSetChanged()
+        movieAdapter.updateItems(movieList)
     }
 
     private fun navigateMovieDetail(id: Int) {
