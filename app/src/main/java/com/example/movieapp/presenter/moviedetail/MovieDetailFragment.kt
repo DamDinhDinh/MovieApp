@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.movieapp.MyApplication
@@ -17,6 +18,7 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     private val TAG = "MovieDetailFragment"
 
     @Inject
+    lateinit var vmFactory: MovieDetailViewModel.Factory
     lateinit var viewModel: MovieDetailContract.ViewModel
 
     lateinit var binding: FragmentMovieDetailBinding
@@ -27,7 +29,6 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
 
         val appComponent = (activity?.application as MyApplication).appComponent
         appComponent.inject(this)
-
     }
 
     override fun onCreateView(
@@ -43,6 +44,7 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this, vmFactory)[MovieDetailViewModel::class.java]
 
         viewModel.fetchMovie(args.id)
         viewModel.observeViewState()
@@ -51,6 +53,11 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
 
     override fun updateViewState(viewState: MovieDetailContract.ViewState) {
         renderMovie(viewState.movie)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println("$TAG viewmodel hash {${viewModel.hashCode()}}")
     }
 
     private fun renderMovie(movie: Movie) {

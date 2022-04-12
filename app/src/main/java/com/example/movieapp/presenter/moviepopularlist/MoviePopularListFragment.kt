@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
     private val TAG = "MoviePopularListFragment"
 
     @Inject
+    lateinit var vmFactory: MoviePopularListViewModel.Factory
     lateinit var viewModel: MoviePopularListContract.ViewModel
 
     lateinit var binding: FragmentMoviePopularListBinding
@@ -61,9 +63,17 @@ class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProvider(this, vmFactory)[MoviePopularListViewModel::class.java]
+
         viewModel.fetchMoviePopular()
         viewModel.observeViewState()
             .observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        println("$TAG viewmodel hash {${viewModel.hashCode()}}")
     }
 
     override fun updateViewState(viewState: MoviePopularListContract.ViewState) {
