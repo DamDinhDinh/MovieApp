@@ -3,8 +3,6 @@ package com.example.movieapp.presenter.mapper.movie
 import com.example.movieapp.domain.model.movie.ModelMovie
 import com.example.movieapp.presenter.model.movie.Movie
 
-class MovieMapper
-
 fun Movie.toModel() = ModelMovie(
     adult = adult,
     backdropPath = backdropPath,

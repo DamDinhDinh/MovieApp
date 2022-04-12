@@ -4,8 +4,6 @@ import com.example.movieapp.data.entities.moviepopular.JsonMoviePopularResponse
 import com.example.movieapp.di.ConfigModule
 import com.example.movieapp.domain.model.moviepopular.ModelMoviePopular
 
-class MoviePopularDataMapper
-
 fun JsonMoviePopularResponse.JsonMoviePopular.toModel(): ModelMoviePopular = ModelMoviePopular(
     adult = adult,
     backdropPath = when {

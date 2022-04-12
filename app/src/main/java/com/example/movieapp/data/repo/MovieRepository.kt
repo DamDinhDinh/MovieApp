@@ -4,7 +4,7 @@ import com.example.movieapp.data.api.MovieApi
 import com.example.movieapp.data.mapper.movie.toModel
 import com.example.movieapp.data.mapper.moviepopular.toModel
 import com.example.movieapp.data.mapper.toModel
-import com.example.movieapp.data.source.MovieDataSource
+import com.example.movieapp.domain.source.MovieDataSource
 import com.example.movieapp.domain.model.ModelResponseStatus
 import com.example.movieapp.domain.model.movie.ModelMovie
 import com.example.movieapp.domain.model.moviepopular.ModelMoviePopular

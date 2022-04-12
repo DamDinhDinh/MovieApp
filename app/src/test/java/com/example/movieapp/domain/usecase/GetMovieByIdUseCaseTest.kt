@@ -1,6 +1,6 @@
 package com.example.movieapp.domain.usecase
 
-import com.example.movieapp.data.source.MovieDataSource
+import com.example.movieapp.domain.source.MovieDataSource
 import com.example.movieapp.domain.model.movie.ModelMovie
 import com.example.movieapp.domain.usecase.movie.GetMovieByIdUseCase
 import io.reactivex.rxjava3.core.Single

@@ -15,8 +15,19 @@ class MoviePopularAdapter(
 
     private val TAG = "MoviePopularAdapter"
 
-    class ViewHolder(val itemMoviePopularBinding: ItemMoviePopularBinding) :
-        RecyclerView.ViewHolder(itemMoviePopularBinding.root)
+    class ViewHolder(private val itemMoviePopularBinding: ItemMoviePopularBinding) :
+        RecyclerView.ViewHolder(itemMoviePopularBinding.root) {
+        fun bindView(movie: MoviePopular, position: Int, listener: OnItemClick) {
+            this.itemMoviePopularBinding.run {
+                Glide.with(imgMovieBackdrop).load(movie.backdropPath)
+                    .into(imgMovieBackdrop)
+                tvMovieName.text = movie.originalTitle
+                tvReleaseDate.text = movie.releaseDate
+                tvRating.text = movie.voteAverage.toString()
+                root.setOnClickListener { listener.onClick(position) }
+            }
+        }
+    }
 
     interface OnItemClick {
         fun onClick(position: Int)
@@ -35,14 +46,7 @@ class MoviePopularAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = movieList[position]
 
-        println("$TAG onBindViewHolder $movie")
-
-        Glide.with(holder.itemMoviePopularBinding.imgMovieBackdrop).load(movie.backdropPath)
-            .into(holder.itemMoviePopularBinding.imgMovieBackdrop)
-        holder.itemMoviePopularBinding.tvMovieName.text = movie.originalTitle
-        holder.itemMoviePopularBinding.tvReleaseDate.text = movie.releaseDate
-        holder.itemMoviePopularBinding.tvRating.text = movie.voteAverage.toString()
-        holder.itemMoviePopularBinding.root.setOnClickListener({ listener.onClick(position) })
+        holder.bindView(movie, position, listener)
     }
 
     override fun getItemCount(): Int {

@@ -11,4 +11,9 @@
 
     <color name="grey">#706A6A</color>
 
+    <color name="dark">#1B1F26</color>
+    <color name="dark2">#2C3037</color>
+    <color name="primary">#44C492</color>
+    <color name="primary2">#E9E9E9</color>
+
 </resources>

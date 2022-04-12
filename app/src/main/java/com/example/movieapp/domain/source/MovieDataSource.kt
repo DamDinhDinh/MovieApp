@@ -1,4 +1,4 @@
-package com.example.movieapp.data.source
+package com.example.movieapp.domain.source
 
 import com.example.movieapp.domain.model.ModelResponseStatus
 import com.example.movieapp.domain.model.movie.ModelMovie

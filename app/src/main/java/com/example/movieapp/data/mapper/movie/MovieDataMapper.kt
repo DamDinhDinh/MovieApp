@@ -4,8 +4,6 @@ import com.example.movieapp.data.entities.movie.JsonMovie
 import com.example.movieapp.di.ConfigModule
 import com.example.movieapp.domain.model.movie.ModelMovie
 
-class MovieMapper
-
 fun JsonMovie.toModel() = ModelMovie(
     adult = adult,
     backdropPath = if (backdropPath != null && backdropPath.isNotEmpty()) ConfigModule.getBaseImgUrl() + backdropPath else backdropPath,

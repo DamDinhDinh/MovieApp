@@ -3,8 +3,6 @@ package com.example.movieapp.presenter.mapper.moviepopular
 import com.example.movieapp.domain.model.moviepopular.ModelMoviePopular
 import com.example.movieapp.presenter.model.moviepopular.MoviePopular
 
-class MoviePopularMapper
-
 fun ModelMoviePopular.toPresent(): MoviePopular = MoviePopular(
     adult,
     backdropPath,
