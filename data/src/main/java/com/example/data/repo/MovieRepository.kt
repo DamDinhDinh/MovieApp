@@ -1,15 +1,15 @@
 package com.example.data.repo
 
 import com.example.common.logs
-import com.example.data.api.MovieApi
-import com.example.data.mapper.movie.toModel
-import com.example.data.mapper.moviepopular.toModel
-import com.example.data.mapper.review.toModel
-import com.example.data.mapper.toModel
+import com.example.data.remote.api.MovieApi
+import com.example.data.remote.mapper.movie.toModel
+import com.example.data.remote.mapper.moviepopular.toModel
+import com.example.data.remote.mapper.review.toModel
+import com.example.data.remote.mapper.toModel
 import com.example.domain.model.ModelResponseStatus
-import com.example.domain.model.movie.ModelMovie
+import com.example.data.local.databasemodel.movie.EntityMovie
 import com.example.domain.model.moviepopular.ModelMoviePopular
-import com.example.domain.model.review.ModelReview
+import com.example.data.local.databasemodel.review.EntityReview
 import com.example.domain.source.MovieDataSource
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
@@ -20,7 +20,7 @@ class MovieRepository @Inject constructor(private val movieApi: MovieApi) : Movi
         private val TAG = MovieRepository::class.simpleName
     }
 
-    override fun getDetail(id: Int): Single<ModelMovie> {
+    override fun getDetail(id: Int): Single<EntityMovie> {
         return movieApi.getDetail(id)
             .logs("$TAG getDetail")
             .map { it.toModel() }
@@ -42,7 +42,7 @@ class MovieRepository @Inject constructor(private val movieApi: MovieApi) : Movi
             .map { it.toModel() }
     }
 
-    override fun getReviews(id: Int): Single<List<ModelReview>> {
+    override fun getReviews(id: Int): Single<List<EntityReview>> {
         return movieApi.getReviews(id)
             .logs("$TAG getReviews")
             .map { response ->
