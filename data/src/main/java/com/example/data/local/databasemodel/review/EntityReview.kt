@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 
-@Entity
+@Entity(tableName = "review")
 data class EntityReview(
     var author: String = DEFAULT_STRING,
     var authorDetails: EntityAuthorDetails = EntityAuthorDetails(

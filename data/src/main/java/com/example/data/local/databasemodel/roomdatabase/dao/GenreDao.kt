@@ -2,6 +2,7 @@ package com.example.data.local.databasemodel.roomdatabase.dao
 
 import androidx.room.*
 import com.example.data.local.databasemodel.movie.EntityGenre
+import io.reactivex.rxjava3.core.Observable
 
 @Dao
 abstract class GenreDao {
@@ -14,4 +15,10 @@ abstract class GenreDao {
 
     @Delete
     abstract fun delete(vararg entities: EntityGenre)
+
+    @Query("SELECT * FROM genre WHERE id = :id")
+    abstract fun getGenreById(id: Int): Observable<EntityGenre>
+
+    @Query("SELECT * FROM genre")
+    abstract fun getListGenre(): Observable<EntityGenre>
 }

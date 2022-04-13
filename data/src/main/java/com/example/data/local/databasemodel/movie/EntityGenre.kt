@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 
-@Entity
+@Entity(tableName = "genre")
 data class EntityGenre(
     @PrimaryKey
     var id: Int = DEFAULT_INT,

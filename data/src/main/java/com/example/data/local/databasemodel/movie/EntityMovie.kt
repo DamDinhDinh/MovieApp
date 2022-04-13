@@ -8,7 +8,7 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_DOUBLE
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 
-@Entity
+@Entity(tableName = "movie")
 data class EntityMovie(
     var adult: Boolean = DEFAULT_BOOLEAN,
     var backdropPath: String = DEFAULT_STRING,
