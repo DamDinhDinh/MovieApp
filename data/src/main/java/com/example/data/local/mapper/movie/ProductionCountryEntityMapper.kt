@@ -1,4 +1,4 @@
-package com.example.data.remote.mapper.movie
+package com.example.data.local.mapper.movie
 
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 import com.example.data.remote.jsonmodel.movie.JsonProductionCountry

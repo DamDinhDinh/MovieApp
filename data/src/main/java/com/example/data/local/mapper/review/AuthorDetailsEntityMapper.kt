@@ -1,4 +1,4 @@
-package com.example.data.remote.mapper.review
+package com.example.data.local.mapper.review
 
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING

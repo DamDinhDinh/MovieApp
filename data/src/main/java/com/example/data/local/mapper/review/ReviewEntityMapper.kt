@@ -1,14 +1,16 @@
-package com.example.data.remote.mapper.review
+package com.example.data.local.mapper.review
 
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 import com.example.data.remote.jsonmodel.review.JsonReview
 import com.example.data.local.databasemodel.review.EntityAuthorDetails
 import com.example.data.local.databasemodel.review.EntityReview
+import com.example.data.local.mapper.review.toEntity
+import com.example.data.local.mapper.review.toJson
 
 fun JsonReview.toEntity(): EntityReview = EntityReview(
     author = author ?: DEFAULT_STRING,
-    authorDetails = authorDetails?.toModel() ?: EntityAuthorDetails(
+    authorDetails = authorDetails?.toEntity() ?: EntityAuthorDetails(
         name = DEFAULT_STRING,
         avatarPath = DEFAULT_STRING,
         rating = DEFAULT_INT,

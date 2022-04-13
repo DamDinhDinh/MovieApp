@@ -1,7 +1,7 @@
-package com.example.data.mapper.movie
+package com.example.data.remote.mapper.movie
 
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
-import com.example.data.jsonmodel.movie.JsonSpokenLanguage
+import com.example.data.remote.jsonmodel.movie.JsonSpokenLanguage
 import com.example.domain.model.movie.ModelSpokenLanguage
 
 fun JsonSpokenLanguage.toModel() =

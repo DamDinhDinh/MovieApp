@@ -7,13 +7,15 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 import com.example.data.remote.di.ConfigModule
 import com.example.data.remote.jsonmodel.movie.JsonMovie
 import com.example.data.local.databasemodel.movie.EntityMovie
+import com.example.data.local.mapper.movie.toEntity
+import com.example.data.local.mapper.movie.toJson
 
 fun JsonMovie.toEntity() = EntityMovie(
     adult = adult ?: DEFAULT_BOOLEAN,
     backdropPath = if (!backdropPath.isNullOrEmpty()) ConfigModule.getBaseImgUrl() + backdropPath else DEFAULT_STRING,
     belongsToCollection = belongsToCollection ?: Any(),
     budget = budget ?: DEFAULT_INT,
-    genres = genres?.map { it.toModel() } ?: listOf(),
+    genres = genres?.map { it.toEntity() } ?: listOf(),
     homepage = homepage ?: DEFAULT_STRING,
     id = id ?: DEFAULT_INT,
     imdbId = imdbId ?: DEFAULT_STRING,

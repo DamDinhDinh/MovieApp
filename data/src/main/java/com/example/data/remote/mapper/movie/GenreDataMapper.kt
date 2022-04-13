@@ -1,8 +1,8 @@
-package com.example.data.mapper.movie
+package com.example.data.remote.mapper.movie
 
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
-import com.example.data.jsonmodel.movie.JsonGenre
+import com.example.data.remote.jsonmodel.movie.JsonGenre
 import com.example.domain.model.movie.ModelGenre
 
 fun JsonGenre.toModel(): ModelGenre =
