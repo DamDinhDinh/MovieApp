@@ -1,4 +1,4 @@
-package com.example.domain.movie
+package com.example.domain.usecase.movie
 
 import com.example.domain.source.MovieDataSource
 import com.example.domain.model.ModelResponseStatus

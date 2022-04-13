@@ -5,6 +5,7 @@ import com.example.data.di.DataModule
 import com.example.data.di.NetWorkModule
 import com.example.movieapp.presenter.moviedetail.AboutMovieFragment
 import com.example.movieapp.presenter.moviedetail.MovieDetailFragment
+import com.example.movieapp.presenter.moviedetail.ReviewMovieFragment
 import com.example.movieapp.presenter.moviepopularlist.MoviePopularListFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -18,4 +19,6 @@ interface AppComponent {
     fun inject(movieDetailFragment: MovieDetailFragment)
 
     fun inject(aboutMovieFragment: AboutMovieFragment)
+
+    fun inject(reviewMovieFragment: ReviewMovieFragment)
 }

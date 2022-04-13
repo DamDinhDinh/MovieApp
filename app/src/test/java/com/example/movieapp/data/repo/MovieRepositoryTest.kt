@@ -1,7 +1,8 @@
 package com.example.movieapp.data.repo
 
-import com.example.movieapp.data.api.MovieApi
-import com.example.movieapp.data.entities.movie.JsonMovie
+import com.example.data.api.MovieApi
+import com.example.data.jsonmodel.movie.JsonMovie
+import com.example.data.repo.MovieRepository
 import io.reactivex.rxjava3.core.Single
 import org.junit.Before
 import org.junit.Test

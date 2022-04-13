@@ -13,7 +13,7 @@ import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.movieapp.MyApplication
 import com.example.movieapp.databinding.FragmentMoviePopularListBinding
-import com.example.movieapp.presenter.common.adapter.MoviePopularAdapter
+import com.example.movieapp.presenter.adapter.MoviePopularAdapter
 import com.example.movieapp.presenter.model.moviepopular.MoviePopular
 import timber.log.Timber
 import javax.inject.Inject
@@ -66,7 +66,7 @@ class MoviePopularListFragment : Fragment(), MoviePopularListContract.View {
     }
 
     private fun renderMovieList(movieList: List<MoviePopular>) {
-        movieAdapter.updateItems(movieList)
+        movieAdapter.submitList(movieList)
     }
 
     private fun navigateMovieDetail(id: Int) {

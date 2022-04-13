@@ -3,6 +3,7 @@ package com.example.domain.source
 import com.example.domain.model.ModelResponseStatus
 import com.example.domain.model.movie.ModelMovie
 import com.example.domain.model.moviepopular.ModelMoviePopular
+import com.example.domain.model.review.ModelReview
 import io.reactivex.rxjava3.core.Single
 
 interface MovieDataSource {
@@ -12,4 +13,6 @@ interface MovieDataSource {
     fun getPopular(): Single<List<ModelMoviePopular>>
 
     fun rateMovie(id: Int, rate: Double): Single<ModelResponseStatus>
+
+    fun getReviews(id: Int): Single<List<ModelReview>>
 }

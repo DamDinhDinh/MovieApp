@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.common.adapter
+package com.example.movieapp.presenter.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -62,10 +62,6 @@ class MoviePopularAdapter(private val onItemClick: (movie: MoviePopular) -> Unit
         return ViewHolder(
             view, onItemClick
         )
-    }
-
-    fun updateItems(itemList: List<MoviePopular>) {
-        submitList(itemList)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

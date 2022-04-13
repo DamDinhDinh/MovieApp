@@ -6,12 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.common.applySchedulers
 import com.example.common.logs
-import com.example.domain.source.MovieDataSource
+import com.example.domain.usecase.movie.GetMovieByIdUseCase
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
 import javax.inject.Inject
 
-class MovieDetailViewModel @Inject constructor(private val movieDataSource: MovieDataSource) :
+class MovieDetailViewModel @Inject constructor(
+    private val getMovieByIdUseCase: GetMovieByIdUseCase
+) :
     ViewModel(),
     MovieDetailContract.ViewModel {
 
@@ -22,7 +24,7 @@ class MovieDetailViewModel @Inject constructor(private val movieDataSource: Movi
     private val viewStateMutable = MutableLiveData<MovieDetailContract.ViewState>()
 
     override fun fetchMovie(id: Int) {
-        movieDataSource.getDetail(id).applySchedulers()
+        getMovieByIdUseCase(GetMovieByIdUseCase.Request(id)).applySchedulers()
             .map { it.toPresent() }
             .logs("$TAG fetchMovie")
             .subscribe({ movie -> notifyViewState(movie) }, { error -> error.printStackTrace() })
@@ -38,18 +40,11 @@ class MovieDetailViewModel @Inject constructor(private val movieDataSource: Movi
         viewStateMutable.value = newViewState
     }
 
-    class Factory : ViewModelProvider.Factory {
-        val movieDataSource: MovieDataSource
-
-        @Inject
-        constructor(moveDataSource: MovieDataSource) {
-            this.movieDataSource = moveDataSource
-        }
-
+    class Factory @Inject constructor(private val getMovieByIdUseCase: GetMovieByIdUseCase) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(MovieDataSource::class.java)
-                .newInstance(movieDataSource)
+            return modelClass.getConstructor(GetMovieByIdUseCase::class.java)
+                .newInstance(getMovieByIdUseCase)
         }
-
     }
 }

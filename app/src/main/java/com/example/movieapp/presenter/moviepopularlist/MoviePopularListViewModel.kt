@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.common.applySchedulers
 import com.example.common.logs
-import com.example.domain.movie.GetMoviesPopularUserCase
+import com.example.domain.usecase.movie.GetPopularMoviesUseCase
 import com.example.movieapp.presenter.mapper.moviepopular.toPresent
 import com.example.movieapp.presenter.model.moviepopular.MoviePopular
 import javax.inject.Inject
 
-class MoviePopularListViewModel @Inject constructor(val getMoviesPopularUserCase: GetMoviesPopularUserCase) :
+class MoviePopularListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPopularMoviesUseCase) :
     ViewModel(),
     MoviePopularListContract.ViewModel {
 
@@ -22,7 +22,7 @@ class MoviePopularListViewModel @Inject constructor(val getMoviesPopularUserCase
     private val viewStateMutable = MutableLiveData<MoviePopularListContract.ViewState>()
 
     override fun fetchMoviePopular() {
-        getMoviesPopularUserCase().applySchedulers()
+        getPopularMoviesUseCase().applySchedulers()
             .map { list -> list.map { it.toPresent() } }
             .logs("$TAG fetchMoviePopular")
             .subscribe({ list -> notifyViewState(list) }, { error -> error.printStackTrace() })
@@ -40,16 +40,16 @@ class MoviePopularListViewModel @Inject constructor(val getMoviesPopularUserCase
 
     class Factory :
         ViewModelProvider.Factory {
-        private val getMoviesPopularUserCase: GetMoviesPopularUserCase
+        private val getPopularMoviesUseCase: GetPopularMoviesUseCase
 
         @Inject
-        constructor(getMoviesPopularUserCase: GetMoviesPopularUserCase) {
-            this.getMoviesPopularUserCase = getMoviesPopularUserCase
+        constructor(getPopularMoviesUseCase: GetPopularMoviesUseCase) {
+            this.getPopularMoviesUseCase = getPopularMoviesUseCase
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(GetMoviesPopularUserCase::class.java)
-                .newInstance(getMoviesPopularUserCase)
+            return modelClass.getConstructor(GetPopularMoviesUseCase::class.java)
+                .newInstance(getPopularMoviesUseCase)
         }
 
     }

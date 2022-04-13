@@ -50,7 +50,7 @@ class AboutMovieFragment : Fragment(), MovieDetailContract.View {
             vmFactory)[MovieDetailViewModel::class.java]
         viewModel.apply {
             observeViewState()
-                .observe(viewLifecycleOwner) { viewState -> renderMovie(viewState.movie) }
+                .observe(viewLifecycleOwner) { viewState -> viewState.movie?.let { renderMovie(it) } }
         }
     }
 
@@ -61,7 +61,7 @@ class AboutMovieFragment : Fragment(), MovieDetailContract.View {
 
 
     override fun updateViewState(viewState: MovieDetailContract.ViewState) {
-        renderMovie(viewState.movie)
+        viewState.movie?.let { renderMovie(it) }
     }
 
     private fun renderMovie(movie: Movie) {

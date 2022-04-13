@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.common.adapter
+package com.example.movieapp.presenter.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.databinding.ItemGenreBinding
-import com.example.movieapp.presenter.common.adapter.GenreAdapter.ViewHolder
+import com.example.movieapp.presenter.adapter.GenreAdapter.ViewHolder
 import com.example.movieapp.presenter.model.movie.Genre
 
 open class GenreAdapter(private val onItemClick: (genre: Genre) -> Unit) :
@@ -50,9 +50,5 @@ open class GenreAdapter(private val onItemClick: (genre: Genre) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindView(getItem(position), position)
-    }
-
-    fun updateItems(itemList: List<Genre>) {
-        submitList(itemList)
     }
 }

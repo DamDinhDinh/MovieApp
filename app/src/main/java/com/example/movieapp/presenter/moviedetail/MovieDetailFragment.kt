@@ -17,8 +17,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.movieapp.MyApplication
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
-import com.example.movieapp.presenter.common.adapter.AboutMoviePagerAdapter
-import com.example.movieapp.presenter.common.adapter.GenreAdapter
+import com.example.movieapp.presenter.adapter.AboutMoviePagerAdapter
+import com.example.movieapp.presenter.adapter.GenreAdapter
 import com.example.movieapp.presenter.common.itemdecoration.SpacingItemDecoration
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.movie.Movie
@@ -51,7 +51,6 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     ): View? {
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -103,7 +102,7 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
                 .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16.toPx().toInt())))
                 .into(imvMovieAvatar)
             tvTitle.text = movie.title
-            genreAdapter.updateItems(movie.genres)
+            genreAdapter.submitList(movie.genres)
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.data.api
 
 import com.example.data.jsonmodel.JsonResponseStatus
 import com.example.data.jsonmodel.movie.JsonMovie
+import com.example.data.jsonmodel.response.JsonMovieReviews
 import com.example.movieapp.data.entities.moviepopular.JsonMoviePopularResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.Body
@@ -22,4 +23,8 @@ interface MovieApi {
         @Path("movie_id") id: Int,
         @Body params: HashMap<String, Any>
     ): Single<JsonResponseStatus>
+
+
+    @GET("/3/movie/{movie_id}/reviews")
+    fun getReviews(@Path("movie_id") id: Int): Single<JsonMovieReviews>
 }
