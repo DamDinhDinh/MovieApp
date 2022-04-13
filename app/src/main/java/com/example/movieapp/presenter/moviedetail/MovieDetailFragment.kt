@@ -19,6 +19,7 @@ import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
 import com.example.movieapp.presenter.common.adapter.AboutMoviePagerAdapter
 import com.example.movieapp.presenter.common.adapter.GenreAdapter
+import com.example.movieapp.presenter.common.itemdecoration.SpacingItemDecoration
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.movie.Movie
 import com.google.android.material.tabs.TabLayoutMediator
@@ -58,6 +59,7 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
         binding.rvGenre.apply {
             adapter = genreAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(SpacingItemDecoration(end = 12.toPx().toInt()))
         }
 
         binding.viewPagerInfo.apply {
@@ -98,7 +100,7 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
         binding.apply {
             Glide.with(root.context).load(movie.backdropPath).into(imvMovieBackdrop)
             Glide.with(root.context).load(movie.posterPath)
-                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16.toPx.toInt())))
+                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16.toPx().toInt())))
                 .into(imvMovieAvatar)
             tvTitle.text = movie.title
             genreAdapter.updateItems(movie.genres)
