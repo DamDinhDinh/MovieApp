@@ -1,9 +1,11 @@
 package com.example.data.local.databasemodel.review
 
+import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
+import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 
 data class EntityAuthorDetails(
-    val avatarPath: String,
-    val name: String,
-    val rating: Int,
-    val username: String
+    var avatarPath: String = DEFAULT_STRING,
+    var name: String = DEFAULT_STRING,
+    var rating: Int = DEFAULT_INT,
+    var username: String = DEFAULT_STRING
 )

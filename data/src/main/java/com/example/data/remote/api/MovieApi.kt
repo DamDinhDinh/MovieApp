@@ -23,8 +23,4 @@ interface MovieApi {
         @Path("movie_id") id: Int,
         @Body params: HashMap<String, Any>
     ): Single<JsonResponseStatus>
-
-
-    @GET("/3/movie/{movie_id}/reviews")
-    fun getReviews(@Path("movie_id") id: Int): Single<JsonMovieReviews>
 }

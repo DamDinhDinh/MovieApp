@@ -13,6 +13,4 @@ interface MovieDataSource {
     fun getPopular(): Single<List<ModelMoviePopular>>
 
     fun rateMovie(id: Int, rate: Double): Single<ModelResponseStatus>
-
-    fun getReviews(id: Int): Single<List<ModelReview>>
 }

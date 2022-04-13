@@ -1,4 +1,4 @@
-package com.example.data.local.mapper.movie
+package com.example.data.remote.mapper.movie
 
 import com.example.common.DefaultModelValue.Companion.DEFAULT_BOOLEAN
 import com.example.common.DefaultModelValue.Companion.DEFAULT_DOUBLE
@@ -6,14 +6,14 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 import com.example.data.di.ConfigModule
 import com.example.data.remote.jsonmodel.movie.JsonMovie
-import com.example.data.local.databasemodel.movie.EntityMovie
+import com.example.domain.model.movie.ModelMovie
 
-fun JsonMovie.toEntity() = EntityMovie(
+fun JsonMovie.toModel() = ModelMovie(
     adult = adult ?: DEFAULT_BOOLEAN,
     backdropPath = if (!backdropPath.isNullOrEmpty()) ConfigModule.getBaseImgUrl() + backdropPath else DEFAULT_STRING,
     belongsToCollection = belongsToCollection ?: Any(),
     budget = budget ?: DEFAULT_INT,
-    genres = genres?.map { it.toEntity() } ?: listOf(),
+    genres = genres?.map { it.toModel() } ?: listOf(),
     homepage = homepage ?: DEFAULT_STRING,
     id = id ?: DEFAULT_INT,
     imdbId = imdbId ?: DEFAULT_STRING,
@@ -22,12 +22,12 @@ fun JsonMovie.toEntity() = EntityMovie(
     overview = overview ?: DEFAULT_STRING,
     popularity = popularity ?: DEFAULT_DOUBLE,
     posterPath = if (!posterPath.isNullOrEmpty()) ConfigModule.getBaseImgUrl() + posterPath else DEFAULT_STRING,
-    productionCompanies = productionCompanies?.map { it.toEntity() } ?: listOf(),
-    productionCountries = productionCountries?.map { it.toEntity() } ?: listOf(),
+    productionCompanies = productionCompanies?.map { it.toModel() } ?: listOf(),
+    productionCountries = productionCountries?.map { it.toModel() } ?: listOf(),
     releaseDate = releaseDate ?: DEFAULT_STRING,
     revenue = revenue ?: DEFAULT_INT,
     runtime = runtime ?: DEFAULT_INT,
-    spokenLanguages = spokenLanguages?.map { it.toEntity() } ?: listOf(),
+    spokenLanguages = spokenLanguages?.map { it.toModel() } ?: listOf(),
     status = status ?: DEFAULT_STRING,
     tagline = tagline ?: DEFAULT_STRING,
     title = title ?: DEFAULT_STRING,
@@ -36,7 +36,7 @@ fun JsonMovie.toEntity() = EntityMovie(
     voteCount = voteCount ?: DEFAULT_INT
 )
 
-fun EntityMovie.toJson() = JsonMovie(
+fun ModelMovie.toJson() = JsonMovie(
     adult = adult,
     backdropPath = backdropPath,
     belongsToCollection = belongsToCollection,

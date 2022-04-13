@@ -1,7 +1,8 @@
 package com.example.movieapp.data.repo
 
-import com.example.data.api.MovieApi
-import com.example.data.jsonmodel.movie.JsonMovie
+import com.example.data.local.databasemodel.roomdatabase.dao.MovieDao
+import com.example.data.remote.api.MovieApi
+import com.example.data.remote.jsonmodel.movie.JsonMovie
 import com.example.data.repo.MovieRepository
 import io.reactivex.rxjava3.core.Single
 import org.junit.Before
@@ -16,6 +17,9 @@ class MovieRepositoryTest {
     @Mock
     lateinit var movieApi: MovieApi
 
+    @Mock
+    lateinit var movieDao: MovieDao
+
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
@@ -26,7 +30,7 @@ class MovieRepositoryTest {
         val podamFactory = PodamFactoryImpl()
         val givenMovie = podamFactory.manufacturePojo(JsonMovie::class.java).copy(id = 1)
 
-        val movieRepository = MovieRepository(movieApi)
+        val movieRepository = MovieRepository(movieApi, movieDao)
 
         //given
         given(movieApi.getDetail(1)).willReturn(Single.just(givenMovie))

@@ -4,7 +4,7 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_BOOLEAN
 import com.example.common.DefaultModelValue.Companion.DEFAULT_DOUBLE
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
-import com.example.data.remote.di.ConfigModule
+import com.example.data.di.ConfigModule
 import com.example.domain.model.moviepopular.ModelMoviePopular
 import com.example.movieapp.data.entities.moviepopular.JsonMoviePopularResponse
 

@@ -1,6 +1,7 @@
-package com.example.data.remote.di
+package com.example.data.di
 
 import com.example.data.remote.api.MovieApi
+import com.example.data.remote.api.ReviewApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl
@@ -53,6 +54,9 @@ abstract class NetWorkModule {
 
         @Provides
         fun getMovieApi(retrofit: Retrofit): MovieApi = retrofit.create(MovieApi::class.java)
+
+        @Provides
+        fun getReviewApi(retrofit: Retrofit): ReviewApi = retrofit.create(ReviewApi::class.java)
     }
 
 }
