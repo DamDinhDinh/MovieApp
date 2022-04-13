@@ -46,11 +46,13 @@ class AboutMovieFragment : Fragment(), MovieDetailContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireParentFragment().viewModelStore,
-            vmFactory)[MovieDetailViewModel::class.java]
+        viewModel = ViewModelProvider(
+            requireParentFragment().viewModelStore,
+            vmFactory
+        )[MovieDetailViewModel::class.java]
         viewModel.apply {
             observeViewState()
-                .observe(viewLifecycleOwner) { viewState -> viewState.movie?.let { renderMovie(it) } }
+                .observe(viewLifecycleOwner) { viewState -> renderMovie(viewState.movie) }
         }
     }
 
@@ -59,9 +61,8 @@ class AboutMovieFragment : Fragment(), MovieDetailContract.View {
         Timber.v("$TAG onResume viewModel = ${viewModel.hashCode()}")
     }
 
-
     override fun updateViewState(viewState: MovieDetailContract.ViewState) {
-        viewState.movie?.let { renderMovie(it) }
+        renderMovie(viewState.movie)
     }
 
     private fun renderMovie(movie: Movie) {

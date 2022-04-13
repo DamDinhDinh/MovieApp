@@ -37,7 +37,7 @@ class MovieAdapter(private val onItemClick: (movie: Movie) -> Unit) :
 
         private val binding: ItemMovieBinding by viewBinding()
 
-        fun bindView(movie: Movie, position: Int) {
+        fun bindView(movie: Movie) {
             this.binding.run {
                 Glide.with(imvPoster).load(movie.posterPath)
                     .into(imvPoster)
@@ -66,6 +66,6 @@ class MovieAdapter(private val onItemClick: (movie: Movie) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = getItem(position)
-        holder.bindView(movie, position)
+        holder.bindView(movie)
     }
 }

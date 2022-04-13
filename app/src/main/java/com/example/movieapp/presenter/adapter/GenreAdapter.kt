@@ -29,7 +29,7 @@ open class GenreAdapter(private val onItemClick: (genre: Genre) -> Unit) :
     ) :
         RecyclerView.ViewHolder(itemGenreBinding.root) {
 
-        fun bindView(genre: Genre, position: Int) {
+        fun bindView(genre: Genre) {
             itemGenreBinding.run {
                 tvGenreType.text = genre.name
                 root.setOnClickListener { onItemClick(genre) }
@@ -49,6 +49,6 @@ open class GenreAdapter(private val onItemClick: (genre: Genre) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindView(getItem(position), position)
+        holder.bindView(getItem(position))
     }
 }
