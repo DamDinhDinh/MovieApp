@@ -17,10 +17,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.movieapp.MyApplication
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
+import com.example.movieapp.presenter.common.adapter.AboutMoviePagerAdapter
 import com.example.movieapp.presenter.common.adapter.GenreAdapter
-import com.example.movieapp.presenter.common.adapter.OnItemClick
 import com.example.movieapp.presenter.common.utils.toPx
-import com.example.movieapp.presenter.model.movie.Genre
 import com.example.movieapp.presenter.model.movie.Movie
 import com.google.android.material.tabs.TabLayoutMediator
 import timber.log.Timber
@@ -35,11 +34,7 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
 
     private val binding: FragmentMovieDetailBinding by viewBinding(CreateMethod.INFLATE)
     private val args: MovieDetailFragmentArgs by navArgs()
-    private val genreAdapter = GenreAdapter(object : OnItemClick<Genre> {
-        override fun onClick(item: Genre, position: Int) {
-
-        }
-    })
+    private val genreAdapter = GenreAdapter {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,8 +63,10 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
         binding.viewPagerInfo.apply {
             adapter = AboutMoviePagerAdapter(this@MovieDetailFragment)
         }
-        TabLayoutMediator(binding.tabLayoutInfo,
-            binding.viewPagerInfo) { tab, position ->
+        TabLayoutMediator(
+            binding.tabLayoutInfo,
+            binding.viewPagerInfo
+        ) { tab, position ->
             run {
                 tab.text = when (position) {
                     0 -> context?.getString(R.string.about_movie_label)

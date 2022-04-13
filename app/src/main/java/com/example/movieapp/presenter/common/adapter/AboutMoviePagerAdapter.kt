@@ -1,7 +1,8 @@
-package com.example.movieapp.presenter.moviedetail
+package com.example.movieapp.presenter.common.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.movieapp.presenter.moviedetail.AboutMovieFragment
 
 /**
  * Created by dinhdd damdinhdinh.mum@gmail.com on 4/12/2022.

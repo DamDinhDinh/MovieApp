@@ -1,26 +1,37 @@
-package com.example.movieapp.presenter.moviepopularlist
+package com.example.movieapp.presenter.common.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.databinding.ItemMoviePopularBinding
-import com.example.movieapp.presenter.common.adapter.BaseRvAdapter
-import com.example.movieapp.presenter.common.adapter.OnItemClick
 import com.example.movieapp.presenter.model.moviepopular.MoviePopular
 
 
-class MoviePopularAdapter(private val onItemClick: OnItemClick<MoviePopular>) :
-    BaseRvAdapter<MoviePopular, MoviePopularAdapter.ViewHolder>() {
+class MoviePopularAdapter(private val onItemClick: (movie: MoviePopular) -> Unit) :
+    ListAdapter<MoviePopular, MoviePopularAdapter.ViewHolder>(MoviePopularDiff()) {
 
     private val TAG = "MoviePopularAdapter"
 
+    class MoviePopularDiff : DiffUtil.ItemCallback<MoviePopular>() {
+        override fun areItemsTheSame(oldItem: MoviePopular, newItem: MoviePopular): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: MoviePopular, newItem: MoviePopular): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+
     class ViewHolder(
         view: View,
-        val onItemClick: OnItemClick<MoviePopular>,
+        val onItemClick: (movie: MoviePopular) -> Unit
     ) :
         RecyclerView.ViewHolder(view) {
 
@@ -34,9 +45,12 @@ class MoviePopularAdapter(private val onItemClick: OnItemClick<MoviePopular>) :
                 tvReleaseDate.text =
                     root.context.getString(R.string.release_date_label, movie.releaseDate)
                 tvAverageRating.text =
-                    root.context.getString(R.string.average_rating_label, movie.voteAverage.toString())
+                    root.context.getString(
+                        R.string.average_rating_label,
+                        movie.voteAverage.toString()
+                    )
 
-                root.setOnClickListener { onItemClick.onClick(movie, position) }
+                root.setOnClickListener { onItemClick(movie) }
             }
         }
     }
@@ -50,8 +64,12 @@ class MoviePopularAdapter(private val onItemClick: OnItemClick<MoviePopular>) :
         )
     }
 
+    fun updateItems(itemList: List<MoviePopular>) {
+        submitList(itemList)
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val movie = itemList[position]
+        val movie = getItem(position)
         holder.bindView(movie, position)
     }
 }
