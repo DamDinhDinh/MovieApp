@@ -5,10 +5,11 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_DOUBLE
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 import com.example.data.di.ConfigModule
+import com.example.domain.model.movie.ModelMovie
 import com.example.domain.model.moviepopular.ModelMoviePopular
 import com.example.movieapp.data.entities.moviepopular.JsonMoviePopularResponse
 
-fun JsonMoviePopularResponse.JsonMoviePopular.toModel(): ModelMoviePopular = ModelMoviePopular(
+fun JsonMoviePopularResponse.JsonMoviePopular.toModel(): ModelMovie = ModelMovie(
     adult = adult ?: DEFAULT_BOOLEAN,
     backdropPath = when {
         !backdropPath.isNullOrEmpty() -> ConfigModule.getBaseImgUrl() + backdropPath

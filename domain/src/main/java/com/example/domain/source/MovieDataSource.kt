@@ -10,7 +10,7 @@ interface MovieDataSource {
 
     fun getDetail(id: Int): Single<ModelMovie>
 
-    fun getPopular(): Single<List<ModelMoviePopular>>
+    fun getPopular(): Single<List<ModelMovie>>
 
     fun rateMovie(id: Int, rate: Double): Single<ModelResponseStatus>
 }

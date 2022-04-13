@@ -9,21 +9,21 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
-import com.example.movieapp.databinding.ItemMoviePopularBinding
-import com.example.movieapp.presenter.model.moviepopular.MoviePopular
+import com.example.movieapp.databinding.ItemMovieBinding
+import com.example.movieapp.presenter.model.movie.Movie
 
 
-class MoviePopularAdapter(private val onItemClick: (movie: MoviePopular) -> Unit) :
-    ListAdapter<MoviePopular, MoviePopularAdapter.ViewHolder>(MoviePopularDiff()) {
+class MovieAdapter(private val onItemClick: (movie: Movie) -> Unit) :
+    ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiff()) {
 
-    private val TAG = "MoviePopularAdapter"
+    private val TAG = "MovieAdapter"
 
-    class MoviePopularDiff : DiffUtil.ItemCallback<MoviePopular>() {
-        override fun areItemsTheSame(oldItem: MoviePopular, newItem: MoviePopular): Boolean {
+    class MovieDiff : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: MoviePopular, newItem: MoviePopular): Boolean {
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem == newItem
         }
 
@@ -31,13 +31,13 @@ class MoviePopularAdapter(private val onItemClick: (movie: MoviePopular) -> Unit
 
     class ViewHolder(
         view: View,
-        val onItemClick: (movie: MoviePopular) -> Unit
+        val onItemClick: (movie: Movie) -> Unit
     ) :
         RecyclerView.ViewHolder(view) {
 
-        private val binding: ItemMoviePopularBinding by viewBinding()
+        private val binding: ItemMovieBinding by viewBinding()
 
-        fun bindView(movie: MoviePopular, position: Int) {
+        fun bindView(movie: Movie, position: Int) {
             this.binding.run {
                 Glide.with(imvPoster).load(movie.posterPath)
                     .into(imvPoster)
@@ -57,7 +57,7 @@ class MoviePopularAdapter(private val onItemClick: (movie: MoviePopular) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_movie_popular, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
 
         return ViewHolder(
             view, onItemClick

@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.moviepopularlist
+package com.example.movieapp.presenter.movielist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,19 +7,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.common.applySchedulers
 import com.example.common.logs
 import com.example.domain.usecase.movie.GetPopularMoviesUseCase
-import com.example.movieapp.presenter.mapper.moviepopular.toPresent
-import com.example.movieapp.presenter.model.moviepopular.MoviePopular
+import com.example.movieapp.presenter.mapper.movie.toPresent
+import com.example.movieapp.presenter.model.movie.Movie
 import javax.inject.Inject
 
-class MoviePopularListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPopularMoviesUseCase) :
+class MovieListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPopularMoviesUseCase) :
     ViewModel(),
-    MoviePopularListContract.ViewModel {
+    MovieListContract.ViewModel {
 
     companion object {
-        private val TAG = MoviePopularListViewModel::class.simpleName
+        private val TAG = MovieListViewModel::class.simpleName
     }
 
-    private val viewStateMutable = MutableLiveData<MoviePopularListContract.ViewState>()
+    private val viewStateMutable = MutableLiveData<MovieListContract.ViewState>()
 
     override fun fetchMoviePopular() {
         getPopularMoviesUseCase().applySchedulers()
@@ -28,13 +28,13 @@ class MoviePopularListViewModel @Inject constructor(val getPopularMoviesUseCase:
             .subscribe({ list -> notifyViewState(list) }, { error -> error.printStackTrace() })
     }
 
-    override fun observeViewState(): LiveData<MoviePopularListContract.ViewState> {
+    override fun observeViewState(): LiveData<MovieListContract.ViewState> {
         return viewStateMutable
     }
 
-    private fun notifyViewState(movieList: List<MoviePopular>) {
+    private fun notifyViewState(movieList: List<Movie>) {
         val newViewState = viewStateMutable.value?.copy(movieList = movieList)
-            ?: MoviePopularListContract.ViewState(movieList)
+            ?: MovieListContract.ViewState(movieList)
         viewStateMutable.value = newViewState
     }
 

@@ -8,7 +8,7 @@ import com.example.data.di.NetWorkModule
 import com.example.movieapp.presenter.moviedetail.AboutMovieFragment
 import com.example.movieapp.presenter.moviedetail.MovieDetailFragment
 import com.example.movieapp.presenter.moviedetail.ReviewMovieFragment
-import com.example.movieapp.presenter.moviepopularlist.MoviePopularListFragment
+import com.example.movieapp.presenter.movielist.MovieListFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -17,7 +17,7 @@ import javax.inject.Singleton
 @Component(modules = [NetWorkModule::class, DataModule::class, ConfigModule::class, ViewModelFactoryModule::class, DatabaseModule::class])
 abstract class AppComponent {
 
-    abstract fun inject(moviePopularListFragment: MoviePopularListFragment)
+    abstract fun inject(movieListFragment: MovieListFragment)
 
     abstract fun inject(movieDetailFragment: MovieDetailFragment)
 

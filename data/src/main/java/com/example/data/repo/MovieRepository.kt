@@ -8,7 +8,6 @@ import com.example.data.remote.mapper.moviepopular.toModel
 import com.example.data.remote.mapper.toModel
 import com.example.domain.model.ModelResponseStatus
 import com.example.domain.model.movie.ModelMovie
-import com.example.domain.model.moviepopular.ModelMoviePopular
 import com.example.domain.source.MovieDataSource
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
@@ -28,7 +27,7 @@ class MovieRepository @Inject constructor(
             .map { it.toModel() }
     }
 
-    override fun getPopular(): Single<List<ModelMoviePopular>> {
+    override fun getPopular(): Single<List<ModelMovie>> {
         return movieApi.getPopular()
             .logs("$TAG getPopular")
             .map { response ->

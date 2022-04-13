@@ -1,9 +1,9 @@
-package com.example.movieapp.presenter.moviepopularlist
+package com.example.movieapp.presenter.movielist
 
 import androidx.lifecycle.LiveData
-import com.example.movieapp.presenter.model.moviepopular.MoviePopular
+import com.example.movieapp.presenter.model.movie.Movie
 
-interface MoviePopularListContract {
+interface MovieListContract {
     interface View {
         fun updateViewState(viewState: ViewState)
     }
@@ -15,5 +15,5 @@ interface MoviePopularListContract {
         fun observeViewState(): LiveData<ViewState>
     }
 
-    data class ViewState(val movieList: List<MoviePopular>)
+    data class ViewState(val movieList: List<Movie>)
 }

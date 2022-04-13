@@ -20,7 +20,7 @@ abstract class MovieDao {
     abstract fun getMovieById(id: Int): Observable<EntityMovie>
 
     @Query("SELECT * FROM movie ORDER BY title")
-    abstract fun getMovieList(id: Int): Observable<List<EntityMovie>>
+    abstract fun getMovieList(): Observable<List<EntityMovie>>
 
     @Query("SELECT * FROM movie ORDER BY popularity DESC")
     abstract fun getPopularMovie(): Observable<List<EntityMovie>>
