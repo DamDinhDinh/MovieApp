@@ -6,7 +6,6 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 import com.example.data.di.ConfigModule
 import com.example.domain.model.movie.ModelMovie
-import com.example.domain.model.moviepopular.ModelMoviePopular
 import com.example.movieapp.data.entities.moviepopular.JsonMoviePopularResponse
 
 fun JsonMoviePopularResponse.JsonMoviePopular.toModel(): ModelMovie = ModelMovie(
@@ -31,24 +30,3 @@ fun JsonMoviePopularResponse.JsonMoviePopular.toModel(): ModelMovie = ModelMovie
     voteAverage = voteAverage ?: DEFAULT_DOUBLE,
     voteCount = voteCount ?: DEFAULT_INT
 )
-
-fun ModelMoviePopular.toJson(): JsonMoviePopularResponse.JsonMoviePopular =
-    JsonMoviePopularResponse.JsonMoviePopular(
-        adult,
-        backdropPath = when {
-            backdropPath.isNotEmpty() -> backdropPath.removePrefix(ConfigModule.getBaseImgUrl())
-            else -> backdropPath
-        },
-        genreIds,
-        id,
-        originalLanguage,
-        originalTitle,
-        overview,
-        popularity,
-        posterPath,
-        releaseDate,
-        title,
-        video,
-        voteAverage,
-        voteCount
-    )
