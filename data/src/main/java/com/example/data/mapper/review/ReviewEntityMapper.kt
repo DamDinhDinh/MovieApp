@@ -1,13 +1,42 @@
-package com.example.data.local.mapper.review
+package com.example.data.mapper.review
 
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
-import com.example.data.remote.jsonmodel.review.JsonReview
 import com.example.data.local.databasemodel.review.EntityAuthorDetails
 import com.example.data.local.databasemodel.review.EntityReview
-import com.example.data.local.mapper.review.toEntity
-import com.example.data.local.mapper.review.toJson
+import com.example.data.remote.jsonmodel.review.JsonReview
+import com.example.domain.model.review.ModelReview
 
+//from this
+fun EntityReview.toJson() = JsonReview(
+    author = author,
+    authorDetails = authorDetails.toJson(),
+    content,
+    createdAt,
+    id,
+    iso6391,
+    mediaId,
+    mediaTitle,
+    mediaType,
+    updatedAt,
+    url
+)
+
+fun EntityReview.toModel() = ModelReview(
+    author = author,
+    authorDetails = authorDetails.toModel(),
+    content,
+    createdAt,
+    id,
+    iso6391,
+    mediaId,
+    mediaTitle,
+    mediaType,
+    updatedAt,
+    url
+)
+
+//other map to this
 fun JsonReview.toEntity(): EntityReview = EntityReview(
     author = author ?: DEFAULT_STRING,
     authorDetails = authorDetails?.toEntity() ?: EntityAuthorDetails(
@@ -27,16 +56,17 @@ fun JsonReview.toEntity(): EntityReview = EntityReview(
     url = url ?: DEFAULT_STRING,
 )
 
-fun EntityReview.toJson() = JsonReview(
+fun ModelReview.toEntity(): EntityReview = EntityReview(
     author = author,
-    authorDetails = authorDetails.toJson(),
-    content,
-    createdAt,
-    id,
-    iso6391,
-    mediaId,
-    mediaTitle,
-    mediaType,
-    updatedAt,
-    url
+    authorDetails = authorDetails.toEntity(),
+    content = content,
+    createdAt = createdAt,
+    id = id,
+    iso6391 = iso6391,
+    mediaId = mediaId,
+    mediaTitle = mediaTitle,
+    mediaType = mediaType,
+    updatedAt = updatedAt,
+    url = url,
 )
+

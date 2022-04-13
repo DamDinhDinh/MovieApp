@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 
+// scheduler util for present layer
 fun <T> Observable<T>.applySchedulers(): Observable<T> = this
     .subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
@@ -23,6 +24,21 @@ fun <T> Maybe<T>.applySchedulers(): Maybe<T> = this
 fun Completable.applySchedulers(): Completable = this
     .subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
+
+
+// scheduler util for data layer
+fun <T> Observable<T>.dataSchedulers(): Observable<T> = this
+    .subscribeOn(Schedulers.io())
+
+fun <T> Single<T>.dataSchedulers(): Single<T> = this
+    .subscribeOn(Schedulers.io())
+
+fun <T> Maybe<T>.dataSchedulers(): Maybe<T> = this
+    .subscribeOn(Schedulers.io())
+
+fun Completable.dataSchedulers(): Completable = this
+    .subscribeOn(Schedulers.io())
+
 
 //log
 fun <T> Observable<T>.logs(tag: String = ""): Observable<T> = this

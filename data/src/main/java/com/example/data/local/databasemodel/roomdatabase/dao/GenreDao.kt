@@ -21,4 +21,7 @@ abstract class GenreDao {
 
     @Query("SELECT * FROM genre")
     abstract fun getListGenre(): Observable<EntityGenre>
+
+    @Query("SELECT * FROM genre INNER JOIN (SELECT * FROM movie_genre WHERE movieId = :movieId) ON id = genreId ")
+    abstract fun getListGenreOfMovie(movieId: Int): Observable<EntityGenre>
 }

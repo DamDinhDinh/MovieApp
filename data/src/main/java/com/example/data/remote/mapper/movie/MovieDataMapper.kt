@@ -14,6 +14,7 @@ fun JsonMovie.toModel() = ModelMovie(
     belongsToCollection = belongsToCollection ?: Any(),
     budget = budget ?: DEFAULT_INT,
     genres = genres?.map { it.toModel() } ?: listOf(),
+    genreIds = genres?.map { it.id!! } ?: listOf(),
     homepage = homepage ?: DEFAULT_STRING,
     id = id ?: DEFAULT_INT,
     imdbId = imdbId ?: DEFAULT_STRING,

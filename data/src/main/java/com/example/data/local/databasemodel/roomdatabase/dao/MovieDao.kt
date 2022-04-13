@@ -8,13 +8,13 @@ import io.reactivex.rxjava3.core.Observable
 abstract class MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(vararg entities: EntityMovie)
+    abstract fun insert(entities: List<EntityMovie>)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun update(vararg entities: EntityMovie)
+    abstract fun update(entities: List<EntityMovie>)
 
     @Delete
-    abstract fun delete(vararg entities: EntityMovie)
+    abstract fun delete(entities: List<EntityMovie>)
 
     @Query("SELECT * FROM movie WHERE id = :id")
     abstract fun getMovieById(id: Int): Observable<EntityMovie>
