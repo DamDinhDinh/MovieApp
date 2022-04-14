@@ -10,6 +10,7 @@ import com.example.domain.usecase.movie.GetMovieByIdUseCase
 import com.example.movieapp.presenter.BaseViewModel
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
+import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
 class MovieDetailViewModel @Inject constructor(
@@ -23,16 +24,19 @@ class MovieDetailViewModel @Inject constructor(
     }
 
     private val viewStateMutable = MutableLiveData<MovieDetailContract.ViewState>()
+    private var getMovieDisposable: Disposable? = null
 
     override fun fetchMovie(id: Int) {
-        disposables.add(
-            getMovieByIdUseCase(GetMovieByIdUseCase.Request(id)).applySchedulers()
+        getMovieDisposable?.let { if (!it.isDisposed) it.dispose() }
+        getMovieDisposable =
+            getMovieByIdUseCase(GetMovieByIdUseCase.Request(id))
+                .applySchedulers()
                 .map { it.toPresent() }
                 .logs("$TAG fetchMovie")
                 .subscribe(
                     { movie -> notifyViewState(movie) },
                     { error -> error.printStackTrace() })
-        )
+
     }
 
     override fun observeViewState(): LiveData<MovieDetailContract.ViewState> {
