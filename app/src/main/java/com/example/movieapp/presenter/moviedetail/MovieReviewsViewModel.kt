@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.common.applySchedulers
 import com.example.common.logs
 import com.example.domain.usecase.movie.GetMovieReviewsUseCase
+import com.example.movieapp.presenter.BaseViewModel
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.review.Review
 import javax.inject.Inject
@@ -14,7 +15,7 @@ import javax.inject.Inject
 class MovieReviewsViewModel @Inject constructor(
     private val getMovieReviewsUseCase: GetMovieReviewsUseCase
 ) :
-    ViewModel(),
+    BaseViewModel(),
     MovieReviewContract.ViewModel {
 
     companion object {
@@ -24,10 +25,12 @@ class MovieReviewsViewModel @Inject constructor(
     private val viewStateMutable = MutableLiveData<MovieReviewContract.ViewState>()
 
     override fun fetchReviews(id: Int) {
-        getMovieReviewsUseCase(GetMovieReviewsUseCase.Request(id)).applySchedulers()
-            .map { list -> list.map { it.toPresent() } }
-            .logs("$TAG fetchReviews")
-            .subscribe({ list -> notifyViewState(list) }, { error -> error.printStackTrace() })
+        disposables.add(
+            getMovieReviewsUseCase(GetMovieReviewsUseCase.Request(id)).applySchedulers()
+                .map { list -> list.map { it.toPresent() } }
+                .logs("$TAG fetchReviews")
+                .subscribe({ list -> notifyViewState(list) }, { error -> error.printStackTrace() })
+        )
     }
 
     override fun observeViewState(): LiveData<MovieReviewContract.ViewState> {
@@ -40,7 +43,7 @@ class MovieReviewsViewModel @Inject constructor(
         viewStateMutable.value = newViewState
     }
 
-    class Factory @Inject constructor(val getMovieReviewsUseCase: GetMovieReviewsUseCase) :
+    class Factory @Inject constructor(private val getMovieReviewsUseCase: GetMovieReviewsUseCase) :
         ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

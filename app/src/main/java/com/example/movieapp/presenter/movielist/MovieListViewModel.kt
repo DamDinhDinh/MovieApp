@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.common.applySchedulers
 import com.example.common.logs
 import com.example.domain.usecase.movie.GetPopularMoviesUseCase
+import com.example.movieapp.presenter.BaseViewModel
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
 import javax.inject.Inject
 
 class MovieListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPopularMoviesUseCase) :
-    ViewModel(),
+    BaseViewModel(),
     MovieListContract.ViewModel {
 
     companion object {
@@ -22,10 +23,12 @@ class MovieListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPop
     private val viewStateMutable = MutableLiveData<MovieListContract.ViewState>()
 
     override fun fetchMoviePopular() {
-        getPopularMoviesUseCase().applySchedulers()
-            .map { list -> list.map { it.toPresent() } }
-            .logs("$TAG fetchMoviePopular")
-            .subscribe({ list -> notifyViewState(list) }, { error -> error.printStackTrace() })
+        disposables.add(
+            getPopularMoviesUseCase().applySchedulers()
+                .map { list -> list.map { it.toPresent() } }
+                .logs("$TAG fetchMoviePopular")
+                .subscribe({ list -> notifyViewState(list) }, { error -> error.printStackTrace() })
+        )
     }
 
     override fun observeViewState(): LiveData<MovieListContract.ViewState> {
@@ -38,14 +41,8 @@ class MovieListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPop
         viewStateMutable.value = newViewState
     }
 
-    class Factory :
+    class Factory @Inject constructor(private val getPopularMoviesUseCase: GetPopularMoviesUseCase) :
         ViewModelProvider.Factory {
-        private val getPopularMoviesUseCase: GetPopularMoviesUseCase
-
-        @Inject
-        constructor(getPopularMoviesUseCase: GetPopularMoviesUseCase) {
-            this.getPopularMoviesUseCase = getPopularMoviesUseCase
-        }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return modelClass.getConstructor(GetPopularMoviesUseCase::class.java)

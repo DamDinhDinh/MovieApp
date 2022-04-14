@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.common.applySchedulers
 import com.example.common.logs
 import com.example.domain.usecase.movie.GetMovieByIdUseCase
+import com.example.movieapp.presenter.BaseViewModel
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
 import javax.inject.Inject
@@ -14,7 +15,7 @@ import javax.inject.Inject
 class MovieDetailViewModel @Inject constructor(
     private val getMovieByIdUseCase: GetMovieByIdUseCase
 ) :
-    ViewModel(),
+    BaseViewModel(),
     MovieDetailContract.ViewModel {
 
     companion object {
@@ -24,10 +25,14 @@ class MovieDetailViewModel @Inject constructor(
     private val viewStateMutable = MutableLiveData<MovieDetailContract.ViewState>()
 
     override fun fetchMovie(id: Int) {
-        getMovieByIdUseCase(GetMovieByIdUseCase.Request(id)).applySchedulers()
-            .map { it.toPresent() }
-            .logs("$TAG fetchMovie")
-            .subscribe({ movie -> notifyViewState(movie) }, { error -> error.printStackTrace() })
+        disposables.add(
+            getMovieByIdUseCase(GetMovieByIdUseCase.Request(id)).applySchedulers()
+                .map { it.toPresent() }
+                .logs("$TAG fetchMovie")
+                .subscribe(
+                    { movie -> notifyViewState(movie) },
+                    { error -> error.printStackTrace() })
+        )
     }
 
     override fun observeViewState(): LiveData<MovieDetailContract.ViewState> {
