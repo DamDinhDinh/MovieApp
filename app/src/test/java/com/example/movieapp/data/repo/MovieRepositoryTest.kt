@@ -1,6 +1,6 @@
 package com.example.movieapp.data.repo
 
-import com.example.data.local.databasemodel.roomdatabase.dao.MovieDao
+import com.example.data.local.roomdatabase.dao.MovieDao
 import com.example.data.remote.api.MovieApi
 import com.example.data.remote.jsonmodel.movie.JsonMovie
 import com.example.data.repo.MovieRepository

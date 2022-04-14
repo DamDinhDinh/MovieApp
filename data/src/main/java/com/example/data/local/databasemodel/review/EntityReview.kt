@@ -24,4 +24,6 @@ data class EntityReview(
     var mediaType: String = DEFAULT_STRING,
     var updatedAt: String = DEFAULT_STRING,
     var url: String = DEFAULT_STRING,
+    var movieId: Int = DEFAULT_INT,
+    var tvShowId: Int = DEFAULT_INT
 )

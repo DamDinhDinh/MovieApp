@@ -1,4 +1,4 @@
-package com.example.data.local.databasemodel.roomdatabase
+package com.example.data.local.roomdatabase
 
 interface DatabaseVersionLog {
     companion object {

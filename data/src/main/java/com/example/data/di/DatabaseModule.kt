@@ -2,7 +2,7 @@ package com.example.data.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.data.local.databasemodel.roomdatabase.MovieRoomDatabase
+import com.example.data.local.roomdatabase.MovieRoomDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

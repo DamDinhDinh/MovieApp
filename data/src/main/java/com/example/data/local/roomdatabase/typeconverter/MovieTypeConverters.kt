@@ -1,4 +1,4 @@
-package com.example.data.local.databasemodel.roomdatabase.typeconverter
+package com.example.data.local.roomdatabase.typeconverter
 
 import androidx.room.TypeConverter
 import com.example.data.local.databasemodel.movie.EntityProductionCountry

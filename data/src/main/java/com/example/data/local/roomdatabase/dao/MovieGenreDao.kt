@@ -1,4 +1,4 @@
-package com.example.data.local.databasemodel.roomdatabase.dao
+package com.example.data.local.roomdatabase.dao
 
 import androidx.room.*
 import com.example.data.local.databasemodel.movie.EntityMovieGenre

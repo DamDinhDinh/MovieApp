@@ -1,4 +1,4 @@
-package com.example.data.mapper.movie
+package com.example.data.local.mapper.movie
 
 import com.example.common.DefaultModelValue.Companion.DEFAULT_BOOLEAN
 import com.example.common.DefaultModelValue.Companion.DEFAULT_DOUBLE

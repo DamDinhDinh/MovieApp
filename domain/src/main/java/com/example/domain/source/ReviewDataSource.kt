@@ -1,9 +1,9 @@
 package com.example.domain.source
 
 import com.example.domain.model.review.ModelReview
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Observable
 
 interface ReviewDataSource {
 
-    fun getReviewsOfMovie(movieId: Int): Single<List<ModelReview>>
+    fun getReviewsOfMovie(movieId: Int): Observable<List<ModelReview>>
 }
