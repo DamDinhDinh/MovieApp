@@ -22,16 +22,22 @@ class ReviewRepository @Inject constructor(
     }
 
     override fun getReviewsOfMovie(movieId: Int): Observable<List<ModelReview>> {
-        reviewApi.getReviewsOfMovie(movieId)
-            .dataSchedulers()
-            .logs("$TAG remote getReviewsOfMovie id = $movieId")
-            .map { response ->
-                if (!response.results.isNullOrEmpty()) response.results.map { it.toEntity().apply { this.movieId = movieId } } else listOf()
-            }.subscribe({ list -> reviewDao.insert(list) },
-                { error -> Timber.e("$TAG remote getReviewsOfMovie id = $movieId ${error.message}") })
+        fetchReviewOfMovie(movieId)
 
         return reviewDao.getReviewOfMovie(movieId)
             .logs("$TAG local getReviewsOfMovie id =$movieId ")
             .map { list -> list.map { it.toModel() } }
+    }
+
+    fun fetchReviewOfMovie(movieId: Int) {
+        reviewApi.getReviewsOfMovie(movieId)
+            .dataSchedulers()
+            .logs("$TAG remote fetchReviewOfMovie id = $movieId")
+            .map { response ->
+                if (!response.results.isNullOrEmpty()) response.results.map {
+                    it.toEntity().apply { this.movieId = movieId }
+                } else listOf()
+            }.subscribe({ list -> reviewDao.insert(list) },
+                { error -> Timber.e("$TAG remote fetchReviewOfMovie id = $movieId ${error.message}") })
     }
 }

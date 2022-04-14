@@ -2,9 +2,9 @@ package com.example.data.repo
 
 import com.example.common.dataSchedulers
 import com.example.common.logs
-import com.example.data.local.roomdatabase.dao.MovieDao
 import com.example.data.local.mapper.movie.toEntity
 import com.example.data.local.mapper.movie.toModel
+import com.example.data.local.roomdatabase.dao.MovieDao
 import com.example.data.remote.api.MovieApi
 import com.example.data.remote.mapper.moviepopular.toEntity
 import com.example.data.remote.mapper.toModel
@@ -26,31 +26,39 @@ class MovieRepository @Inject constructor(
     }
 
     override fun getDetail(id: Int): Observable<ModelMovie> {
-        movieApi.getDetail(id)
-            .dataSchedulers()
-            .logs("$TAG remote getDetail id = $id")
-            .map { it.toEntity() }
-            .subscribe({ movieDao.insert(listOf(it)) },
-                { error -> Timber.e("$TAG remote getDetail id = $id ${error.message}") })
+        fetchMovieDetail(id)
 
         return movieDao.getMovieById(id)
             .logs("$TAG local getDetail id = $id")
             .map { it.toModel() }
     }
 
+    fun fetchMovieDetail(id: Int) {
+        movieApi.getDetail(id)
+            .dataSchedulers()
+            .logs("$TAG remote fetchMovieDetail id = $id")
+            .map { it.toEntity() }
+            .subscribe({ movieDao.insert(listOf(it)) },
+                { error -> Timber.e("$TAG remote fetchMovieDetail id = $id ${error.message}") })
+    }
+
     override fun getPopular(): Observable<List<ModelMovie>> {
+        fetchPopularMovie()
+        
+        return movieDao.getPopularMovie()
+            .logs("$TAG local getPopular ")
+            .map { list -> list.map { it.toModel() } }
+    }
+
+    fun fetchPopularMovie() {
         movieApi.getPopular()
             .dataSchedulers()
-            .logs("$TAG remote getPopular")
+            .logs("$TAG remote fetchPopularMovie")
             .map { response ->
                 if (!response.results.isNullOrEmpty()) response.results.map { it.toEntity() } else listOf()
             }
             .subscribe({ list -> movieDao.insert(list) },
-                { error -> Timber.e("$TAG remote getPopular ${error.message}") })
-
-        return movieDao.getPopularMovie()
-            .logs("$TAG local getPopular ")
-            .map { list -> list.map { it.toModel() } }
+                { error -> Timber.e("$TAG remote fetchPopularMovie ${error.message}") })
     }
 
     override fun rateMovie(id: Int, rate: Double): Single<ModelResponseStatus> {
