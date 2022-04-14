@@ -1,5 +1,6 @@
 package com.example.data.local.databasemodel.review
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
@@ -17,6 +18,7 @@ data class EntityReview(
     var content: String = DEFAULT_STRING,
     var createdAt: String = DEFAULT_STRING,
     @PrimaryKey
+    @ColumnInfo(name = "reviewId")
     var id: String = DEFAULT_STRING,
     var iso6391: String = DEFAULT_STRING,
     var mediaId: Int = DEFAULT_INT,

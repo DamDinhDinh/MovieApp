@@ -16,12 +16,9 @@ abstract class GenreDao {
     @Delete
     abstract fun delete(vararg entities: EntityGenre)
 
-    @Query("SELECT * FROM genre WHERE id = :id")
+    @Query("SELECT * FROM genre WHERE genreId = :id")
     abstract fun getGenreById(id: Int): Observable<EntityGenre>
 
     @Query("SELECT * FROM genre")
     abstract fun getListGenre(): Observable<EntityGenre>
-
-    @Query("SELECT * FROM genre INNER JOIN (SELECT * FROM movie_genre WHERE movieId = :movieId) ON id = genreId ")
-    abstract fun getListGenreOfMovie(movieId: Int): Observable<EntityGenre>
 }

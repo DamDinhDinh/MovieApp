@@ -1,5 +1,6 @@
 package com.example.data.local.databasemodel.movie
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -19,6 +20,7 @@ data class EntityMovie(
     var genres: List<EntityGenre> = listOf(), // save as EntityMovieGenre
     var homepage: String = DEFAULT_STRING,
     @PrimaryKey
+    @ColumnInfo(name = "movieId")
     var id: Int = DEFAULT_INT,
     var imdbId: String = DEFAULT_STRING,
     var originalLanguage: String = DEFAULT_STRING,
