@@ -78,11 +78,12 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
         }.attach()
 
         viewModel = ViewModelProvider(this, vmFactory)[MovieDetailViewModel::class.java]
-        viewModel.apply {
-            fetchMovie(args.id)
-            observeViewState()
-                .observe(viewLifecycleOwner) { viewState -> renderMovie(viewState.movie) }
+        if (savedInstanceState == null) {
+            viewModel.fetchMovie(args.id)
         }
+        viewModel.observeViewState()
+            .observe(viewLifecycleOwner) { viewState -> renderMovie(viewState.movie) }
+
     }
 
     override fun onResume() {

@@ -39,7 +39,7 @@ class MovieListFragment : Fragment(), MovieListContract.View {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return binding.root
     }
@@ -54,10 +54,12 @@ class MovieListFragment : Fragment(), MovieListContract.View {
         }
 
         viewModel = ViewModelProvider(this, vmFactory)[MovieListViewModel::class.java]
-        viewModel.apply {
-            fetchMoviePopular()
-            observeViewState().observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
+        if (savedInstanceState == null) {
+            viewModel.fetchMoviePopular()
         }
+
+        viewModel.observeViewState()
+            .observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
     }
 
     override fun updateViewState(viewState: MovieListContract.ViewState) {

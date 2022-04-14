@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -64,23 +63,18 @@ class ReviewMovieFragment : Fragment(), MovieReviewContract.View {
             addItemDecoration(SpacingItemDecoration(bottom = 20.toPx().toInt()))
         }
 
-        detailViewModel = ViewModelProvider(
-            requireParentFragment().viewModelStore,
-            detailVmFactory
-        )[MovieDetailViewModel::class.java]
-        detailViewModel.apply {
-            observeViewState()
-                .observe(viewLifecycleOwner) {
-                        viewState ->
+        detailViewModel = ViewModelProvider(requireParentFragment().viewModelStore,
+            detailVmFactory)[MovieDetailViewModel::class.java]
+        detailViewModel.observeViewState()
+            .observe(viewLifecycleOwner) { viewState ->
+                if (savedInstanceState == null) {
                     reviewViewModel.fetchReviews(viewState.movie.id)
                     Timber.d("$TAG detailViewModel observeViewState $viewState")
                 }
-        }
+            }
 
-        reviewViewModel = ViewModelProvider(
-            this,
-            reviewVmFactory
-        )[MovieReviewsViewModel::class.java]
+        reviewViewModel =
+            ViewModelProvider(this, reviewVmFactory)[MovieReviewsViewModel::class.java]
         reviewViewModel.observeViewState()
             .observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
     }
