@@ -20,6 +20,14 @@ import javax.inject.Inject
 
 class ReviewMovieFragment : Fragment(), MovieReviewContract.View {
 
+    class Params
+
+    companion object {
+        fun newInstance(param: Params): ReviewMovieFragment {
+            return ReviewMovieFragment()
+        }
+    }
+
     private val TAG = "ReviewMovieFragment"
 
     @Inject
@@ -63,20 +71,30 @@ class ReviewMovieFragment : Fragment(), MovieReviewContract.View {
             addItemDecoration(SpacingItemDecoration(bottom = 20.toPx().toInt()))
         }
 
-        detailViewModel = ViewModelProvider(requireParentFragment().viewModelStore,
-            detailVmFactory)[MovieDetailViewModel::class.java]
-        detailViewModel.observeViewState()
-            .observe(viewLifecycleOwner) { viewState ->
-                if (savedInstanceState == null) {
-                    reviewViewModel.fetchReviews(viewState.movie.id)
-                    Timber.d("$TAG detailViewModel observeViewState $viewState")
+        detailViewModel = ViewModelProvider(
+            requireParentFragment().viewModelStore,
+            detailVmFactory
+        )[MovieDetailViewModel::class.java]
+            .apply {
+                observeViewState().observe(viewLifecycleOwner) { viewState ->
+                    if (savedInstanceState == null) {
+                        reviewViewModel.fetchReviews(viewState.movie.id)
+                        Timber.d("$TAG detailViewModel observeViewState $viewState")
+                    }
                 }
             }
 
-        reviewViewModel =
-            ViewModelProvider(this, reviewVmFactory)[MovieReviewsViewModel::class.java]
-        reviewViewModel.observeViewState()
-            .observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
+        reviewViewModel = ViewModelProvider(
+            this,
+            reviewVmFactory
+        )[MovieReviewsViewModel::class.java]
+            .apply {
+                observeViewState().observe(viewLifecycleOwner) { viewState ->
+                    updateViewState(
+                        viewState
+                    )
+                }
+            }
     }
 
     override fun updateViewState(viewState: MovieReviewContract.ViewState) {

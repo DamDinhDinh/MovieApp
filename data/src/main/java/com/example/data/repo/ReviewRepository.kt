@@ -34,10 +34,11 @@ class ReviewRepository @Inject constructor(
             .dataSchedulers()
             .logs("$TAG remote fetchReviewOfMovie id = $movieId")
             .map { response ->
-                if (!response.results.isNullOrEmpty()) response.results.map {
+                response.results?.map {
                     it.toEntity().apply { this.movieId = movieId }
-                } else listOf()
-            }.subscribe({ list -> reviewDao.insert(list) },
+                } ?: listOf()
+            }
+            .subscribe({ list -> reviewDao.insert(list) },
                 { error -> Timber.e("$TAG remote fetchReviewOfMovie id = $movieId ${error.message}") })
     }
 }

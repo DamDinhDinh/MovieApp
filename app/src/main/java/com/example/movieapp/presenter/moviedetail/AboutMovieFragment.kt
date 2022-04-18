@@ -20,6 +20,14 @@ import javax.inject.Inject
  */
 class AboutMovieFragment : Fragment(), MovieDetailContract.View {
 
+    class Params
+
+    companion object {
+        fun newInstance(param: Params): AboutMovieFragment {
+            return AboutMovieFragment()
+        }
+    }
+
     private val TAG = "AboutMovieFragment"
 
     @Inject
@@ -47,13 +55,12 @@ class AboutMovieFragment : Fragment(), MovieDetailContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(
-            requireParentFragment().viewModelStore,
-            vmFactory
+            requireParentFragment().viewModelStore, vmFactory
         )[MovieDetailViewModel::class.java]
-        viewModel.apply {
-            observeViewState()
-                .observe(viewLifecycleOwner) { viewState -> renderMovie(viewState.movie) }
-        }
+            .apply {
+                observeViewState()
+                    .observe(viewLifecycleOwner) { renderMovie(it.movie) }
+            }
     }
 
     override fun onResume() {

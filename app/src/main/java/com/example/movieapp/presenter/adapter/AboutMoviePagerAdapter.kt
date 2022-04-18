@@ -12,14 +12,13 @@ class AboutMoviePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment
 
     override fun getItemCount(): Int {
         return 2
-
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> AboutMovieFragment()
-            1 -> ReviewMovieFragment()
-            else -> AboutMovieFragment()
+            0 -> AboutMovieFragment.newInstance(AboutMovieFragment.Params())
+            1 -> ReviewMovieFragment.newInstance(ReviewMovieFragment.Params())
+            else -> throw IllegalArgumentException("Page position incorrect")
         }
     }
 }

@@ -55,34 +55,39 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvGenre.apply {
-            adapter = genreAdapter
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            addItemDecoration(SpacingItemDecoration(end = 12.toPx().toInt()))
-        }
+        binding.apply {
+            rvGenre.apply {
+                adapter = genreAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                addItemDecoration(SpacingItemDecoration(end = 12.toPx().toInt()))
+            }
 
-        binding.viewPagerInfo.apply {
-            adapter = AboutMoviePagerAdapter(this@MovieDetailFragment)
+            viewPagerInfo.apply {
+                adapter = AboutMoviePagerAdapter(this@MovieDetailFragment)
+            }
         }
+        
         TabLayoutMediator(
             binding.tabLayoutInfo,
             binding.viewPagerInfo
         ) { tab, position ->
-            run {
-                tab.text = when (position) {
-                    0 -> context?.getString(R.string.about_movie_label)
-                    1 -> context?.getString(R.string.reviews_label)
-                    else -> ""
-                }
+            tab.text = when (position) {
+                0 -> context?.getString(R.string.about_movie_label)
+                1 -> context?.getString(R.string.reviews_label)
+                else -> ""
             }
         }.attach()
 
-        viewModel = ViewModelProvider(this, vmFactory)[MovieDetailViewModel::class.java]
-        if (savedInstanceState == null) {
-            viewModel.fetchMovie(args.id)
-        }
-        viewModel.observeViewState()
-            .observe(viewLifecycleOwner) { viewState -> renderMovie(viewState.movie) }
+        viewModel = ViewModelProvider(
+            this, vmFactory
+        )[MovieDetailViewModel::class.java]
+            .apply {
+                if (savedInstanceState == null) {
+                    fetchMovie(args.id)
+                }
+                observeViewState()
+                    .observe(viewLifecycleOwner) { renderMovie(it.movie) }
+            }
 
     }
 
