@@ -35,7 +35,13 @@ class MovieAdapter(private val onItemClick: (movie: Movie) -> Unit) :
     ) :
         RecyclerView.ViewHolder(view) {
 
+        private var movie: Movie? = null
+
         private val binding: ItemMovieBinding by viewBinding()
+
+        init {
+            binding.root.setOnClickListener { movie?.let { onItemClick(it) } }
+        }
 
         fun bindView(movie: Movie) {
             this.binding.run {
@@ -50,8 +56,9 @@ class MovieAdapter(private val onItemClick: (movie: Movie) -> Unit) :
                         movie.voteAverage.toString()
                     )
 
-                root.setOnClickListener { onItemClick(movie) }
             }
+
+            this.movie = movie
         }
     }
 

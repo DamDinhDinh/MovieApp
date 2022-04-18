@@ -30,6 +30,12 @@ open class ReviewAdapter(private val onItemClick: (review: Review) -> Unit) :
     ) :
         RecyclerView.ViewHolder(itemReviewBinding.root) {
 
+        private var review: Review? = null
+
+        init {
+            itemReviewBinding.root.setOnClickListener { review?.let { onItemClick(it) } }
+        }
+
         fun bindView(review: Review) {
             itemReviewBinding.run {
                 tvCreateAt.text = review.createdAt.substring(0, 10)
@@ -39,8 +45,9 @@ open class ReviewAdapter(private val onItemClick: (review: Review) -> Unit) :
                     if (review.authorDetails.rating != DEFAULT_INT) review.authorDetails.rating.toString() else ""
                 Glide.with(imgAuthorAvatar).load(review.authorDetails.avatarPath)
                     .into(imgAuthorAvatar)
-                root.setOnClickListener { onItemClick(review) }
             }
+
+            this.review = review
         }
 
     }

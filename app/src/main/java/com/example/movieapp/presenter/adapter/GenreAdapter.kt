@@ -29,11 +29,17 @@ open class GenreAdapter(private val onItemClick: (genre: Genre) -> Unit) :
     ) :
         RecyclerView.ViewHolder(itemGenreBinding.root) {
 
+        private var genre: Genre? = null
+
+        init {
+            itemGenreBinding.root.setOnClickListener { genre?.let { onItemClick(it) } }
+        }
+
         fun bindView(genre: Genre) {
             itemGenreBinding.run {
                 tvGenreType.text = genre.name
-                root.setOnClickListener { onItemClick(genre) }
             }
+            this.genre = genre
         }
 
     }
