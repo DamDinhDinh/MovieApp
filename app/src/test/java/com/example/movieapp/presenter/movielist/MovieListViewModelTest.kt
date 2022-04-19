@@ -70,6 +70,7 @@ class MovieListViewModelTest {
 //        vm.observeViewState().observeForever(observer)
 //        latch.await(2, TimeUnit.SECONDS)
 
+        //TODO: Do not use mapping here
         assertEquals(movies.map { it.toPresent() }, vm.observeViewState().value?.movieList)
     }
 

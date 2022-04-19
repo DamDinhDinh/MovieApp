@@ -32,6 +32,8 @@ class MovieListFragment : Fragment(), MovieListContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        //TODO: Safe cast
         val appComponent = (activity?.application as MyApplication).appComponent
         appComponent.inject(this)
     }
@@ -54,6 +56,8 @@ class MovieListFragment : Fragment(), MovieListContract.View {
         }
 
         viewModel = ViewModelProvider(this, vmFactory)[MovieListViewModel::class.java]
+
+        //TODO: Can check data from ViewModel
         if (savedInstanceState == null) {
             viewModel.fetchMoviePopular()
         }

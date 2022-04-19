@@ -26,6 +26,7 @@ class MovieListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPop
 
     override fun fetchMoviePopular() {
         getMoviePopularDisposable?.let { if (!it.isDisposed) it.dispose() }
+        //TODO: add to CompositeDisposable
         getMoviePopularDisposable =
             getPopularMoviesUseCase().applySchedulers()
                 .map { list -> list.map { it.toPresent() } }

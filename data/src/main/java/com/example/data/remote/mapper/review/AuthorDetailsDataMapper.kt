@@ -7,6 +7,7 @@ import com.example.data.remote.jsonmodel.review.JsonAuthorDetails
 import com.example.data.local.databasemodel.review.EntityAuthorDetails
 import com.example.domain.model.review.ModelAuthorDetails
 
+//TODO: Do not do this, add extra property to Domain/Presentation model
 fun JsonAuthorDetails.toModel(): ModelAuthorDetails = ModelAuthorDetails(
     avatarPath = when {
         !avatarPath.isNullOrEmpty() -> ConfigModule.getBaseImgUrl() + avatarPath

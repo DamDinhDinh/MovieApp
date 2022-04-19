@@ -44,7 +44,9 @@ class MovieRepository @Inject constructor(
 
     override fun getPopular(): Observable<List<ModelMovie>> {
         fetchPopularMovie()
-        
+
+        //TODO: Is there a cleaner way (expose observable source directly from DAO)
+        //separate this function
         return movieDao.getPopularMovie()
             .logs("$TAG local getPopular ")
             .map { list -> list.map { it.toModel() } }
@@ -56,6 +58,8 @@ class MovieRepository @Inject constructor(
             .logs("$TAG remote fetchPopularMovie")
             .map { response ->
                 if (!response.results.isNullOrEmpty()) response.results.map { it.toEntity() } else listOf()
+            //TODO: cleaner way
+            //response.results?.map { it.toEntity() } ?: listOf()
             }
             .subscribe({ list -> movieDao.insert(list) },
                 { error -> Timber.e("$TAG remote fetchPopularMovie ${error.message}") })

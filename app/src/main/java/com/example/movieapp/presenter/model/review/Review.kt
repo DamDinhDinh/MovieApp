@@ -1,5 +1,7 @@
 package com.example.movieapp.presenter.model.review
 
+import com.example.common.DefaultModelValue
+
 data class Review(
     val author: String,
     val authorDetails: AuthorDetails,
@@ -12,4 +14,8 @@ data class Review(
     val mediaType: String,
     val updatedAt: String,
     val url: String
-)
+) {
+    //TODO: Add property to take advantage of this Model as Presenter Model
+    val authorRating =
+        if (authorDetails.rating != DefaultModelValue.DEFAULT_INT) authorDetails.rating.toString() else ""
+}
