@@ -5,7 +5,8 @@ import androidx.lifecycle.Observer
 import com.example.domain.model.movie.ModelMovie
 import com.example.domain.usecase.movie.GetPopularMoviesUseCase
 import com.example.movieapp.RxImmediateSchedulerRule
-import com.example.movieapp.getOrAwaitValueTest
+import com.example.movieapp.presenter.mapper.movie.toPresent
+import com.example.movieapp.presenter.model.movie.Movie
 import io.reactivex.rxjava3.core.Observable
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -57,19 +58,19 @@ class MovieListViewModelTest {
 
 
         //then
-        var resultMovies: List<ModelMovie>? = null
-        val latch = CountDownLatch(1)
-        val observer = object : Observer<MovieListContract.ViewState> {
-            override fun onChanged(viewstate: MovieListContract.ViewState?) {
-                resultMovies = viewstate?.let { movies }
-                latch.countDown()
-                vm.observeViewState().removeObserver(this)
-            }
-        }
-        vm.observeViewState().observeForever(observer)
-        latch.await(2, TimeUnit.SECONDS)
+//        var resultMovies: List<Movie>? = null
+//        val latch = CountDownLatch(1)
+//        val observer = object : Observer<MovieListContract.ViewState> {
+//            override fun onChanged(viewstate: MovieListContract.ViewState?) {
+//                resultMovies = viewstate?.movieList
+//                latch.countDown()
+//                vm.observeViewState().removeObserver(this)
+//            }
+//        }
+//        vm.observeViewState().observeForever(observer)
+//        latch.await(2, TimeUnit.SECONDS)
 
-        assertEquals(resultMovies, movies)
+        assertEquals(movies.map { it.toPresent() }, vm.observeViewState().value?.movieList)
     }
 
 //    @Test
