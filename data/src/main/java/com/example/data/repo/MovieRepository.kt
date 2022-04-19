@@ -51,16 +51,12 @@ class MovieRepository @Inject constructor(
             .logs("$TAG local getPopular ")
             .map { list -> list.map { it.toModel() } }
     }
-
+    
     fun fetchPopularMovie() {
         movieApi.getPopular()
             .dataSchedulers()
             .logs("$TAG remote fetchPopularMovie")
-            .map { response ->
-                if (!response.results.isNullOrEmpty()) response.results.map { it.toEntity() } else listOf()
-            //TODO: cleaner way
-            //response.results?.map { it.toEntity() } ?: listOf()
-            }
+            .map { it.results?.map { movie -> movie.toEntity() } ?: listOf() }
             .subscribe({ list -> movieDao.insert(list) },
                 { error -> Timber.e("$TAG remote fetchPopularMovie ${error.message}") })
     }

@@ -5,7 +5,7 @@ import com.example.common.DefaultModelValue
 data class ModelMovie(
     val adult: Boolean = DefaultModelValue.DEFAULT_BOOLEAN,
     val backdropPath: String = DefaultModelValue.DEFAULT_STRING,
-    val belongsToCollection: Any = Any(),
+    val belongsToCollection: Any = DefaultModelValue.DEFAULT_STRING,
     val budget: Int = DefaultModelValue.DEFAULT_INT,
     val genres: List<ModelGenre> = listOf(),
     val genreIds: List<Int> = listOf(),

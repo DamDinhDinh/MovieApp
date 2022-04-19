@@ -45,7 +45,7 @@ class MovieAdapter(private val onItemClick: (movie: Movie) -> Unit) :
 
         fun bindView(movie: Movie) {
             this.binding.run {
-                Glide.with(imvPoster).load(movie.posterPath)
+                Glide.with(imvPoster).load(movie.posterPathFull)
                     .into(imvPoster)
                 tvTitle.text = root.context.getString(R.string.movie_title_label, movie.title)
                 tvReleaseDate.text =

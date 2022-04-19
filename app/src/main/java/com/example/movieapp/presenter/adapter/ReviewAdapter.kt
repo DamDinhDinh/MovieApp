@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.movieapp.databinding.ItemReviewBinding
 import com.example.movieapp.presenter.adapter.ReviewAdapter.ViewHolder
 import com.example.movieapp.presenter.model.review.Review
+import timber.log.Timber
 
 open class ReviewAdapter(private val onItemClick: (review: Review) -> Unit) :
     ListAdapter<Review, ViewHolder>(ReviewDiff()) {
@@ -38,12 +38,12 @@ open class ReviewAdapter(private val onItemClick: (review: Review) -> Unit) :
 
         fun bindView(review: Review) {
             itemReviewBinding.run {
-                tvCreateAt.text = review.createdAt.substring(0, 10)
+                tvCreateAt.text = review.createdAtDDMMYYYY
                 tvReviewContent.text = review.content
                 tvAuthorName.text = review.author
-                tvAuthorRate.text =
-                    if (review.authorDetails.rating != DEFAULT_INT) review.authorDetails.rating.toString() else ""
-                Glide.with(imgAuthorAvatar).load(review.authorDetails.avatarPath)
+                tvAuthorRate.text = review.authorDetails.authorRating
+                Timber.d("ReviewAdapter review.authorDetails.avatarPathFull ${review.authorDetails.avatarPathFull}")
+                Glide.with(imgAuthorAvatar).load(review.authorDetails.avatarPathFull)
                     .into(imgAuthorAvatar)
             }
 

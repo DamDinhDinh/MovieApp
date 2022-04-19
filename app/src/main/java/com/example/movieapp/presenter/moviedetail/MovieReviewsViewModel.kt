@@ -8,7 +8,7 @@ import com.example.common.applySchedulers
 import com.example.common.logs
 import com.example.domain.usecase.movie.GetMovieReviewsUseCase
 import com.example.movieapp.presenter.BaseViewModel
-import com.example.movieapp.presenter.mapper.movie.toPresent
+import com.example.movieapp.presenter.mapper.review.toPresent
 import com.example.movieapp.presenter.model.review.Review
 import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject

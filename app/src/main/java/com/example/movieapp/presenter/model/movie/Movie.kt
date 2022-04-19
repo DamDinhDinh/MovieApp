@@ -1,29 +1,42 @@
 package com.example.movieapp.presenter.model.movie
 
+import com.example.common.DefaultModelValue.Companion.DEFAULT_BOOLEAN
+import com.example.common.DefaultModelValue.Companion.DEFAULT_DOUBLE
+import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
+import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
+import com.example.data.di.ConfigModule
+
 data class Movie(
-    val adult: Boolean,
-    val backdropPath: String,
-    val belongsToCollection: Any,
-    val budget: Int,
-    val genres: List<Genre>,
-    val homepage: String,
-    val id: Int,
-    val imdbId: String,
-    val originalLanguage: String,
-    val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
-    val posterPath: String,
-    val productionCompanies: List<ProductionCompany>,
-    val productionCountries: List<ProductionCountry>,
-    val releaseDate: String,
-    val revenue: Int,
-    val runtime: Int,
-    val spokenLanguages: List<SpokenLanguage>,
-    val status: String,
-    val tagline: String,
-    val title: String,
-    val video: Boolean,
-    val voteAverage: Double,
-    val voteCount: Int
-)
+    val adult: Boolean = DEFAULT_BOOLEAN,
+    val backdropPath: String = DEFAULT_STRING,
+    val belongsToCollection: Any = DEFAULT_STRING,
+    val budget: Int = DEFAULT_INT,
+    val genres: List<Genre> = listOf(),
+    val genreIds: List<Int> = listOf(),
+    val homepage: String = DEFAULT_STRING,
+    val id: Int = DEFAULT_INT,
+    val imdbId: String = DEFAULT_STRING,
+    val originalLanguage: String = DEFAULT_STRING,
+    val originalTitle: String = DEFAULT_STRING,
+    val overview: String = DEFAULT_STRING,
+    val popularity: Double = DEFAULT_DOUBLE,
+    val posterPath: String = DEFAULT_STRING,
+    val productionCompanies: List<ProductionCompany> = listOf(),
+    val productionCountries: List<ProductionCountry> = listOf(),
+    val releaseDate: String = DEFAULT_STRING,
+    val revenue: Int = DEFAULT_INT,
+    val runtime: Int = DEFAULT_INT,
+    val spokenLanguages: List<SpokenLanguage> = listOf(),
+    val status: String = DEFAULT_STRING,
+    val tagline: String = DEFAULT_STRING,
+    val title: String = DEFAULT_STRING,
+    val video: Boolean = DEFAULT_BOOLEAN,
+    val voteAverage: Double = DEFAULT_DOUBLE,
+    val voteCount: Int = DEFAULT_INT
+) {
+    val backdropPathFull =
+        if (backdropPath.isNotEmpty()) ConfigModule.getBaseImgUrl() + backdropPath else DEFAULT_STRING
+
+    val posterPathFull =
+        if (posterPath.isNotEmpty()) ConfigModule.getBaseImgUrl() + posterPath else DEFAULT_STRING
+}

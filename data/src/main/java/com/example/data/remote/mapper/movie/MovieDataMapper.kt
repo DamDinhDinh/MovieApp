@@ -10,7 +10,7 @@ import com.example.domain.model.movie.ModelMovie
 
 fun JsonMovie.toModel() = ModelMovie(
     adult = adult ?: DEFAULT_BOOLEAN,
-    backdropPath = if (!backdropPath.isNullOrEmpty()) ConfigModule.getBaseImgUrl() + backdropPath else DEFAULT_STRING,
+    backdropPath = backdropPath ?: DEFAULT_STRING,
     belongsToCollection = belongsToCollection ?: Any(),
     budget = budget ?: DEFAULT_INT,
     genres = genres?.map { it.toModel() } ?: listOf(),
@@ -22,7 +22,7 @@ fun JsonMovie.toModel() = ModelMovie(
     originalTitle = originalTitle ?: DEFAULT_STRING,
     overview = overview ?: DEFAULT_STRING,
     popularity = popularity ?: DEFAULT_DOUBLE,
-    posterPath = if (!posterPath.isNullOrEmpty()) ConfigModule.getBaseImgUrl() + posterPath else DEFAULT_STRING,
+    posterPath = posterPath ?: DEFAULT_STRING,
     productionCompanies = productionCompanies?.map { it.toModel() } ?: listOf(),
     productionCountries = productionCountries?.map { it.toModel() } ?: listOf(),
     releaseDate = releaseDate ?: DEFAULT_STRING,

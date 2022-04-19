@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.mapper.movie
+package com.example.movieapp.presenter.mapper.review
 
 import com.example.domain.model.review.ModelAuthorDetails
 import com.example.movieapp.presenter.model.review.AuthorDetails

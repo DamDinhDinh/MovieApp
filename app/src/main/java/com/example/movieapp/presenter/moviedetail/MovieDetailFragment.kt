@@ -66,7 +66,7 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
                 adapter = AboutMoviePagerAdapter(this@MovieDetailFragment)
             }
         }
-        
+
         TabLayoutMediator(
             binding.tabLayoutInfo,
             binding.viewPagerInfo
@@ -82,13 +82,12 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
             this, vmFactory
         )[MovieDetailViewModel::class.java]
             .apply {
-                if (savedInstanceState == null) {
-                    fetchMovie(args.id)
-                }
                 observeViewState()
                     .observe(viewLifecycleOwner) { renderMovie(it.movie) }
+                if (observeViewState().value == null) {
+                    fetchMovie(args.id)
+                }
             }
-
     }
 
     override fun onResume() {
@@ -103,8 +102,8 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     private fun renderMovie(movie: Movie) {
 
         binding.apply {
-            Glide.with(root.context).load(movie.backdropPath).into(imvMovieBackdrop)
-            Glide.with(root.context).load(movie.posterPath)
+            Glide.with(root.context).load(movie.backdropPathFull).into(imvMovieBackdrop)
+            Glide.with(root.context).load(movie.posterPathFull)
                 .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16.toPx().toInt())))
                 .into(imvMovieAvatar)
             tvTitle.text = movie.title

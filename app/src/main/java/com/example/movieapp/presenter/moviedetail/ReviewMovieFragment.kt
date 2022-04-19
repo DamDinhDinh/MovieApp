@@ -71,30 +71,23 @@ class ReviewMovieFragment : Fragment(), MovieReviewContract.View {
             addItemDecoration(SpacingItemDecoration(bottom = 20.toPx().toInt()))
         }
 
-        detailViewModel = ViewModelProvider(
-            requireParentFragment().viewModelStore,
-            detailVmFactory
-        )[MovieDetailViewModel::class.java]
-            .apply {
-                observeViewState().observe(viewLifecycleOwner) { viewState ->
-                    if (savedInstanceState == null) {
-                        reviewViewModel.fetchReviews(viewState.movie.id)
-                        Timber.d("$TAG detailViewModel observeViewState $viewState")
-                    }
-                }
-            }
-
         reviewViewModel = ViewModelProvider(
             this,
             reviewVmFactory
         )[MovieReviewsViewModel::class.java]
             .apply {
-                observeViewState().observe(viewLifecycleOwner) { viewState ->
-                    updateViewState(
-                        viewState
-                    )
-                }
+                observeViewState().observe(viewLifecycleOwner) { updateViewState(it) }
             }
+
+        detailViewModel = ViewModelProvider(
+            requireParentFragment().viewModelStore,
+            detailVmFactory
+        )[MovieDetailViewModel::class.java]
+
+        if (reviewViewModel.observeViewState().value == null) {
+            detailViewModel.observeViewState()
+                .observe(viewLifecycleOwner) { viewState -> reviewViewModel.fetchReviews(viewState.movie.id) }
+        }
     }
 
     override fun updateViewState(viewState: MovieReviewContract.ViewState) {

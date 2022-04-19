@@ -1,21 +1,21 @@
 package com.example.movieapp.presenter.model.review
 
-import com.example.common.DefaultModelValue
+import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
+import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 
 data class Review(
-    val author: String,
-    val authorDetails: AuthorDetails,
-    val content: String,
-    val createdAt: String,
-    val id: String,
-    val iso6391: String,
-    val mediaId: Int,
-    val mediaTitle: String,
-    val mediaType: String,
-    val updatedAt: String,
-    val url: String
+    var author: String = DEFAULT_STRING,
+    var authorDetails: AuthorDetails = AuthorDetails(),
+    var content: String = DEFAULT_STRING,
+    var createdAt: String = DEFAULT_STRING,
+    var id: String = DEFAULT_STRING,
+    var iso6391: String = DEFAULT_STRING,
+    var mediaId: Int = DEFAULT_INT,
+    var mediaTitle: String = DEFAULT_STRING,
+    var mediaType: String = DEFAULT_STRING,
+    var updatedAt: String = DEFAULT_STRING,
+    var url: String = DEFAULT_STRING,
 ) {
-    //TODO: Add property to take advantage of this Model as Presenter Model
-    val authorRating =
-        if (authorDetails.rating != DefaultModelValue.DEFAULT_INT) authorDetails.rating.toString() else ""
+    val createdAtDDMMYYYY =
+        if (createdAt.isNotEmpty()) createdAt.substring(0, 10) else DEFAULT_STRING
 }

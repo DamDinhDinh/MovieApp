@@ -32,10 +32,8 @@ class MovieListFragment : Fragment(), MovieListContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        //TODO: Safe cast
-        val appComponent = (activity?.application as MyApplication).appComponent
-        appComponent.inject(this)
+        val appComponent = (activity?.application as? MyApplication)?.appComponent
+        appComponent?.inject(this)
     }
 
     override fun onCreateView(
@@ -55,15 +53,14 @@ class MovieListFragment : Fragment(), MovieListContract.View {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        viewModel = ViewModelProvider(this, vmFactory)[MovieListViewModel::class.java]
+        viewModel = ViewModelProvider(this, vmFactory)[MovieListViewModel::class.java].apply {
+            observeViewState()
+                .observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
 
-        //TODO: Can check data from ViewModel
-        if (savedInstanceState == null) {
-            viewModel.fetchMoviePopular()
+            if (observeViewState().value == null) {
+                fetchMoviePopular()
+            }
         }
-
-        viewModel.observeViewState()
-            .observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
     }
 
     override fun updateViewState(viewState: MovieListContract.ViewState) {
