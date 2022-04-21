@@ -29,8 +29,11 @@ import javax.inject.Inject
 class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     private val TAG = "MovieDetailFragment"
 
-    @Inject
     lateinit var vmFactory: MovieDetailViewModel.Factory
+    @Inject
+    fun injectVMFactory(factory: MovieDetailViewModel.Factory ){
+        vmFactory = factory
+    }
     lateinit var viewModel: MovieDetailContract.ViewModel
 
     private val binding: FragmentMovieDetailBinding by viewBinding(CreateMethod.INFLATE)

@@ -14,7 +14,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [NetWorkModule::class, DataModule::class, ConfigModule::class, ViewModelFactoryModule::class, DatabaseModule::class])
+@Component(modules = [NetWorkModule::class, DataModule::class, ConfigModule::class, DatabaseModule::class])
 abstract class AppComponent {
 
     abstract fun inject(movieListFragment: MovieListFragment)
