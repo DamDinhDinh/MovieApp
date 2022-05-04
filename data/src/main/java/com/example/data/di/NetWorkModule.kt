@@ -1,66 +1,69 @@
 package com.example.data.di
 
+import com.example.data.BuildConfig
 import com.example.data.remote.api.MovieApi
 import com.example.data.remote.api.ReviewApi
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.components.SingletonComponent
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.core.qualifier.named
+import org.koin.dsl.bind
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
-import javax.inject.Singleton
 
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class NetWorkModule {
+val netWorkModule = module {
+    single { getOKHttpClient(get(named("api-key"))) }
+    single { getRetrofit(get(named("base-url")), get()) }
+    factory { (retrofit: Retrofit) -> retrofit.create(MovieApi::class.java) } bind MovieApi::class
+    factory { (retrofit: Retrofit) -> retrofit.create(ReviewApi::class.java) } bind ReviewApi::class
+}
 
-    companion object {
-        @Provides
-        @Singleton
-        fun getOKHttpClient(@Named("api-key") apiKey: String): OkHttpClient {
-            val loggingInterceptor = HttpLoggingInterceptor()
-            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+fun getOKHttpClient(apiKey: String): OkHttpClient {
+    if (BuildConfig.DEBUG) {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-            return OkHttpClient.Builder()
-                .addInterceptor { chain ->
-                    val httpUrl: HttpUrl = chain.request().url.newBuilder()
-                        .addQueryParameter("api_key", apiKey)
-                        .addQueryParameter("session_id", "24917a217657dfdc18fee742ea17a40acbcefa2b")
-                        .build()
+        return OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val httpUrl: HttpUrl = chain.request().url.newBuilder()
+                    .addQueryParameter("api_key", apiKey)
+                    .addQueryParameter("session_id", "24917a217657dfdc18fee742ea17a40acbcefa2b")
+                    .build()
 
-                    val request: Request = chain.request().newBuilder()
-                        .url(httpUrl)
-                        .build()
+                val request: Request = chain.request().newBuilder()
+                    .url(httpUrl)
+                    .build()
 
-                    chain.proceed(request)
-                }
-//                .addInterceptor(loggingInterceptor) //log after chain
-                .build()
-        }
+                chain.proceed(request)
+            }
+            .addInterceptor(loggingInterceptor) //log after chain
+            .build()
+    } else {
+        return OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val httpUrl: HttpUrl = chain.request().url.newBuilder()
+                    .addQueryParameter("api_key", apiKey)
+                    .addQueryParameter("session_id", "24917a217657dfdc18fee742ea17a40acbcefa2b")
+                    .build()
 
-        @Provides
-        @Singleton
-        fun getRetrofit(@Named("base-url") baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
-            return Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .build()
-        }
+                val request: Request = chain.request().newBuilder()
+                    .url(httpUrl)
+                    .build()
 
-        @Provides
-        fun getMovieApi(retrofit: Retrofit): MovieApi = retrofit.create(MovieApi::class.java)
-
-        @Provides
-        fun getReviewApi(retrofit: Retrofit): ReviewApi = retrofit.create(ReviewApi::class.java)
+                chain.proceed(request)
+            }
+            .build()
     }
+}
 
+fun getRetrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+        .build()
 }

@@ -1,11 +1,10 @@
 package com.example.domain.usecase.movie
 
-import com.example.domain.source.MovieDataSource
 import com.example.domain.model.ModelResponseStatus
+import com.example.domain.source.MovieDataSource
 import io.reactivex.rxjava3.core.Single
-import javax.inject.Inject
 
-class SetRateMovieUseCase @Inject constructor(private val movieDataSource: MovieDataSource) {
+class SetRateMovieUseCase constructor(private val movieDataSource: MovieDataSource) {
     operator fun invoke(request: Request): Single<ModelResponseStatus> {
         return movieDataSource.rateMovie(request.id, request.rate)
     }

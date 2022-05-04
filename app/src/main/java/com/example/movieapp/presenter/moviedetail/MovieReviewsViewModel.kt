@@ -8,12 +8,9 @@ import com.example.domain.usecase.movie.GetMovieReviewsUseCase
 import com.example.movieapp.presenter.BaseViewModel
 import com.example.movieapp.presenter.mapper.review.toPresent
 import com.example.movieapp.presenter.model.review.Review
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.Disposable
-import javax.inject.Inject
 
-@HiltViewModel
-class MovieReviewsViewModel @Inject constructor(
+class MovieReviewsViewModel constructor(
     private val getMovieReviewsUseCase: GetMovieReviewsUseCase
 ) :
     BaseViewModel(),

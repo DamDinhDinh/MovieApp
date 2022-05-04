@@ -10,9 +10,8 @@ import com.example.domain.model.review.ModelReview
 import com.example.domain.source.ReviewDataSource
 import io.reactivex.rxjava3.core.Observable
 import timber.log.Timber
-import javax.inject.Inject
 
-class ReviewRepository @Inject constructor(
+class ReviewRepository constructor(
     private val reviewApi: ReviewApi,
     private val reviewDao: ReviewDao
 ) : ReviewDataSource {

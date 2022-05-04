@@ -1,34 +1,11 @@
 package com.example.data.di
 
 import com.example.data.BuildConfig
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Named
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class ConfigModule {
-
-    companion object {
-        @Provides
-        @Named("api-key")
-        fun getApiKey(): String {
-            return BuildConfig.API_KEY
-        }
-
-        @Provides
-        @Named("base-url")
-        fun getBaseUrl(): String {
-            return BuildConfig.BASE_URL
-        }
-
-        @Provides
-        @Named("base-img-url")
-        fun getBaseImgUrl(): String {
-            return BuildConfig.BASE_IMG_URL
-        }
-    }
-
+val configModule = module {
+    single(named("api-key"), createdAtStart = true) { BuildConfig.API_KEY }
+    single(named("base-url"), createdAtStart = true) { BuildConfig.BASE_URL }
+    single(named("base-img-url"), createdAtStart = true) { BuildConfig.BASE_IMG_URL }
 }

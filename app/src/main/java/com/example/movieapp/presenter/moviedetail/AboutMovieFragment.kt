@@ -11,14 +11,12 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentAboutMovieBinding
 import com.example.movieapp.presenter.model.movie.Movie
-import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 /**
  * Created by dinhdd damdinhdinh.mum@gmail.com on 4/12/2022.
  */
 
-@AndroidEntryPoint
 class AboutMovieFragment : Fragment(), MovieDetailContract.View {
 
     class Params

@@ -22,10 +22,8 @@ import com.example.movieapp.presenter.common.itemdecoration.SpacingItemDecoratio
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.movie.Movie
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-@AndroidEntryPoint
 class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     private val TAG = "MovieDetailFragment"
 

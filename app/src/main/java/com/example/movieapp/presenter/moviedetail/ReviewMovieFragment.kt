@@ -14,10 +14,8 @@ import com.example.movieapp.presenter.adapter.ReviewAdapter
 import com.example.movieapp.presenter.common.itemdecoration.SpacingItemDecoration
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.review.Review
-import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-@AndroidEntryPoint
 class ReviewMovieFragment : Fragment(), MovieReviewContract.View {
 
     class Params

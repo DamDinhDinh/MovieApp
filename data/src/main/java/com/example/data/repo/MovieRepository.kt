@@ -14,9 +14,8 @@ import com.example.domain.source.MovieDataSource
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import timber.log.Timber
-import javax.inject.Inject
 
-class MovieRepository @Inject constructor(
+class MovieRepository constructor(
     private val movieApi: MovieApi,
     private val movieDao: MovieDao,
 ) : MovieDataSource {
@@ -51,7 +50,7 @@ class MovieRepository @Inject constructor(
             .logs("$TAG local getPopular ")
             .map { list -> list.map { it.toModel() } }
     }
-    
+
     fun fetchPopularMovie() {
         movieApi.getPopular()
             .dataSchedulers()
