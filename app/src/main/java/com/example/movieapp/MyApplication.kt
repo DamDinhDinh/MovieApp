@@ -1,17 +1,13 @@
 package com.example.movieapp
 
 import android.app.Application
-import com.example.movieapp.di.AppComponent
-import com.example.movieapp.di.DaggerAppComponent
 import com.example.movieapp.timber.MyDebugTree
 import com.example.movieapp.timber.ReleaseTree
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 class MyApplication : Application() {
-
-    val appComponent: AppComponent by lazy {
-        DaggerAppComponent.builder().setApplication(this).build()
-    }
 
     override fun onCreate() {
         super.onCreate()

@@ -2,17 +2,17 @@ package com.example.movieapp.presenter.moviedetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.common.applySchedulers
 import com.example.common.logs
 import com.example.domain.usecase.movie.GetMovieByIdUseCase
 import com.example.movieapp.presenter.BaseViewModel
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
+@HiltViewModel
 class MovieDetailViewModel @Inject constructor(
     private val getMovieByIdUseCase: GetMovieByIdUseCase
 ) :
@@ -47,13 +47,5 @@ class MovieDetailViewModel @Inject constructor(
         val newViewState = viewStateMutable.value?.copy(movie = movie)
             ?: MovieDetailContract.ViewState(movie)
         viewStateMutable.value = newViewState
-    }
-
-    class Factory @Inject constructor(private val getMovieByIdUseCase: GetMovieByIdUseCase) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(GetMovieByIdUseCase::class.java)
-                .newInstance(getMovieByIdUseCase)
-        }
     }
 }

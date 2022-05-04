@@ -5,19 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.movieapp.MyApplication
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentAboutMovieBinding
 import com.example.movieapp.presenter.model.movie.Movie
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Created by dinhdd damdinhdinh.mum@gmail.com on 4/12/2022.
  */
+
+@AndroidEntryPoint
 class AboutMovieFragment : Fragment(), MovieDetailContract.View {
 
     class Params
@@ -30,18 +31,10 @@ class AboutMovieFragment : Fragment(), MovieDetailContract.View {
 
     private val TAG = "AboutMovieFragment"
 
-    @Inject
-    lateinit var vmFactory: MovieDetailViewModel.Factory
-    lateinit var viewModel: MovieDetailContract.ViewModel
+    private val viewModel: MovieDetailContract.ViewModel by viewModels<MovieDetailViewModel>(
+        ownerProducer = { requireParentFragment() })
 
     private val binding: FragmentAboutMovieBinding by viewBinding(CreateMethod.INFLATE)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val appComponent = (activity?.application as MyApplication).appComponent
-        appComponent.inject(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,13 +47,9 @@ class AboutMovieFragment : Fragment(), MovieDetailContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(
-            requireParentFragment().viewModelStore, vmFactory
-        )[MovieDetailViewModel::class.java]
-            .apply {
-                observeViewState()
-                    .observe(viewLifecycleOwner) { renderMovie(it.movie) }
-            }
+        viewModel.apply {
+            observeViewState().observe(viewLifecycleOwner) { renderMovie(it.movie) }
+        }
     }
 
     override fun onResume() {

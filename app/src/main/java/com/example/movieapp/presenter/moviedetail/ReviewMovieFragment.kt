@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.movieapp.MyApplication
 import com.example.movieapp.databinding.FragmentMovieReviewsBinding
 import com.example.movieapp.presenter.adapter.ReviewAdapter
 import com.example.movieapp.presenter.common.itemdecoration.SpacingItemDecoration
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.review.Review
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class ReviewMovieFragment : Fragment(), MovieReviewContract.View {
 
     class Params
@@ -30,24 +30,12 @@ class ReviewMovieFragment : Fragment(), MovieReviewContract.View {
 
     private val TAG = "ReviewMovieFragment"
 
-    @Inject
-    lateinit var detailVmFactory: MovieDetailViewModel.Factory
-
-    @Inject
-    lateinit var reviewVmFactory: MovieReviewsViewModel.Factory
-
-    lateinit var detailViewModel: MovieDetailContract.ViewModel
-    lateinit var reviewViewModel: MovieReviewContract.ViewModel
+    private val detailViewModel: MovieDetailContract.ViewModel by viewModels<MovieDetailViewModel>(
+        ownerProducer = { requireParentFragment() })
+    private val reviewViewModel: MovieReviewContract.ViewModel by viewModels<MovieReviewsViewModel>()
 
     private val binding: FragmentMovieReviewsBinding by viewBinding(CreateMethod.INFLATE)
     private val reviewAdapter = ReviewAdapter {}
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val appComponent = (activity?.application as MyApplication).appComponent
-        appComponent.inject(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,18 +59,9 @@ class ReviewMovieFragment : Fragment(), MovieReviewContract.View {
             addItemDecoration(SpacingItemDecoration(bottom = 20.toPx().toInt()))
         }
 
-        reviewViewModel = ViewModelProvider(
-            this,
-            reviewVmFactory
-        )[MovieReviewsViewModel::class.java]
-            .apply {
-                observeViewState().observe(viewLifecycleOwner) { updateViewState(it) }
-            }
-
-        detailViewModel = ViewModelProvider(
-            requireParentFragment().viewModelStore,
-            detailVmFactory
-        )[MovieDetailViewModel::class.java]
+        reviewViewModel.apply {
+            observeViewState().observe(viewLifecycleOwner) { updateViewState(it) }
+        }
 
         if (reviewViewModel.observeViewState().value == null) {
             detailViewModel.observeViewState()
