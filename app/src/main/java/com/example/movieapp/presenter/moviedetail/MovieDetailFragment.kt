@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.CreateMethod
@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.movieapp.MyApplication
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentMovieDetailBinding
 import com.example.movieapp.presenter.adapter.AboutMoviePagerAdapter
@@ -23,29 +22,18 @@ import com.example.movieapp.presenter.common.itemdecoration.SpacingItemDecoratio
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.movie.Movie
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     private val TAG = "MovieDetailFragment"
 
-    lateinit var vmFactory: MovieDetailViewModel.Factory
-    @Inject
-    fun injectVMFactory(factory: MovieDetailViewModel.Factory ){
-        vmFactory = factory
-    }
-    lateinit var viewModel: MovieDetailContract.ViewModel
+    private val viewModel: MovieDetailContract.ViewModel by viewModels<MovieDetailViewModel>()
 
     private val binding: FragmentMovieDetailBinding by viewBinding(CreateMethod.INFLATE)
     private val args: MovieDetailFragmentArgs by navArgs()
     private val genreAdapter = GenreAdapter {}
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val appComponent = (activity?.application as MyApplication).appComponent
-        appComponent.inject(this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,16 +69,12 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
             }
         }.attach()
 
-        viewModel = ViewModelProvider(
-            this, vmFactory
-        )[MovieDetailViewModel::class.java]
-            .apply {
-                observeViewState()
-                    .observe(viewLifecycleOwner) { renderMovie(it.movie) }
-                if (observeViewState().value == null) {
-                    fetchMovie(args.id)
-                }
+        viewModel.apply {
+            observeViewState().observe(viewLifecycleOwner) { renderMovie(it.movie) }
+            if (observeViewState().value == null) {
+                fetchMovie(args.id)
             }
+        }
     }
 
     override fun onResume() {

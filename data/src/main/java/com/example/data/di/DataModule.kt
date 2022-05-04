@@ -6,13 +6,16 @@ import com.example.domain.source.MovieDataSource
 import com.example.domain.source.ReviewDataSource
 import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 @Module
-interface DataModule {
+@InstallIn(SingletonComponent::class)
+abstract class DataModule {
 
     @Binds
-    fun getMovieDataSource(moveRepo: MovieRepository): MovieDataSource
+    abstract fun getMovieDataSource(moveRepo: MovieRepository): MovieDataSource
 
     @Binds
-    fun getReviewDataSource(reviewRepo: ReviewRepository): ReviewDataSource
+    abstract fun getReviewDataSource(reviewRepo: ReviewRepository): ReviewDataSource
 }
