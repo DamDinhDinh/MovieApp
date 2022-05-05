@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -14,6 +13,9 @@ import com.example.movieapp.presenter.adapter.ReviewAdapter
 import com.example.movieapp.presenter.common.itemdecoration.SpacingItemDecoration
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.review.Review
+import org.koin.androidx.viewmodel.ViewModelOwner.Companion.from
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class ReviewMovieFragment : Fragment(), MovieReviewContract.View {
@@ -28,9 +30,9 @@ class ReviewMovieFragment : Fragment(), MovieReviewContract.View {
 
     private val TAG = "ReviewMovieFragment"
 
-    private val detailViewModel: MovieDetailContract.ViewModel by viewModels<MovieDetailViewModel>(
-        ownerProducer = { requireParentFragment() })
-    private val reviewViewModel: MovieReviewContract.ViewModel by viewModels<MovieReviewsViewModel>()
+    private val detailViewModel: MovieDetailContract.ViewModel by sharedViewModel<MovieDetailViewModel>(
+        owner = { from(requireParentFragment(), requireParentFragment()) })
+    private val reviewViewModel: MovieReviewContract.ViewModel by viewModel<MovieReviewsViewModel>()
 
     private val binding: FragmentMovieReviewsBinding by viewBinding(CreateMethod.INFLATE)
     private val reviewAdapter = ReviewAdapter {}

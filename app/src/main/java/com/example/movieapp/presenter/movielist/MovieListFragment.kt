@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,15 +13,14 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.movieapp.databinding.FragmentMoviePopularListBinding
 import com.example.movieapp.presenter.adapter.MovieAdapter
 import com.example.movieapp.presenter.model.movie.Movie
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-@AndroidEntryPoint
 class MovieListFragment : Fragment(), MovieListContract.View {
 
     private val TAG = "MoviePopularListFragment"
 
-    private val viewModel: MovieListViewModel by viewModels()
+    val viewModel: MovieListViewModel by viewModel()
 
     private val binding: FragmentMoviePopularListBinding by viewBinding(CreateMethod.INFLATE)
     private val movieAdapter = MovieAdapter { movie -> navigateMovieDetail(movie.id) }

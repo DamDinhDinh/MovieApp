@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.CreateMethod
@@ -22,12 +21,13 @@ import com.example.movieapp.presenter.common.itemdecoration.SpacingItemDecoratio
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.movie.Movie
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     private val TAG = "MovieDetailFragment"
 
-    private val viewModel: MovieDetailContract.ViewModel by viewModels<MovieDetailViewModel>()
+    private val viewModel: MovieDetailContract.ViewModel by viewModel<MovieDetailViewModel>()
 
     private val binding: FragmentMovieDetailBinding by viewBinding(CreateMethod.INFLATE)
     private val args: MovieDetailFragmentArgs by navArgs()

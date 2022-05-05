@@ -8,20 +8,19 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
-import org.koin.dsl.bind
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 val netWorkModule = module {
-    single { getOKHttpClient(get(named("api-key"))) }
-    single { getRetrofit(get(named("base-url")), get()) }
-    factory { (retrofit: Retrofit) -> retrofit.create(MovieApi::class.java) } bind MovieApi::class
-    factory { (retrofit: Retrofit) -> retrofit.create(ReviewApi::class.java) } bind ReviewApi::class
+    single { provideOKHttpClient(get(named("api-key"))) }
+    single { provideRetrofit(get(named("base-url")), get()) }
+    factory { provideMovieApi(get()) }
+    factory { provideReviewApi(get()) }
 }
 
-fun getOKHttpClient(apiKey: String): OkHttpClient {
+fun provideOKHttpClient(apiKey: String): OkHttpClient {
     if (BuildConfig.DEBUG) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -59,7 +58,7 @@ fun getOKHttpClient(apiKey: String): OkHttpClient {
     }
 }
 
-fun getRetrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
+fun provideRetrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(okHttpClient)
@@ -67,3 +66,6 @@ fun getRetrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
 }
+
+fun provideMovieApi(retrofit: Retrofit):MovieApi  = retrofit.create(MovieApi::class.java)
+fun provideReviewApi(retrofit: Retrofit):ReviewApi  = retrofit.create(ReviewApi::class.java)

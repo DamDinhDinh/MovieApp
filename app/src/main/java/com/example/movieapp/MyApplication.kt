@@ -6,6 +6,7 @@ import com.example.data.di.databaseModule
 import com.example.data.di.netWorkModule
 import com.example.data.di.repoModule
 import com.example.domain.di.useCaseModule
+import com.example.movieapp.di.viewModelModule
 import com.example.movieapp.timber.MyDebugTree
 import com.example.movieapp.timber.ReleaseTree
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +27,7 @@ class MyApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@MyApplication)
-            modules(listOf(useCaseModule, netWorkModule, databaseModule, configModule, repoModule))
+            modules(listOf(useCaseModule, netWorkModule, databaseModule, configModule, repoModule, viewModelModule))
         }
     }
 

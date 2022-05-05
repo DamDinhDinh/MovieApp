@@ -4,10 +4,10 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_BOOLEAN
 import com.example.common.DefaultModelValue.Companion.DEFAULT_DOUBLE
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
+import com.example.data.di.ConfigModule
 import com.example.data.local.databasemodel.movie.EntityMovie
 import com.example.data.remote.jsonmodel.movie.JsonMovie
 import com.example.domain.model.movie.ModelMovie
-import org.koin.core.qualifier.named
 
 //from this
 fun EntityMovie.toJson() = JsonMovie(
@@ -70,7 +70,7 @@ fun EntityMovie.toModel() = ModelMovie(
 //other map to this
 fun JsonMovie.toEntity() = EntityMovie(
     adult = adult ?: DEFAULT_BOOLEAN,
-    backdropPath = if (!backdropPath.isNullOrEmpty()) get((named("base-img-url")) + backdropPath else DEFAULT_STRING,
+    backdropPath = if (!backdropPath.isNullOrEmpty()) ConfigModule.getBaseImgUrl() + backdropPath else DEFAULT_STRING,
     belongsToCollection = belongsToCollection ?: DEFAULT_STRING,
     budget = budget ?: DEFAULT_INT,
     genres = genres?.map { it.toEntity() } ?: listOf(),

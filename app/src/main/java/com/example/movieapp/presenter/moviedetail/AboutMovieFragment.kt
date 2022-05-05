@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentAboutMovieBinding
 import com.example.movieapp.presenter.model.movie.Movie
+import org.koin.androidx.viewmodel.ViewModelOwner.Companion.from
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
 /**
@@ -29,8 +30,8 @@ class AboutMovieFragment : Fragment(), MovieDetailContract.View {
 
     private val TAG = "AboutMovieFragment"
 
-    private val viewModel: MovieDetailContract.ViewModel by viewModels<MovieDetailViewModel>(
-        ownerProducer = { requireParentFragment() })
+    private val viewModel: MovieDetailContract.ViewModel by sharedViewModel<MovieDetailViewModel>(
+        owner = { from(requireParentFragment(), requireParentFragment()) })
 
     private val binding: FragmentAboutMovieBinding by viewBinding(CreateMethod.INFLATE)
 
