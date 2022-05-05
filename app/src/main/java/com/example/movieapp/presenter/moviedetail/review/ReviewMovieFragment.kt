@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.moviedetail
+package com.example.movieapp.presenter.moviedetail.review
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,8 @@ import com.example.movieapp.presenter.adapter.ReviewAdapter
 import com.example.movieapp.presenter.common.itemdecoration.SpacingItemDecoration
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.review.Review
+import com.example.movieapp.presenter.moviedetail.MovieDetailContract
+import com.example.movieapp.presenter.moviedetail.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.moviedetail
+package com.example.movieapp.presenter.moviedetail.about
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentAboutMovieBinding
 import com.example.movieapp.presenter.model.movie.Movie
+import com.example.movieapp.presenter.moviedetail.MovieDetailContract
+import com.example.movieapp.presenter.moviedetail.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 

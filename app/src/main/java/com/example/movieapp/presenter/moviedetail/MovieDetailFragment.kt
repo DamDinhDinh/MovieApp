@@ -21,14 +21,18 @@ import com.example.movieapp.presenter.adapter.GenreAdapter
 import com.example.movieapp.presenter.common.itemdecoration.SpacingItemDecoration
 import com.example.movieapp.presenter.common.utils.toPx
 import com.example.movieapp.presenter.model.movie.Movie
+import com.example.movieapp.presenter.moviedetail.controller.MovieDetailController
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     private val TAG = "MovieDetailFragment"
 
+    @Inject
+    lateinit var mController: MovieDetailController
     private val viewModel: MovieDetailContract.ViewModel by viewModels<MovieDetailViewModel>()
 
     private val binding: FragmentMovieDetailBinding by viewBinding(CreateMethod.INFLATE)
@@ -46,31 +50,36 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply {
-            rvGenre.apply {
-                adapter = genreAdapter
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                addItemDecoration(SpacingItemDecoration(end = 12.toPx().toInt()))
-            }
-
-            viewPagerInfo.apply {
-                adapter = AboutMoviePagerAdapter(this@MovieDetailFragment)
-            }
+        binding.recyclerView.apply {
+            adapter = mController.adapter
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
-        TabLayoutMediator(
-            binding.tabLayoutInfo,
-            binding.viewPagerInfo
-        ) { tab, position ->
-            tab.text = when (position) {
-                0 -> context?.getString(R.string.about_movie_label)
-                1 -> context?.getString(R.string.reviews_label)
-                else -> ""
-            }
-        }.attach()
+//        binding.apply {
+//            rvGenre.apply {
+//                adapter = genreAdapter
+//                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//                addItemDecoration(SpacingItemDecoration(end = 12.toPx().toInt()))
+//            }
+//
+//            viewPagerInfo.apply {
+//                adapter = AboutMoviePagerAdapter(this@MovieDetailFragment)
+//            }
+//        }
+//
+//        TabLayoutMediator(
+//            binding.tabLayoutInfo,
+//            binding.viewPagerInfo
+//        ) { tab, position ->
+//            tab.text = when (position) {
+//                0 -> context?.getString(R.string.about_movie_label)
+//                1 -> context?.getString(R.string.reviews_label)
+//                else -> ""
+//            }
+//        }.attach()
 
         viewModel.apply {
-            observeViewState().observe(viewLifecycleOwner) { renderMovie(it.movie) }
+            observeViewState().observe(viewLifecycleOwner) { updateViewState(it) }
             if (observeViewState().value == null) {
                 fetchMovie(args.id)
             }
@@ -83,18 +92,20 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
     }
 
     override fun updateViewState(viewState: MovieDetailContract.ViewState) {
-        renderMovie(viewState.movie)
+//        renderMovie(viewState.movie)
+        mController.setData(viewState)
     }
 
     private fun renderMovie(movie: Movie) {
 
-        binding.apply {
-            Glide.with(root.context).load(movie.backdropPathFull).into(imvMovieBackdrop)
-            Glide.with(root.context).load(movie.posterPathFull)
-                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16.toPx().toInt())))
-                .into(imvMovieAvatar)
-            tvTitle.text = movie.title
-            genreAdapter.submitList(movie.genres)
-        }
+
+//        binding.apply {
+//            Glide.with(root.context).load(movie.backdropPathFull).into(imvMovieBackdrop)
+//            Glide.with(root.context).load(movie.posterPathFull)
+//                .apply(RequestOptions().transform(CenterCrop(), RoundedCorners(16.toPx().toInt())))
+//                .into(imvMovieAvatar)
+//            tvTitle.text = movie.title
+//            genreAdapter.submitList(movie.genres)
+//        }
     }
 }

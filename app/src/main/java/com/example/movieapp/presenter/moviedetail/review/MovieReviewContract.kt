@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.moviedetail
+package com.example.movieapp.presenter.moviedetail.review
 
 import androidx.lifecycle.LiveData
 import com.example.movieapp.presenter.model.review.Review

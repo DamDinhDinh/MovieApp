@@ -1,93 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/dark"
-        android:orientation="vertical">
+        android:layout_height="match_parent"/>
 
-        <ImageView
-            android:id="@+id/imvMovieBackdrop"
-            android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/imvMovieAvatar"
-            android:layout_width="90dp"
-            android:layout_height="120dp"
-            android:layout_marginStart="29dp"
-            android:layout_marginTop="-60dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imvMovieBackdrop" />
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="29dp"
-            android:textColor="@color/white"
-            android:textSize="23sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imvMovieAvatar"
-            app:layout_constraintTop_toBottomOf="@+id/imvMovieBackdrop"
-            tools:text="Spiderman No Way Home" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvGenre"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginStart="29dp"
-            android:layout_marginTop="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imvMovieAvatar" />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayoutInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="29dp"
-            android:background="@color/dark"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rvGenre"
-            app:tabGravity="start"
-            app:tabIndicatorColor="@color/primary"
-            app:tabIndicatorFullWidth="false"
-            app:tabSelectedTextColor="@color/primary"
-            app:tabTextAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:tabTextColor="@color/white">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/about_movie_label" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reviews_label" />
-        </com.google.android.material.tabs.TabLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPagerInfo"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="29dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="29dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabLayoutInfo" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
