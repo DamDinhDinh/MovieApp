@@ -52,7 +52,7 @@ class MovieDetailFragment : Fragment(), MovieDetailContract.View {
 
         binding.recyclerView.apply {
             adapter = mController.adapter
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
 
 //        binding.apply {

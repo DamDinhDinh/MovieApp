@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.helper.widget.Carousel
+    <com.airbnb.epoxy.Carousel
         android:id="@+id/carouselGenre"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="29dp"
         android:layout_marginTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
