@@ -9,11 +9,11 @@
     <string name="search_here_label">Search here …</string>
     <string name="categories_label">Categories</string>
     <string name="movie_title_label">Title: \n%s</string>
-    <string name="release_date_label">Release Date: \n%s</string>
-    <string name="average_rating_label">Average Rating: \n%s</string>
+    <string name="release_date_label">Release Date:</string>
+    <string name="average_rating_label">Average Rating:</string>
     <string name="about_movie_label">About Movie</string>
     <string name="reviews_label">Reviews</string>
-    <string name="overviews_label">Overviews: \n%s</string>
-    <string name="rate_count_label">Rate Count: \n%s</string>
-    <string name="popularity_label">Popularity: \n%s</string>
+    <string name="overviews_label">Overviews:</string>
+    <string name="rate_count_label">Rate Count:</string>
+    <string name="popularity_label">Popularity:</string>
 </resources>

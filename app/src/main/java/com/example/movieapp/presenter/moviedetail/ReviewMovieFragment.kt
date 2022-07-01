@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.movieapp.presenter.moviedetail.review.ReviewScreen
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ReviewMovieFragment : Fragment() {
@@ -17,12 +16,12 @@ class ReviewMovieFragment : Fragment() {
     class Params
 
     companion object {
+        const val TAG = "ReviewMovieFragment"
+
         fun newInstance(param: Params): ReviewMovieFragment {
             return ReviewMovieFragment()
         }
     }
-
-    private val TAG = "ReviewMovieFragment"
 
     private val detailViewModel: MovieDetailContract.ViewModel by viewModels<MovieDetailViewModel>(
         ownerProducer = { requireParentFragment() })
@@ -38,11 +37,6 @@ class ReviewMovieFragment : Fragment() {
                 ReviewScreen(reviewViewModel)
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Timber.v("$TAG onResume viewModel = ${detailViewModel.hashCode()}")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

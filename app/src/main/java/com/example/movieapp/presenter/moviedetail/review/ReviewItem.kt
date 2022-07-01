@@ -1,6 +1,5 @@
 package com.example.movieapp.presenter.moviedetail.review
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -23,7 +22,10 @@ import com.example.movieapp.presenter.model.review.Review
 @Composable
 fun ReviewItem(review: Review, modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
-        UserAvatarAndRating(review.authorDetails.avatarPathFull, review.authorDetails.rating)
+        UserAvatarAndRating(
+            review.authorDetails.avatarPathFull,
+            review.authorDetails.rating.toString()
+        )
         Column {
             AuthorNameAndDetail(
                 authorName = review.authorDetails.name,
@@ -37,8 +39,7 @@ fun ReviewItem(review: Review, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun UserAvatarAndRating(url: String, rating: Int, modifier: Modifier = Modifier) {
-    Log.e("UserAvatarAndRating: ", "url = $url")
+private fun UserAvatarAndRating(url: String, rating: String, modifier: Modifier = Modifier) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier) {
         Image(
             painter = rememberAsyncImagePainter(url),
@@ -50,7 +51,7 @@ private fun UserAvatarAndRating(url: String, rating: Int, modifier: Modifier = M
         )
         Spacer(modifier = Modifier.size(8.dp))
         Text(
-            text = rating.toString(),
+            text = rating,
             fontSize = 12.sp,
             color = colorResource(id = R.color.primary),
         )
