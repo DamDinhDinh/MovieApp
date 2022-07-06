@@ -1,11 +1,10 @@
-package com.example.movieapp.presenter.moviedetail.review
+package com.example.movieapp.presenter.ui.detail.view.review
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.movieapp.presenter.ui.detail.view.review.MovieReviewContract
-import com.example.movieapp.presenter.ui.detail.view.review.MovieReviewsViewModel
+import com.example.movieapp.presenter.ui.detail.view.review.view.ReviewList
 
 @Composable
 fun ReviewScreen(viewModel: MovieReviewContract.ViewModel) {

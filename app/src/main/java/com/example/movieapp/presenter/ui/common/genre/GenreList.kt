@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.moviedetail.detail
+package com.example.movieapp.presenter.ui.common.genre
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.presenter.model.movie.Genre
+import com.example.movieapp.presenter.ui.common.genre.GenreItem
 
 @Composable
 fun GenreList(genres: List<Genre>, modifier: Modifier = Modifier) {

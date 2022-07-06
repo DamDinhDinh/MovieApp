@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.movieapp.presenter.ui.detail.view.review.MovieReviewContract
 import com.example.movieapp.presenter.ui.detail.view.review.MovieReviewsViewModel
-import com.example.movieapp.presenter.moviedetail.detail.DetailScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

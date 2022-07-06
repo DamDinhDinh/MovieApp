@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.moviedetail.review
+package com.example.movieapp.presenter.ui.detail.view.review.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

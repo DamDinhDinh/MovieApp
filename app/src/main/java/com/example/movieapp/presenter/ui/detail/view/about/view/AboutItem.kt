@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.moviedetail.about
+package com.example.movieapp.presenter.ui.detail.view.about.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

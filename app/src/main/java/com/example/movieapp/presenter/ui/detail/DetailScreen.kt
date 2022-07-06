@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.moviedetail.detail
+package com.example.movieapp.presenter.ui.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.R
-import com.example.movieapp.presenter.ui.detail.MovieDetailContract
+import com.example.movieapp.presenter.ui.detail.view.DetailHeader
+import com.example.movieapp.presenter.ui.detail.view.DetailTabWithPage
+import com.example.movieapp.presenter.ui.common.genre.GenreList
 import com.example.movieapp.presenter.ui.detail.model.DetailPage
 
 @Composable
