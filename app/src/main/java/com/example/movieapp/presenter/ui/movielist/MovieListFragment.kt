@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.movielist
+package com.example.movieapp.presenter.ui.movielist
 
 import android.os.Bundle
 import android.view.LayoutInflater

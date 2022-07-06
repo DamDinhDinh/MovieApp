@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.movielist
+package com.example.movieapp.presenter.ui.movielist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.domain.model.movie.ModelMovie

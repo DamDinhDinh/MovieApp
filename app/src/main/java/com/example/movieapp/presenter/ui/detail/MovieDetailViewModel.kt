@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.moviedetail
+package com.example.movieapp.presenter.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

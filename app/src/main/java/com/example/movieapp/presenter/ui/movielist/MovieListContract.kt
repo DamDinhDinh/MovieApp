@@ -1,4 +1,4 @@
-package com.example.movieapp.presenter.movielist
+package com.example.movieapp.presenter.ui.movielist
 
 import androidx.lifecycle.LiveData
 import com.example.movieapp.presenter.model.movie.Movie
