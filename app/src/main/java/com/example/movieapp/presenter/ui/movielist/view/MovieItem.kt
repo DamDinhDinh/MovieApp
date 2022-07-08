@@ -46,12 +46,12 @@ fun MovieItem(movie: Movie, modifier: Modifier = Modifier, onMovieClick: (Movie)
                 title = stringResource(R.string.movie_title_label),
                 content = movie.title
             )
-            Spacer(modifier = Modifier.size(12.dp))
+            Spacer(modifier = Modifier.size(5.dp))
             AboutItem(
                 title = stringResource(R.string.release_date_label),
                 content = movie.releaseDate
             )
-            Spacer(modifier = Modifier.size(12.dp))
+            Spacer(modifier = Modifier.size(5.dp))
             AboutItem(
                 title = stringResource(R.string.average_rating_label),
                 content = movie.voteAverage.toString()
