@@ -32,6 +32,7 @@ fun MovieListScreen(viewModel: MovieListContract.ViewModel) {
             modifier = Modifier.background(colorResource(R.color.dark)),
             horizontalAlignment = Alignment.Start
         ) {
+            Spacer(modifier = Modifier.size(29.dp))
             Text(
                 text = stringResource(R.string.app_name_label),
                 fontSize = 36.sp,
