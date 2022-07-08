@@ -8,11 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.presenter.model.movie.Genre
-import com.example.movieapp.presenter.ui.common.genre.GenreItem
 
 @Composable
 fun GenreList(genres: List<Genre>, modifier: Modifier = Modifier) {
-    LazyRow(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(horizontal = 29.dp)) {
+    LazyRow(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 29.dp)
+    ) {
         items(
             genres,
             key = { genre -> genre.id }

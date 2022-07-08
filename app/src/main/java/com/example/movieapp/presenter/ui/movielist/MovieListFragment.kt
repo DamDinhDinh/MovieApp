@@ -36,9 +36,15 @@ class MovieListFragment : Fragment() {
             if (observeViewState().value == null) {
                 fetchMoviePopular()
             }
+            observeNavigate().observe(viewLifecycleOwner) { navigate ->
+                when (navigate) {
+                    is MovieListContract.NavigateEvent.NavigateMovieDetail -> navigateMovieDetail(
+                        navigate.movie.id
+                    )
+                }
+            }
         }
     }
-
 
     private fun navigateMovieDetail(id: Int) {
         val action =

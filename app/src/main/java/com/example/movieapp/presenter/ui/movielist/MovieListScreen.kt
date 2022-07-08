@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 import com.example.movieapp.presenter.ui.common.genre.GenreList
 import com.example.movieapp.presenter.ui.common.search.SearchBar
+import com.example.movieapp.presenter.ui.movielist.view.MovieList
 
 @Composable
 fun MovieListScreen(viewModel: MovieListContract.ViewModel) {
@@ -52,7 +53,8 @@ fun MovieListScreen(viewModel: MovieListContract.ViewModel) {
                 query = searchQuery,
                 onQueryChange = { newQuery -> searchQuery = newQuery },
                 modifier = Modifier
-                    .padding(horizontal = 29.dp).fillMaxWidth()
+                    .padding(horizontal = 29.dp)
+                    .fillMaxWidth()
             )
             Spacer(modifier = Modifier.size(22.dp))
             Text(
@@ -64,6 +66,12 @@ fun MovieListScreen(viewModel: MovieListContract.ViewModel) {
             )
             Spacer(modifier = Modifier.size(18.dp))
             GenreList(genres = movies.flatMap { movie -> movie.genres }.distinct())
+            Spacer(modifier = Modifier.size(29.dp))
+            MovieList(movies = movies,
+                modifier = Modifier
+                    .padding(horizontal = 29.dp)
+                    .fillMaxWidth(),
+                onMovieClick = { movie -> viewModel.onMovieClick(movie) })
         }
     }
 }

@@ -6,6 +6,7 @@ import com.example.common.applySchedulers
 import com.example.common.logs
 import com.example.domain.usecase.movie.GetPopularMoviesUseCase
 import com.example.movieapp.presenter.BaseViewModel
+import com.example.movieapp.presenter.common.utils.SingleLiveEvent
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,7 @@ class MovieListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPop
     }
 
     private val viewStateMutable = MutableLiveData<MovieListContract.ViewState>()
+    private val navigateEvent: SingleLiveEvent<MovieListContract.NavigateEvent> = SingleLiveEvent()
     private var getMoviePopularDisposable: Disposable? = null
 
     override fun fetchMoviePopular() {
@@ -38,6 +40,14 @@ class MovieListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPop
 
     override fun observeViewState(): LiveData<MovieListContract.ViewState> {
         return viewStateMutable
+    }
+
+    override fun observeNavigate(): SingleLiveEvent<MovieListContract.NavigateEvent> {
+        return navigateEvent
+    }
+
+    override fun onMovieClick(movie: Movie) {
+        navigateEvent.value = MovieListContract.NavigateEvent.NavigateMovieDetail(movie)
     }
 
     private fun notifyViewState(movieList: List<Movie>) {
