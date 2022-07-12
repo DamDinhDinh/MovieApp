@@ -5,7 +5,7 @@
     app:startDestination="@id/moviePopularListFragment">
     <fragment
         android:id="@+id/moviePopularListFragment"
-        android:name="com.example.movieapp.presenter.movielist.MovieListFragment"
+        android:name="com.example.movieapp.presenter.ui.movielist.MovieListFragment"
         android:label="MoviePopularListFragment">
         <action
             android:id="@+id/action_moviePopularListFragment_to_movieDetailFragment"
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.example.movieapp.presenter.moviedetail.MovieDetailFragment"
+        android:name="com.example.movieapp.presenter.ui.detail.MovieDetailFragment"
         android:label="MovieDetailFragment">
         <argument
             android:name="id"
