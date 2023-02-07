@@ -15,7 +15,7 @@ class MovieListFragment : Fragment() {
 
     private val TAG = "MoviePopularListFragment"
 
-    private val viewModel: MovieListViewModel by viewModels()
+    private val viewModel: MovieListContract.ViewModel by viewModels<MovieListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -2,14 +2,18 @@ package com.example.movieapp.presenter.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.common.applySchedulers
-import com.example.common.logs
+import androidx.lifecycle.viewModelScope
 import com.example.domain.usecase.movie.GetMovieByIdUseCase
 import com.example.movieapp.presenter.BaseViewModel
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,23 +24,19 @@ class MovieDetailViewModel @Inject constructor(
     MovieDetailContract.ViewModel {
 
     companion object {
-        private val TAG = MovieDetailViewModel::class.simpleName
+        private val TAG = "CoroutineMovieDetailViewModel"
     }
 
     private val viewStateMutable = MutableLiveData<MovieDetailContract.ViewState>()
-    private var getMovieDisposable: Disposable? = null
 
     override fun fetchMovie(id: Int) {
-        getMovieDisposable?.let { if (!it.isDisposed) it.dispose() }
-        getMovieDisposable =
+        viewModelScope.launch {
             getMovieByIdUseCase(GetMovieByIdUseCase.Request(id))
-                .applySchedulers()
+                .flowOn(Dispatchers.IO)
+                .catch { Timber.tag(TAG).e(it) }
                 .map { it.toPresent() }
-                .logs("$TAG fetchMovie")
-                .subscribe(
-                    { movie -> notifyViewState(movie) },
-                    { error -> error.printStackTrace() })
-
+                .collect { notifyViewState(it) }
+        }
     }
 
     override fun observeViewState(): LiveData<MovieDetailContract.ViewState> {

@@ -2,14 +2,13 @@ package com.example.domain.source
 
 import com.example.domain.model.ModelResponseStatus
 import com.example.domain.model.movie.ModelMovie
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.Flow
 
 interface MovieDataSource {
 
-    fun getDetail(id: Int): Observable<ModelMovie>
+    suspend fun getDetail(id: Int): Flow<ModelMovie>
 
-    fun getPopular(): Observable<List<ModelMovie>>
+    suspend fun getPopular(): Flow<List<ModelMovie>>
 
-    fun rateMovie(id: Int, rate: Double): Single<ModelResponseStatus>
+    suspend fun rateMovie(id: Int, rate: Double): Flow<ModelResponseStatus>
 }
