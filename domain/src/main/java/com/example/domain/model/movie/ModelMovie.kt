@@ -1,6 +1,7 @@
 package com.example.domain.model.movie
 
 import com.example.common.DefaultModelValue
+import java.math.BigDecimal
 
 data class ModelMovie(
     val adult: Boolean = DefaultModelValue.DEFAULT_BOOLEAN,
@@ -20,7 +21,7 @@ data class ModelMovie(
     val productionCompanies: List<ModelProductionCompany> = listOf(),
     val productionCountries: List<ModelProductionCountry> = listOf(),
     val releaseDate: String = DefaultModelValue.DEFAULT_STRING,
-    val revenue: Int = DefaultModelValue.DEFAULT_INT,
+    val revenue: BigDecimal = BigDecimal.ZERO,
     val runtime: Int = DefaultModelValue.DEFAULT_INT,
     val spokenLanguages: List<ModelSpokenLanguage> = listOf(),
     val status: String = DefaultModelValue.DEFAULT_STRING,

@@ -7,6 +7,7 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 import com.example.data.di.ConfigModule
 import com.example.data.remote.jsonmodel.movie.JsonMovie
 import com.example.domain.model.movie.ModelMovie
+import java.math.BigDecimal
 
 fun JsonMovie.toModel() = ModelMovie(
     adult = adult ?: DEFAULT_BOOLEAN,
@@ -26,7 +27,7 @@ fun JsonMovie.toModel() = ModelMovie(
     productionCompanies = productionCompanies?.map { it.toModel() } ?: listOf(),
     productionCountries = productionCountries?.map { it.toModel() } ?: listOf(),
     releaseDate = releaseDate ?: DEFAULT_STRING,
-    revenue = revenue ?: DEFAULT_INT,
+    revenue = revenue ?: BigDecimal.ZERO,
     runtime = runtime ?: DEFAULT_INT,
     spokenLanguages = spokenLanguages?.map { it.toModel() } ?: listOf(),
     status = status ?: DEFAULT_STRING,

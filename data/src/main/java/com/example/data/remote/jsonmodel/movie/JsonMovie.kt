@@ -2,6 +2,7 @@ package com.example.data.remote.jsonmodel.movie
 
 
 import com.google.gson.annotations.SerializedName
+import java.math.BigDecimal
 
 data class JsonMovie(
     @SerializedName("adult")
@@ -37,7 +38,7 @@ data class JsonMovie(
     @SerializedName("release_date")
     val releaseDate: String?,
     @SerializedName("revenue")
-    val revenue: Int?,
+    val revenue: BigDecimal?,
     @SerializedName("runtime")
     val runtime: Int?,
     @SerializedName("spoken_languages")

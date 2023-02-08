@@ -8,6 +8,7 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_BOOLEAN
 import com.example.common.DefaultModelValue.Companion.DEFAULT_DOUBLE
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
+import java.math.BigDecimal
 
 @Entity(tableName = "movie")
 data class EntityMovie(
@@ -32,7 +33,7 @@ data class EntityMovie(
     var productionCompanies: List<EntityProductionCompany> = listOf(), // save as EntityMovieProductionCompany
     var productionCountries: List<EntityProductionCountry> = listOf(), // save as json list
     var releaseDate: String = DEFAULT_STRING,
-    var revenue: Int = DEFAULT_INT,
+    var revenue: BigDecimal = BigDecimal.ZERO,
     var runtime: Int = DEFAULT_INT,
     var spokenLanguages: List<EntitySpokenLanguage> = listOf(), //save as json list
     var status: String = DEFAULT_STRING,

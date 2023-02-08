@@ -5,6 +5,7 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_DOUBLE
 import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 import com.example.data.di.ConfigModule
+import java.math.BigDecimal
 
 data class Movie(
     val adult: Boolean = DEFAULT_BOOLEAN,
@@ -24,7 +25,7 @@ data class Movie(
     val productionCompanies: List<ProductionCompany> = listOf(),
     val productionCountries: List<ProductionCountry> = listOf(),
     val releaseDate: String = DEFAULT_STRING,
-    val revenue: Int = DEFAULT_INT,
+    val revenue: BigDecimal = BigDecimal.ZERO,
     val runtime: Int = DEFAULT_INT,
     val spokenLanguages: List<SpokenLanguage> = listOf(),
     val status: String = DEFAULT_STRING,
