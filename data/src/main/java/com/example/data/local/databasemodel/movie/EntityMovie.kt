@@ -21,7 +21,7 @@ data class EntityMovie(
     var homepage: String = DEFAULT_STRING,
     @PrimaryKey
     @ColumnInfo(name = "movieId")
-    var id: Int = DEFAULT_INT,
+    var id: String = DEFAULT_STRING,
     var imdbId: String = DEFAULT_STRING,
     var originalLanguage: String = DEFAULT_STRING,
     var originalTitle: String = DEFAULT_STRING,

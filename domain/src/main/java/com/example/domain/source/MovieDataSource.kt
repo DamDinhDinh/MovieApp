@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieDataSource {
 
-    suspend fun getDetail(id: Int): Flow<ModelMovie>
+    suspend fun getDetail(id: String): Flow<ModelMovie>
 
     suspend fun getPopular(): Flow<List<ModelMovie>>
 
-    suspend fun rateMovie(id: Int, rate: Double): Flow<ModelResponseStatus>
+    suspend fun rateMovie(id: String, rate: Double): Flow<ModelResponseStatus>
 }

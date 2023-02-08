@@ -25,7 +25,7 @@ class MovieDetailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         return ComposeView(requireContext()).apply {
             setContent {
                 DetailScreen(viewModel)

@@ -1,6 +1,5 @@
 package com.example.movieapp.presenter.model.review
 
-import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
 import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 
 data class Review(
@@ -10,7 +9,7 @@ data class Review(
     var createdAt: String = DEFAULT_STRING,
     var id: String = DEFAULT_STRING,
     var iso6391: String = DEFAULT_STRING,
-    var mediaId: Int = DEFAULT_INT,
+    var mediaId: String = DEFAULT_STRING,
     var mediaTitle: String = DEFAULT_STRING,
     var mediaType: String = DEFAULT_STRING,
     var updatedAt: String = DEFAULT_STRING,

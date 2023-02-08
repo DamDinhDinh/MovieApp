@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ReviewDataSource {
 
-    fun getReviewsOfMovie(movieId: Int): Flow<List<ModelReview>>
+    suspend fun getReviewsOfMovie(movieId: String): Flow<List<ModelReview>>
 }

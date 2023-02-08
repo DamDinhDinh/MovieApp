@@ -5,7 +5,7 @@ import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 import com.example.data.di.ConfigModule
 
 data class ProductionCompany(
-    val id: Int = DEFAULT_INT,
+    val id: String = DEFAULT_STRING,
     val logoPath: String = DEFAULT_STRING,
     val name: String = DEFAULT_STRING,
     val originCountry: String = DEFAULT_STRING

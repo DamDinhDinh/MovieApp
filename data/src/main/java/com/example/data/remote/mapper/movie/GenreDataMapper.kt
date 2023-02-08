@@ -6,7 +6,7 @@ import com.example.data.remote.jsonmodel.movie.JsonGenre
 import com.example.domain.model.movie.ModelGenre
 
 fun JsonGenre.toModel(): ModelGenre =
-    ModelGenre(id = id ?: DEFAULT_INT, name = name ?: DEFAULT_STRING)
+    ModelGenre(id = id ?: DEFAULT_STRING, name = name ?: DEFAULT_STRING)
 
 fun ModelGenre.toJson(): JsonGenre = JsonGenre(id = id, name = name)
 

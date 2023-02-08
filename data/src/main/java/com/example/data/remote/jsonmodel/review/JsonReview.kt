@@ -17,7 +17,7 @@ data class JsonReview(
     @SerializedName("iso_639_1")
     val iso6391: String?,
     @SerializedName("media_id")
-    val mediaId: Int?,
+    val mediaId: String?,
     @SerializedName("media_title")
     val mediaTitle: String?,
     @SerializedName("media_type")

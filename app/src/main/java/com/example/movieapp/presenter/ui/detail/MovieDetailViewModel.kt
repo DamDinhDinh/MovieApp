@@ -1,7 +1,5 @@
 package com.example.movieapp.presenter.ui.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecase.movie.GetMovieByIdUseCase
 import com.example.movieapp.presenter.BaseViewModel
@@ -9,9 +7,7 @@ import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,9 +23,9 @@ class MovieDetailViewModel @Inject constructor(
         private val TAG = "CoroutineMovieDetailViewModel"
     }
 
-    private val viewStateMutable = MutableLiveData<MovieDetailContract.ViewState>()
+    private val viewStateMutable = MutableStateFlow<MovieDetailContract.ViewState?>(null)
 
-    override fun fetchMovie(id: Int) {
+    override fun fetchMovie(id: String) {
         viewModelScope.launch {
             getMovieByIdUseCase(GetMovieByIdUseCase.Request(id))
                 .flowOn(Dispatchers.IO)
@@ -39,9 +35,7 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
-    override fun observeViewState(): LiveData<MovieDetailContract.ViewState> {
-        return viewStateMutable
-    }
+    override fun observeViewState(): StateFlow<MovieDetailContract.ViewState?> = viewStateMutable.asStateFlow()
 
     private fun notifyViewState(movie: Movie) {
         val newViewState = viewStateMutable.value?.copy(movie = movie)

@@ -7,9 +7,9 @@ import javax.inject.Inject
 
 class GetMovieReviewsUseCase @Inject constructor(private val reviewDataSource: ReviewDataSource) {
 
-    operator fun invoke(request: Request): Flow<List<ModelReview>> {
+    suspend operator fun invoke(request: Request): Flow<List<ModelReview>> {
         return reviewDataSource.getReviewsOfMovie(request.id)
     }
 
-    data class Request(val id: Int)
+    data class Request(val id: String)
 }

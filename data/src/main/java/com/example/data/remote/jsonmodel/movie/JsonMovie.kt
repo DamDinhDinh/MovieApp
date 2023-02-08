@@ -17,7 +17,7 @@ data class JsonMovie(
     @SerializedName("homepage")
     val homepage: String?,
     @SerializedName("id")
-    val id: Int?,
+    val id: String?,
     @SerializedName("imdb_id")
     val imdbId: String?,
     @SerializedName("original_language")

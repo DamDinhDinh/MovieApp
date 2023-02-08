@@ -11,14 +11,14 @@ import retrofit2.http.Path
 interface MovieApi {
 
     @GET("/3/movie/{movie_id}")
-    suspend fun getDetail(@Path("movie_id") id: Int): JsonMovie
+    suspend fun getDetail(@Path("movie_id") id: String): JsonMovie
 
     @GET("/3/movie/popular")
     suspend fun getPopular(): JsonMoviePopularResponse
 
     @POST("/movie/{movie_id}/rating")
     suspend fun setRateMovie(
-        @Path("movie_id") id: Int,
+        @Path("movie_id") id: String,
         @Body params: HashMap<String, Any>
     ): JsonResponseStatus
 }

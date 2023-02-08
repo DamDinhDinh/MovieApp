@@ -14,7 +14,7 @@ data class Movie(
     val genres: List<Genre> = listOf(),
     val genreIds: List<Int> = listOf(),
     val homepage: String = DEFAULT_STRING,
-    val id: Int = DEFAULT_INT,
+    val id: String = DEFAULT_STRING,
     val imdbId: String = DEFAULT_STRING,
     val originalLanguage: String = DEFAULT_STRING,
     val originalTitle: String = DEFAULT_STRING,

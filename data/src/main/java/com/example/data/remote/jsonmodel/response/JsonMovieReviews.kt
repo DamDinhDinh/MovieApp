@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 data class JsonMovieReviews(
     @SerializedName("id")
-    val id: Int?,
+    val id: String?,
     @SerializedName("page")
     val page: Int?,
     @SerializedName("results")

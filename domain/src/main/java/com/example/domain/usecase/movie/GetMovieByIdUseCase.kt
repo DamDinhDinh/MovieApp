@@ -11,5 +11,5 @@ class GetMovieByIdUseCase @Inject constructor(private val movieDataSource: Movie
         return movieDataSource.getDetail(request.id)
     }
 
-    data class Request(val id: Int)
+    data class Request(val id: String)
 }

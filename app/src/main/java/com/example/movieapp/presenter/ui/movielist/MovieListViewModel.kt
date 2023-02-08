@@ -1,19 +1,13 @@
 package com.example.movieapp.presenter.ui.movielist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecase.movie.GetPopularMoviesUseCase
 import com.example.movieapp.presenter.BaseViewModel
-import com.example.movieapp.presenter.common.utils.SingleLiveEvent
 import com.example.movieapp.presenter.mapper.movie.toPresent
 import com.example.movieapp.presenter.model.movie.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,9 +21,9 @@ class MovieListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPop
         private const val TAG = "CoroutineMovieListViewModel"
     }
 
-    private val viewStateMutable = MutableLiveData<MovieListContract.ViewState>()
-    private val navigateEvent: SingleLiveEvent<MovieListContract.NavigateEvent> = SingleLiveEvent()
+    private val viewStateMutable = MutableStateFlow<MovieListContract.ViewState?>(null)
 
+    private val navigateEvent = MutableSharedFlow<MovieListContract.NavigateEvent>()
 
     override fun fetchMoviePopular() {
         viewModelScope.launch {
@@ -43,16 +37,14 @@ class MovieListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPop
         }
     }
 
-    override fun observeViewState(): LiveData<MovieListContract.ViewState> {
-        return viewStateMutable
-    }
+    override fun observeViewState(): StateFlow<MovieListContract.ViewState?> = viewStateMutable.asStateFlow()
 
-    override fun observeNavigate(): SingleLiveEvent<MovieListContract.NavigateEvent> {
-        return navigateEvent
-    }
+    override fun observeNavigate(): SharedFlow<MovieListContract.NavigateEvent> = navigateEvent.asSharedFlow()
 
     override fun onMovieClick(movie: Movie) {
-        navigateEvent.value = MovieListContract.NavigateEvent.NavigateMovieDetail(movie)
+        viewModelScope.launch(Dispatchers.Default) {
+            navigateEvent.emit(MovieListContract.NavigateEvent.NavigateMovieDetail(movie))
+        }
     }
 
     private fun notifyViewState(movieList: List<Movie>) {

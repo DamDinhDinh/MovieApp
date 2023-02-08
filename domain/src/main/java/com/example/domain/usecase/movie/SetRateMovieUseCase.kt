@@ -10,5 +10,5 @@ class SetRateMovieUseCase @Inject constructor(private val movieDataSource: Movie
         return movieDataSource.rateMovie(request.id, request.rate)
     }
 
-    data class Request(val id: Int, val rate: Double)
+    data class Request(val id: String, val rate: Double)
 }

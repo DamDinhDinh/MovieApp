@@ -7,5 +7,5 @@ import retrofit2.http.Path
 interface ReviewApi {
 
     @GET("/3/movie/{movie_id}/reviews")
-    suspend fun getReviewsOfMovie(@Path("movie_id") id: Int): JsonMovieReviews
+    suspend fun getReviewsOfMovie(@Path("movie_id") id: String): JsonMovieReviews
 }

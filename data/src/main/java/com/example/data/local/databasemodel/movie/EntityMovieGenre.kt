@@ -1,10 +1,10 @@
 package com.example.data.local.databasemodel.movie
 
 import androidx.room.Entity
-import com.example.common.DefaultModelValue.Companion.DEFAULT_INT
+import com.example.common.DefaultModelValue.Companion.DEFAULT_STRING
 
 @Entity(primaryKeys = ["movieId", "genreId"], tableName = "movie_genre")
 data class EntityMovieGenre(
-    var movieId: Int = DEFAULT_INT,
-    var genreId: Int = DEFAULT_INT,
+    var movieId: String = DEFAULT_STRING,
+    var genreId: String = DEFAULT_STRING,
 )
