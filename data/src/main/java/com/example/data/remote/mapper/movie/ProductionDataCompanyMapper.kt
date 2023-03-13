@@ -7,7 +7,7 @@ import com.example.domain.model.movie.ModelProductionCompany
 
 fun JsonProductionCompany.toModel() =
     ModelProductionCompany(
-        id ?: DEFAULT_INT,
+        id ?: DEFAULT_STRING,
         logoPath ?: DEFAULT_STRING,
         name ?: DEFAULT_STRING,
         originCountry ?: DEFAULT_STRING

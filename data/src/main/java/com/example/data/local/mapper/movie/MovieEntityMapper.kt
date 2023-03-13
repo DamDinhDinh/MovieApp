@@ -8,6 +8,7 @@ import com.example.data.di.ConfigModule
 import com.example.data.local.databasemodel.movie.EntityMovie
 import com.example.data.remote.jsonmodel.movie.JsonMovie
 import com.example.domain.model.movie.ModelMovie
+import java.math.BigDecimal
 
 //from this
 fun EntityMovie.toJson() = JsonMovie(
@@ -75,7 +76,7 @@ fun JsonMovie.toEntity() = EntityMovie(
     budget = budget ?: DEFAULT_INT,
     genres = genres?.map { it.toEntity() } ?: listOf(),
     homepage = homepage ?: DEFAULT_STRING,
-    id = id ?: DEFAULT_INT,
+    id = id ?: DEFAULT_STRING,
     imdbId = imdbId ?: DEFAULT_STRING,
     originalLanguage = originalLanguage ?: DEFAULT_STRING,
     originalTitle = originalTitle ?: DEFAULT_STRING,
@@ -85,7 +86,7 @@ fun JsonMovie.toEntity() = EntityMovie(
     productionCompanies = productionCompanies?.map { it.toEntity() } ?: listOf(),
     productionCountries = productionCountries?.map { it.toEntity() } ?: listOf(),
     releaseDate = releaseDate ?: DEFAULT_STRING,
-    revenue = revenue ?: DEFAULT_INT,
+    revenue = revenue ?: BigDecimal.ZERO,
     runtime = runtime ?: DEFAULT_INT,
     spokenLanguages = spokenLanguages?.map { it.toEntity() } ?: listOf(),
     status = status ?: DEFAULT_STRING,

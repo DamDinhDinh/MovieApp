@@ -14,7 +14,7 @@ data class ModelReview(
     var createdAt: String = DefaultModelValue.DEFAULT_STRING,
     var id: String = DefaultModelValue.DEFAULT_STRING,
     var iso6391: String = DefaultModelValue.DEFAULT_STRING,
-    var mediaId: Int = DefaultModelValue.DEFAULT_INT,
+    var mediaId: String = DefaultModelValue.DEFAULT_STRING,
     var mediaTitle: String = DefaultModelValue.DEFAULT_STRING,
     var mediaType: String = DefaultModelValue.DEFAULT_STRING,
     var updatedAt: String = DefaultModelValue.DEFAULT_STRING,

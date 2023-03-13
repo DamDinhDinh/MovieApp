@@ -3,12 +3,9 @@ package com.example.movieapp.presenter.ui.movielist
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -23,7 +20,7 @@ import com.example.movieapp.presenter.ui.movielist.view.MovieList
 
 @Composable
 fun MovieListScreen(viewModel: MovieListContract.ViewModel) {
-    val state by viewModel.observeViewState().observeAsState()
+    val state by viewModel.observeViewState().collectAsState()
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
     state?.let {

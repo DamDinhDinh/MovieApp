@@ -21,11 +21,11 @@ data class EntityReview(
     @ColumnInfo(name = "reviewId")
     var id: String = DEFAULT_STRING,
     var iso6391: String = DEFAULT_STRING,
-    var mediaId: Int = DEFAULT_INT,
+    var mediaId: String = DEFAULT_STRING,
     var mediaTitle: String = DEFAULT_STRING,
     var mediaType: String = DEFAULT_STRING,
     var updatedAt: String = DEFAULT_STRING,
     var url: String = DEFAULT_STRING,
-    var movieId: Int = DEFAULT_INT,
-    var tvShowId: Int = DEFAULT_INT
+    var movieId: String = DEFAULT_STRING,
+    var tvShowId: String = DEFAULT_STRING
 )

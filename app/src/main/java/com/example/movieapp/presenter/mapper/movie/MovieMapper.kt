@@ -31,7 +31,6 @@ fun Movie.toModel() = ModelMovie(
     voteCount = voteCount
 )
 
-
 fun ModelMovie.toPresent() = Movie(
     adult = adult,
     backdropPath = backdropPath,

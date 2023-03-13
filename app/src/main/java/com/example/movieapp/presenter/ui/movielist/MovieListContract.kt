@@ -1,8 +1,8 @@
 package com.example.movieapp.presenter.ui.movielist
 
-import androidx.lifecycle.LiveData
-import com.example.movieapp.presenter.common.utils.SingleLiveEvent
 import com.example.movieapp.presenter.model.movie.Movie
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 
 interface MovieListContract {
 
@@ -10,9 +10,9 @@ interface MovieListContract {
 
         fun fetchMoviePopular()
 
-        fun observeViewState(): LiveData<ViewState>
+        fun observeViewState(): StateFlow<ViewState?>
 
-        fun observeNavigate(): SingleLiveEvent<NavigateEvent>
+        fun observeNavigate(): SharedFlow<NavigateEvent>
 
         fun onMovieClick(movie: Movie)
     }

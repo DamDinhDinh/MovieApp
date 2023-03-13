@@ -12,6 +12,6 @@ fun EntityGenre.toJson() = JsonGenre(id = id, name = name)
 fun EntityGenre.toModel() = ModelGenre(id = id, name = name)
 
 //other map to this
-fun JsonGenre.toEntity() = EntityGenre(id = id ?: DEFAULT_INT, name = name ?: DEFAULT_STRING)
+fun JsonGenre.toEntity() = EntityGenre(id = id ?: DEFAULT_STRING, name = name ?: DEFAULT_STRING)
 
 fun ModelGenre.toEntity() = EntityGenre(id, name)

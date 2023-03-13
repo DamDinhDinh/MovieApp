@@ -2,7 +2,6 @@ package com.example.movieapp.presenter.ui.movielist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.domain.model.movie.ModelMovie
-import com.example.domain.usecase.movie.GetPopularMoviesUseCase
 import com.example.movieapp.RxImmediateSchedulerRule
 import com.example.movieapp.presenter.model.movie.Movie
 import io.reactivex.rxjava3.core.Observable

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class JsonProductionCompany(
     @SerializedName("id")
-    val id: Int?,
+    val id: String?,
     @SerializedName("logo_path")
     val logoPath: String?,
     @SerializedName("name")

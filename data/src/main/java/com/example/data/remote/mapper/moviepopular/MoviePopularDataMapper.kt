@@ -14,7 +14,7 @@ fun JsonMoviePopularResponse.JsonMoviePopular.toModel(): ModelMovie = ModelMovie
     backdropPath
         ?: DEFAULT_STRING,
     genreIds = genreIds ?: listOf(),
-    id = id ?: DEFAULT_INT,
+    id = id ?: DEFAULT_STRING,
     originalLanguage = originalLanguage ?: DEFAULT_STRING,
     originalTitle = originalTitle ?: DEFAULT_STRING,
     overview = overview ?: DEFAULT_STRING,
@@ -31,7 +31,7 @@ fun JsonMoviePopularResponse.JsonMoviePopular.toModel(): ModelMovie = ModelMovie
 fun JsonMoviePopularResponse.JsonMoviePopular.toEntity(): EntityMovie = EntityMovie(
     adult = adult ?: DEFAULT_BOOLEAN,
     backdropPath = backdropPath ?: DEFAULT_STRING,
-    id = id ?: DEFAULT_INT,
+    id = id ?: DEFAULT_STRING,
     originalLanguage = originalLanguage ?: DEFAULT_STRING,
     originalTitle = originalTitle ?: DEFAULT_STRING,
     overview = overview ?: DEFAULT_STRING,

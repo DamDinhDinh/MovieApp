@@ -15,7 +15,7 @@ fun EntityProductionCompany.toModel() = ModelProductionCompany(id, logoPath, nam
 //other map to this
 fun JsonProductionCompany.toEntity() =
     EntityProductionCompany(
-        id ?: DEFAULT_INT,
+        id ?: DEFAULT_STRING,
         logoPath ?: DEFAULT_STRING,
         name ?: DEFAULT_STRING,
         originCountry ?: DEFAULT_STRING

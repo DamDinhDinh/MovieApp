@@ -7,11 +7,11 @@ import com.example.data.local.databasemodel.movie.EntityMovieProductionCompany
 abstract class MovieProductionCompanyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insert(vararg entities: EntityMovieProductionCompany)
+    abstract suspend fun insert(vararg entities: EntityMovieProductionCompany)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun update(vararg entities: EntityMovieProductionCompany)
+    abstract suspend fun update(vararg entities: EntityMovieProductionCompany)
 
     @Delete
-    abstract fun delete(vararg entities: EntityMovieProductionCompany)
+    abstract suspend fun delete(vararg entities: EntityMovieProductionCompany)
 }

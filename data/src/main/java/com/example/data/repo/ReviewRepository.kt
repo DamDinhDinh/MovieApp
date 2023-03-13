@@ -1,15 +1,13 @@
 package com.example.data.repo
 
-import com.example.common.dataSchedulers
-import com.example.common.logs
 import com.example.data.local.mapper.review.toEntity
 import com.example.data.local.mapper.review.toModel
 import com.example.data.local.roomdatabase.dao.ReviewDao
 import com.example.data.remote.api.ReviewApi
 import com.example.domain.model.review.ModelReview
 import com.example.domain.source.ReviewDataSource
-import io.reactivex.rxjava3.core.Observable
-import timber.log.Timber
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class ReviewRepository @Inject constructor(
@@ -21,24 +19,13 @@ class ReviewRepository @Inject constructor(
         private val TAG = ReviewRepository::class.simpleName
     }
 
-    override fun getReviewsOfMovie(movieId: Int): Observable<List<ModelReview>> {
+    override suspend fun getReviewsOfMovie(movieId: String): Flow<List<ModelReview>> {
         fetchReviewOfMovie(movieId)
-
-        return reviewDao.getReviewOfMovie(movieId)
-            .logs("$TAG local getReviewsOfMovie id =$movieId ")
-            .map { list -> list.map { it.toModel() } }
+        return reviewDao.getReviewOfMovie(movieId).map { reviews -> reviews.map { it.toModel() } }
     }
 
-    fun fetchReviewOfMovie(movieId: Int) {
-        reviewApi.getReviewsOfMovie(movieId)
-            .dataSchedulers()
-            .logs("$TAG remote fetchReviewOfMovie id = $movieId")
-            .map { response ->
-                response.results?.map {
-                    it.toEntity().apply { this.movieId = movieId }
-                } ?: listOf()
-            }
-            .subscribe({ list -> reviewDao.insert(list) },
-                { error -> Timber.e("$TAG remote fetchReviewOfMovie id = $movieId ${error.message}") })
+    private suspend fun fetchReviewOfMovie(movieId: String) {
+        reviewApi.getReviewsOfMovie(movieId).results?.map { it.toEntity().apply { this.movieId = movieId } }
+            ?.let { reviewDao.insert(it) }
     }
 }

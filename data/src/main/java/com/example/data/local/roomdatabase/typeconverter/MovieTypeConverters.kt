@@ -5,6 +5,7 @@ import com.example.data.local.databasemodel.movie.EntityProductionCountry
 import com.example.data.local.databasemodel.movie.EntitySpokenLanguage
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.math.BigDecimal
 
 class MovieTypeConverters {
 
@@ -26,5 +27,15 @@ class MovieTypeConverters {
     @TypeConverter
     fun jsonToListProductionCountry(json: String): List<EntityProductionCountry> {
         return Gson().fromJson(json, Array<EntityProductionCountry>::class.java).asList()
+    }
+
+    @TypeConverter
+    fun jsonToBigDecimal(json: String): BigDecimal {
+        return Gson().fromJson(json, BigDecimal::class.java)
+    }
+
+    @TypeConverter
+    fun bigDecimalToJson(value: BigDecimal): String{
+        return Gson().toJson(value)
     }
 }
