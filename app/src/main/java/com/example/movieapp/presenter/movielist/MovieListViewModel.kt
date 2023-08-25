@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.common.applySchedulers
 import com.example.common.logs
-import com.example.data.repo.MovieRepository
 import com.example.domain.usecase.movie.GetPopularMoviesUseCase
 import com.example.movieapp.presenter.BaseViewModel
 import com.example.movieapp.presenter.mapper.movie.toPresent
@@ -14,8 +13,8 @@ import io.reactivex.rxjava3.disposables.Disposable
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieListViewModel @Inject constructor(val movieRepository: MovieRepository) :
-    BaseViewModel(){
+class MovieListViewModel @Inject constructor(val getPopularMoviesUseCase: GetPopularMoviesUseCase) :
+    BaseViewModel() {
 
     data class ViewState(val movieList: List<Movie>)
 
@@ -29,7 +28,7 @@ class MovieListViewModel @Inject constructor(val movieRepository: MovieRepositor
     fun fetchMoviePopular() {
         getMoviePopularDisposable?.let { if (!it.isDisposed) it.dispose() }
         getMoviePopularDisposable =
-            movieRepository.getPopular()
+            getPopularMoviesUseCase()
                 .applySchedulers()
                 .map { list -> list.map { it.toPresent() } }
                 .logs("$TAG fetchMoviePopular")
