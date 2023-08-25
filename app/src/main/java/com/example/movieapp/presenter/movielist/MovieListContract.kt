@@ -1,19 +1,16 @@
 package com.example.movieapp.presenter.movielist
 
-import androidx.lifecycle.LiveData
 import com.example.movieapp.presenter.model.movie.Movie
 
 interface MovieListContract {
     interface View {
-        fun updateViewState(viewState: ViewState)
+        fun updateList(movieList: List<Movie>)
+        fun setPresenter(presenter: Presenter)
     }
 
-    interface ViewModel {
-
+    interface Presenter {
+        fun setView(view: View)
         fun fetchMoviePopular()
-
-        fun observeViewState(): LiveData<ViewState>
+        fun destroy()
     }
-
-    data class ViewState(val movieList: List<Movie>)
 }
