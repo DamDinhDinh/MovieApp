@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,21 +15,19 @@ import com.example.movieapp.databinding.FragmentMoviePopularListBinding
 import com.example.movieapp.presenter.adapter.MovieAdapter
 import com.example.movieapp.presenter.model.movie.Movie
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class MovieListFragment : Fragment(), MovieListContract.View {
+class MovieListFragment : Fragment() {
 
     private val TAG = "MoviePopularListFragment"
 
-    private lateinit var presenter: MovieListContract.Presenter
+    private val viewModel: MovieListViewModel by viewModels()
 
     private val binding: FragmentMoviePopularListBinding by viewBinding(CreateMethod.INFLATE)
     private val movieAdapter = MovieAdapter { movie -> navigateMovieDetail(movie.id) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.setView(this)
 
         binding.rcMoviePopular.apply {
             adapter = movieAdapter
@@ -36,18 +35,21 @@ class MovieListFragment : Fragment(), MovieListContract.View {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        if ((binding.rcMoviePopular.adapter?.itemCount ?: 0) == 0) {
-            presenter.fetchMoviePopular()
+        viewModel.apply {
+            observeViewState().observe(viewLifecycleOwner) { viewState -> updateViewState(viewState) }
+
+            if (observeViewState().value == null) {
+                fetchMoviePopular()
+            }
         }
     }
 
-    override fun updateList(movieList: List<Movie>) {
-        movieAdapter.submitList(movieList)
+    private fun updateViewState(viewState: MovieListViewModel.ViewState) {
+        renderMovieList(viewState.movieList)
     }
 
-    @Inject
-    override fun setPresenter(presenter: MovieListContract.Presenter) {
-        this.presenter = presenter
+    private fun renderMovieList(movieList: List<Movie>) {
+        movieAdapter.submitList(movieList)
     }
 
     override fun onCreateView(

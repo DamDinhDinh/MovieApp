@@ -25,6 +25,23 @@ class MovieRepository @Inject constructor(
         private val TAG = MovieRepository::class.simpleName
     }
 
+    override fun getPopular(): Observable<List<ModelMovie>> {
+        fetchPopularMovie()
+
+        return movieDao.getPopularMovie()
+            .logs("$TAG local getPopular ")
+            .map { list -> list.map { it.toModel() } }
+    }
+
+    private fun fetchPopularMovie() {
+        movieApi.getPopular()
+            .dataSchedulers()
+            .logs("$TAG remote fetchPopularMovie")
+            .map { it.results?.map { movie -> movie.toEntity() } ?: listOf() }
+            .subscribe({ list -> movieDao.insert(list) },
+                { error -> Timber.e("$TAG remote fetchPopularMovie ${error.message}") })
+    }
+
     override fun getDetail(id: Int): Observable<ModelMovie> {
         fetchMovieDetail(id)
 
@@ -42,24 +59,7 @@ class MovieRepository @Inject constructor(
                 { error -> Timber.e("$TAG remote fetchMovieDetail id = $id ${error.message}") })
     }
 
-    override fun getPopular(): Observable<List<ModelMovie>> {
-        fetchPopularMovie()
 
-        //TODO: Is there a cleaner way (expose observable source directly from DAO)
-        //separate this function
-        return movieDao.getPopularMovie()
-            .logs("$TAG local getPopular ")
-            .map { list -> list.map { it.toModel() } }
-    }
-    
-    fun fetchPopularMovie() {
-        movieApi.getPopular()
-            .dataSchedulers()
-            .logs("$TAG remote fetchPopularMovie")
-            .map { it.results?.map { movie -> movie.toEntity() } ?: listOf() }
-            .subscribe({ list -> movieDao.insert(list) },
-                { error -> Timber.e("$TAG remote fetchPopularMovie ${error.message}") })
-    }
 
     override fun rateMovie(id: Int, rate: Double): Single<ModelResponseStatus> {
         val paramsMap = hashMapOf<String, Any>()
